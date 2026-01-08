@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 {
   "functions": {
     "api/*.js": {
@@ -41,4 +38,3 @@
     }
   ]
 }
->>>>>>> 571cc9f (fix: resolve mixed routing properties for Vercel)
