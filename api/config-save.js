@@ -29,6 +29,9 @@ export default async function handler(req, res) {
             return res.status(401).json({ error: 'Unauthorized: Invalid Session' });
         }
 
+        // Sliding Window: Extend session by 15 minutes on active usage
+        await redis.expire(`session:${sessionId}`, 900);
+
         // 2. Process Data
         const newConfig = req.body;
 

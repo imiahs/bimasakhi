@@ -26,12 +26,12 @@ export default async function handler(req, res) {
         // Generate a random session ID
         const sessionId = crypto.randomUUID();
 
-        // Store session in Redis with 24h expiry (86400 seconds)
+        // Store session in Redis with 15-minute sliding window (900 seconds)
         // Redis SET key value EX seconds
-        await redis.set(`session:${sessionId}`, 'active', 'EX', 86400);
+        await redis.set(`session:${sessionId}`, 'active', 'EX', 900);
 
-        // Set HttpOnly Cookie
-        const cookieValue = `admin_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=86400`;
+        // Set HttpOnly Cookie (Session Cookie - No Max-Age)
+        const cookieValue = `admin_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Strict`;
 
         res.setHeader('Set-Cookie', cookieValue);
 

@@ -1,0 +1,161 @@
+/* LeadForm Wizard Styles */
+.lead-form-wizard {
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--card-bg, #fff);
+    border-radius: 12px;
+    padding: 2px;
+    /* Gradient border container if needed */
+}
+
+/* Progress Bar */
+.wizard-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    position: relative;
+    padding: 0 10px;
+}
+
+.wizard-progress::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    right: 10px;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 0;
+}
+
+.step-indicator {
+    position: relative;
+    z-index: 1;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    color: #999;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.step-indicator.active {
+    border-color: #646cff;
+    /* Primary Color */
+    color: #646cff;
+    box-shadow: 0 0 0 4px rgba(100, 108, 255, 0.1);
+}
+
+.step-indicator.completed {
+    background: #646cff;
+    border-color: #646cff;
+    color: #fff;
+}
+
+/* Form Steps */
+.form-step {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.step-header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.step-header h3 {
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.step-header p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Specific Field Styles */
+.pincode-status {
+    font-size: 0.85em;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-loading {
+    color: #666;
+}
+
+.status-success {
+    color: #10b981;
+}
+
+.status-warning {
+    color: #f59e0b;
+}
+
+.status-error {
+    color: #ef4444;
+}
+
+.review-summary {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+.review-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+}
+
+.review-label {
+    color: #666;
+}
+
+.review-value {
+    font-weight: 500;
+    color: #333;
+}
+
+/* Success Card Override */
+.apply-success-card {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.success-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}

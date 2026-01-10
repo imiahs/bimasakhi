@@ -5,13 +5,104 @@ import Input from '../components/ui/Input';
 import Card from '../components/ui/Card';
 import axios from 'axios';
 import { SECTION_SCHEMAS, AVAILABLE_SECTIONS } from '../config/sectionSchemas';
+import useIdleTimer from '../hooks/useIdleTimer';
+
+const InsightsDashboard = () => {
+    const [range, setRange] = useState('today');
+    const [stats, setStats] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetchStats();
+    }, [range]);
+
+    const fetchStats = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const res = await axios.get(`/api/stats?range=${range}`);
+            setStats(res.data);
+        } catch (err) {
+            console.error("Stats Error", err);
+            setError("Could not load stats. Zoho might be busy.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="insights-dashboard">
+            <div className="flex gap-4 mb-6">
+                {['today', '7d', '30d'].map(r => (
+                    <Button
+                        key={r}
+                        variant={range === r ? 'primary' : 'secondary'}
+                        onClick={() => setRange(r)}
+                        className="capitalize"
+                    >
+                        {r === 'today' ? 'Today' : `Last ${r.toUpperCase()}`}
+                    </Button>
+                ))}
+                <Button variant="secondary" onClick={fetchStats}>↻ Refresh</Button>
+            </div>
+
+            {loading && <div className="p-8 text-center animate-pulse">Loading Insights...</div>}
+
+            {error && <div className="alert-box error mb-4">{error}</div>}
+
+            {stats && !loading && (
+                <div className="stats-content">
+                    {/* Key Metrics */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <Card className="text-center p-4">
+                            <h3 className="text-gray-500 text-sm">Applications</h3>
+                            <p className="text-3xl font-bold text-pink-600">{stats.totalApplications}</p>
+                        </Card>
+                        {/* Placeholders for future metrics */}
+                        <Card className="text-center p-4 opacity-75">
+                            <h3 className="text-gray-500 text-sm">Eligible (Est)</h3>
+                            <p className="text-3xl font-bold">N/A*</p>
+                        </Card>
+                    </div>
+
+                    {/* Attribution Table */}
+                    <Card>
+                        <h3 className="mb-4 text-lg font-bold">Traffic Sources</h3>
+                        {stats.attribution.length > 0 ? (
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="border-b">
+                                        <th className="p-2">Source</th>
+                                        <th className="p-2 text-right">Leads</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {stats.attribution.map((row, i) => (
+                                        <tr key={i} className="border-b last:border-0 hover:bg-gray-50">
+                                            <td className="p-2">{row.source || '(Direct/None)'}</td>
+                                            <td className="p-2 text-right font-bold">{row.count}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <p className="text-gray-500 italic">No data for this period.</p>
+                        )}
+                    </Card>
+                    <p className="text-xs text-gray-400 mt-2">* Some metrics require CRM schema updates (Phase 5.6)</p>
+                </div>
+            )}
+        </div>
+    );
+};
 
 const Admin = () => {
     const { config, refreshConfig } = useContext(ConfigContext);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState({ loading: false, msg: '' });
-    const [activeTab, setActiveTab] = useState('global'); // 'global' | 'home'
+    const [activeTab, setActiveTab] = useState('insights'); // 'insights' | 'global' | 'home'
 
     // Config State
     const [formData, setFormData] = useState(config);
@@ -60,6 +151,18 @@ const Admin = () => {
             console.error("Logout failed", error);
         }
     };
+
+    // --- Idle Timer Logic ---
+    const { isIdle, isPrompted, remaining } = useIdleTimer({
+        timeout: 900000,       // 15 Minutes
+        promptTimeout: 840000, // 14 Minutes
+        onIdle: () => {
+            if (isAuthenticated) {
+                console.log("Idle Timeout - Logging out");
+                handleLogout();
+            }
+        }
+    });
 
     const handleConfigSave = async () => {
         setStatus({ loading: true, msg: 'Saving...' });
@@ -162,7 +265,23 @@ const Admin = () => {
     }
 
     return (
-        <div className="page-admin container">
+        <div className="page-admin container relative">
+            {/* Idle Warning Modal */}
+            {isPrompted && isAuthenticated && (
+                <div style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 9999,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}>
+                    <Card style={{ maxWidth: '400px', textAlign: 'center' }}>
+                        <h2 className="text-red-500">Session Expiring</h2>
+                        <p>You have been inactive for a while.</p>
+                        <p className="text-2xl font-bold my-4">{remaining}s</p>
+                        <p>Move your mouse or click to stay logged in.</p>
+                    </Card>
+                </div>
+            )}
+
             <div className="flex justify-between items-center mb-6">
                 <h1>Admin Dashboard</h1>
                 <Button onClick={handleLogout} variant="destructive">Logout</Button>
@@ -172,6 +291,10 @@ const Admin = () => {
 
             <div className="admin-tabs" style={{ marginBottom: '20px', borderBottom: '1px solid #ddd' }}>
                 <button
+                    style={{ padding: '10px 20px', fontWeight: activeTab === 'insights' ? 'bold' : 'normal' }}
+                    onClick={() => setActiveTab('insights')}
+                >Insights</button>
+                <button
                     style={{ padding: '10px 20px', fontWeight: activeTab === 'global' ? 'bold' : 'normal' }}
                     onClick={() => setActiveTab('global')}
                 >Global Settings</button>
@@ -180,6 +303,10 @@ const Admin = () => {
                     onClick={() => setActiveTab('home')}
                 >Home Page Editor</button>
             </div>
+
+            {activeTab === 'insights' && (
+                <InsightsDashboard />
+            )}
 
             {activeTab === 'global' && (
                 <div className="grid-2-col">

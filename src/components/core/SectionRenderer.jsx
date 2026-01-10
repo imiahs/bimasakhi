@@ -4,12 +4,15 @@ import ApplyForm from '../sections/ApplyForm';
 import Benefits from '../sections/Benefits';
 import IncomeBlock from '../sections/IncomeBlock';
 
+import EligibilityBlock from '../sections/EligibilityBlock';
+
 // Component Map: Maps string 'type' from JSON to React Component
 const COMPONENT_MAP = {
     'HeroSection': Hero,
     'ApplyFormBlock': ApplyForm,
     'TrustBlock': Benefits, // Mapping Benefits to TrustBlock for now
-    'IncomeRealityBlock': IncomeBlock
+    'IncomeRealityBlock': IncomeBlock,
+    'EligibilityBlock': EligibilityBlock
 };
 
 // Error Boundary for individual sections

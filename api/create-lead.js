@@ -14,11 +14,16 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    const { name, mobile, city, occupation, reason, source, medium, campaign, visitedPages } = req.body;
+    const {
+        name, mobile, email,
+        pincode, city, state, locality,
+        education, occupation, reason,
+        source, medium, campaign, visitedPages
+    } = req.body;
 
     // 1. Strict Validation
-    if (!name || !mobile || !city || !occupation) {
-        return res.status(400).json({ error: 'Missing required fields: name, mobile, city, occupation' });
+    if (!name || !mobile || !city || !occupation || !email || !pincode) {
+        return res.status(400).json({ error: 'Missing required fields: name, mobile, email, pincode, city, occupation' });
     }
 
     // Indian Mobile Validation (starts with 6-9, 10 digits)
@@ -29,17 +34,21 @@ export default async function handler(req, res) {
 
     // 2. Mandatory Metadata
     if (!source) {
-        // We can be slightly lenient on medium/campaign if missing, but source is critical
         return res.status(400).json({ error: 'Missing mandatory metadata: source' });
     }
 
     // Zoho Field Mapping
+    // Note: 'Street' in Zoho often maps to Locality/Address line 1
     const leadData = {
         Last_Name: name,
         Mobile: mobile,
+        Email: email,
         City: city,
+        State: state,
+        Zip_Code: pincode,
+        Street: locality,
         Designation: occupation,
-        Description: `${reason || ''}\n\nVisited Pages: ${JSON.stringify(visitedPages || [])}`,
+        Description: `Education: ${education}\nReason: ${reason || ''}\n\nVisited Pages: ${JSON.stringify(visitedPages || [])}`,
         Lead_Source: source || 'Website',
         Lead_Medium: medium || 'Direct', // Ensure these API Names exist in Zoho
         Campaign_Source: campaign || 'Bima Sakhi'
@@ -76,11 +85,16 @@ export default async function handler(req, res) {
             throw new Error("No access token received from Zoho");
         }
 
-        // B. Create Lead in Zoho CRM
-        const crmUrl = `${ZOHO_API_DOMAIN}/crm/v2.1/Leads`;
+        // B. Upsert Lead in Zoho CRM
+        // Using /upsert to handle duplicates cleanly (updates existing record)
+        const crmUrl = `${ZOHO_API_DOMAIN}/crm/v2.1/Leads/upsert`;
 
         // Trigger Workflow is vital for assignment rules/emails
-        const crmResponse = await axios.post(crmUrl, { data: [leadData], trigger: ['approval', 'workflow', 'blueprint'] }, {
+        const crmResponse = await axios.post(crmUrl, {
+            data: [leadData],
+            duplicate_check_fields: ['Mobile'], // Use Mobile as unique identifier
+            trigger: ['approval', 'workflow', 'blueprint']
+        }, {
             headers: {
                 'Authorization': `Zoho-oauthtoken ${accessToken}`,
                 'Content-Type': 'application/json'
@@ -92,13 +106,15 @@ export default async function handler(req, res) {
 
         if (result && (result.status === 'success' || result.status === 'duplicate')) {
             const zohoId = result.details.id;
-            console.log(`Lead Processed (Status: ${result.status}, ID: ${zohoId})`);
+            const action = result.action; // 'insert' or 'update'
+            console.log(`Lead Processed (Status: ${result.status}, Action: ${action}, ID: ${zohoId})`);
 
             return res.status(200).json({
                 success: true,
                 message: "Lead processed successfully",
                 lead_id: zohoId,
-                status: result.status
+                status: result.status,
+                action: action
             });
         } else {
             // CRM Data Error (Validation etc)

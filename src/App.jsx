@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/core/Layout';
 import Home from './pages/Home';
@@ -7,7 +7,8 @@ import Income from './pages/Income';
 import Eligibility from './pages/Eligibility';
 import Apply from './pages/Apply';
 import AdsLanding from './pages/AdsLanding';
-import Admin from './pages/Admin';
+// Lazy load Admin to reduce initial bundle size
+const Admin = lazy(() => import('./pages/Admin'));
 import { ConfigContext } from './context/ConfigContext';
 
 function App() {
@@ -26,8 +27,15 @@ function App() {
         {/* Ads Flow */}
         <Route path="apply-delhi" element={<AdsLanding />} />
 
-        {/* Admin */}
-        <Route path="admin" element={<Admin />} />
+        {/* Admin - Lazy Loaded */}
+        <Route
+          path="admin"
+          element={
+            <Suspense fallback={<div className="container py-8 text-center">Loading Admin Panel...</div>}>
+              <Admin />
+            </Suspense>
+          }
+        />
 
         {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -32,6 +32,10 @@ export default async function handler(req, res) {
             return res.status(200).json({ authenticated: false });
         }
 
+        // Sliding Window: Extend session by 15 mins (900s) on active check
+        // This assumes admin-check is only called on navigation/load, NOT polled.
+        await redis.expire(`session:${sessionId}`, 900);
+
         return res.status(200).json({ authenticated: true });
 
     } catch (error) {
