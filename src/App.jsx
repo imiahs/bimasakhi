@@ -9,6 +9,9 @@ import Apply from './pages/Apply';
 import AdsLanding from './pages/AdsLanding';
 // Lazy load Admin to reduce initial bundle size
 const Admin = lazy(() => import('./pages/Admin'));
+const Privacy = lazy(() => import('./pages/legal/Privacy'));
+const Terms = lazy(() => import('./pages/legal/Terms'));
+const Disclaimer = lazy(() => import('./pages/legal/Disclaimer'));
 import { ConfigContext } from './context/ConfigContext';
 
 function App() {
@@ -26,6 +29,11 @@ function App() {
 
         {/* Ads Flow */}
         <Route path="apply-delhi" element={<AdsLanding />} />
+
+        {/* Legal Pages */}
+        <Route path="privacy-policy" element={<Suspense fallback={<div>...</div>}><Privacy /></Suspense>} />
+        <Route path="terms-conditions" element={<Suspense fallback={<div>...</div>}><Terms /></Suspense>} />
+        <Route path="disclaimer" element={<Suspense fallback={<div>...</div>}><Disclaimer /></Suspense>} />
 
         {/* Admin - Lazy Loaded */}
         <Route

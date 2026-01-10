@@ -27,7 +27,7 @@ const ApplyForm = () => {
         education: '',
         occupation: '', // Reused for 'Current Status'
         reason: '',
-        consent: true
+        dndConsent: false
     });
 
     const [status, setStatus] = useState({
@@ -69,6 +69,7 @@ const ApplyForm = () => {
         if (currentStep === 1) {
             if (!formData.name.trim()) tempErrors.name = "Name is required";
             if (!formData.mobile || !/^\d{10}$/.test(formData.mobile)) tempErrors.mobile = "Valid 10-digit mobile number required";
+            if (!formData.dndConsent) tempErrors.dndConsent = "Please check the box to proceed.";
         }
 
         if (currentStep === 2) {
@@ -156,19 +157,7 @@ const ApplyForm = () => {
                 setAvailableLocalities([]); // No localities to show really, or maybe just 'Other'
             }
 
-            const [locationStatus, setLocationStatus] = useState({
-                loading: false,
-                msg: '',
-                type: '', // 'success', 'warning', 'error'
-                isManual: false
-            });
 
-            const [errors, setErrors] = useState({});
-
-            // 1. Pause Logic
-            if (config.isAppPaused) {
-                return <div className="alert-box">Applications are currently paused. Please check back later.</div>;
-            }
 
             // ... (rest of code) ...
             // Note: The previous tools have truncated the context so I need to be careful with replace_file_content target.
@@ -281,6 +270,22 @@ const ApplyForm = () => {
                 error={errors.mobile}
                 placeholder="10 digit number"
             />
+
+            <div className="form-group" style={{ marginTop: '15px' }}>
+                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.85em', color: '#555', cursor: 'pointer' }}>
+                    <input
+                        type="checkbox"
+                        name="dndConsent"
+                        checked={formData.dndConsent}
+                        onChange={handleChange}
+                        style={{ marginTop: '3px' }}
+                    />
+                    <span>
+                        I voluntarily authorize Bima Sakhi / IMIAH Services to contact me via WhatsApp (including WhatsApp Business Platform), SMS, or Call regarding my application, even if my number is registered on DND.
+                    </span>
+                </label>
+                {errors.dndConsent && <div style={{ color: 'red', fontSize: '0.8em', marginTop: '5px' }}>{errors.dndConsent}</div>}
+            </div>
         </div>
     );
 
@@ -384,17 +389,7 @@ const ApplyForm = () => {
                     { value: 'Job Seeker', label: 'Job Seeker' }
                 ]}
             />
-            <div className="form-group" style={{ marginTop: '10px' }}>
-                <label style={{ display: 'flex', alignItems: 'center', fontSize: '0.9em', gap: '8px' }}>
-                    <input
-                        type="checkbox"
-                        name="consent"
-                        checked={formData.consent}
-                        onChange={handleChange}
-                    />
-                    I agree to receive job updates on WhatsApp.
-                </label>
-            </div>
+
         </div>
     );
 

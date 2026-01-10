@@ -1,0 +1,65 @@
+import Redis from 'ioredis';
+import axios from 'axios';
+import { parse } from 'cookie';
+
+// Initialize Redis 
+const redis = new Redis(process.env.REDIS_URL);
+
+/**
+ * Checks if the request has a valid admin session cookie.
+ */
+const checkAuth = async (req) => {
+    const cookies = parse(req.headers.cookie || '');
+    const sessionToken = cookies.admin_session;
+
+    if (!sessionToken) return false;
+    const sessionData = await redis.get(`session:${sessionToken}`);
+    if (!sessionData) return false;
+    return true; // No refresh here to keep it simple/fast for list view
+};
+
+export default async function handler(req, res) {
+    if (req.method !== 'GET') {
+        return res.status(405).json({ error: 'Method Not Allowed' });
+    }
+
+    try {
+        // 1. Auth Guard
+        const isAuthenticated = await checkAuth(req);
+        if (!isAuthenticated) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+
+        // 5. Zoho COQL Query
+        const { ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET, ZOHO_REFRESH_TOKEN, ZOHO_API_DOMAIN = 'https://www.zohoapis.in' } = process.env;
+        const accountsUrl = ZOHO_API_DOMAIN.replace('www.zohoapis', 'accounts.zoho');
+
+        const tokenResponse = await axios.post(`${accountsUrl}/oauth/v2/token`, null, {
+            params: {
+                refresh_token: ZOHO_REFRESH_TOKEN,
+                client_id: ZOHO_CLIENT_ID,
+                client_secret: ZOHO_CLIENT_SECRET,
+                grant_type: 'refresh_token'
+            }
+        });
+
+        const accessToken = tokenResponse.data.access_token;
+        if (!accessToken) throw new Error("Zoho Token Failed");
+
+        const coqlUrl = `${ZOHO_API_DOMAIN}/crm/v2.1/coql`;
+
+        // Fetch Recent 50 Leads
+        // Fields: Last_Name (Name), Mobile, Lead_Status, Lead_Source, Created_Time
+        const query = `select Last_Name, Mobile, Lead_Status, Lead_Source, Created_Time from Leads order by Created_Time desc limit 50`;
+
+        const response = await axios.post(coqlUrl, { select_query: query }, { headers: { Authorization: `Zoho-oauthtoken ${accessToken}` } });
+
+        const leads = response.data.data || [];
+
+        return res.status(200).json({ leads });
+
+    } catch (error) {
+        console.error("Leads List API Error", error.response ? error.response.data : error.message);
+        return res.status(500).json({ error: "Failed to fetch leads" });
+    }
+}
