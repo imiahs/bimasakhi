@@ -293,3 +293,45 @@ p {
     margin-bottom: var(--spacing-sm);
     border-radius: var(--border-radius-sm);
 }
+
+
+/* Page Specific Styles */
+.page-why,
+.page-income,
+.page-eligibility,
+.page-apply {
+    padding: var(--spacing-xl) 0;
+    min-height: calc(100vh - var(--header-height) - 100px);
+}
+
+.action-area {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    text-align: center;
+}
+
+.content-block {
+    margin-bottom: var(--spacing-lg);
+}
+
+.content-block h3 {
+    margin-top: 0;
+}
+
+.who-should-not-join {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-light);
+    border-radius: var(--border-radius-md);
+}
+
+.who-should-not-join ul {
+    list-style: disc;
+    padding-left: var(--spacing-xl);
+    margin-top: var(--spacing-sm);
+}
+
+.who-should-not-join li {
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-secondary);
+}
