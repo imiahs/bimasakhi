@@ -21,9 +21,18 @@ const Hero = ({
                         <a href="#application-form"><Button variant="primary">{ctaText}</Button></a>
                     </div>
                 ) : (
-                    <Link to={ctaLink}>
-                        <Button variant="primary">{ctaText}</Button>
-                    </Link>
+                    <div className="flex gap-4 justify-center mt-6 flex-wrap">
+                        <Link to="/apply">
+                            <Button variant="primary">Apply Now</Button>
+                        </Link>
+                        <Link to="/why">
+                            <Button variant="secondary">Next: Why Bima Sakhi</Button>
+                        </Link>
+                        {/* Scroll hint for linear flow */}
+                        <div className="w-full text-center mt-4 text-sm opacity-70">
+                            <a href="#why_default">↓ Or Scroll to Learn More</a>
+                        </div>
+                    </div>
                 )}
             </div>
         </section>

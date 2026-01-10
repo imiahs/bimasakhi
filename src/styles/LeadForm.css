@@ -1,11 +1,21 @@
 /* LeadForm Wizard Styles */
 .lead-form-wizard {
+    width: 100%;
     max-width: 500px;
     margin: 0 auto;
     background: var(--card-bg, #fff);
     border-radius: 12px;
-    padding: 2px;
-    /* Gradient border container if needed */
+    padding: 15px;
+    /* Added internal breathing room */
+    box-sizing: border-box;
+    /* Critical for mobile padding not to overflow width */
+}
+
+/* Mobile Tweak: Ensure inputs don't overflow */
+.lead-form-wizard input,
+.lead-form-wizard select {
+    box-sizing: border-box;
+    width: 100%;
 }
 
 /* Progress Bar */
