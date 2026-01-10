@@ -1,4 +1,7 @@
-import { kv } from '@vercel/kv';
+import Redis from 'ioredis';
+
+// Initialize Redis outside handler
+const redis = new Redis(process.env.REDIS_URL);
 
 // Default Configuration to ensure the app never crashes on empty KV
 const DEFAULT_CONFIG = {
@@ -43,8 +46,13 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Fetch from KV (JSON Object)
-        const config = await kv.get('config:global');
+        // Fetch from Redis (String)
+        const rawConfig = await redis.get('config:global');
+
+        let config = {};
+        if (rawConfig) {
+            config = JSON.parse(rawConfig);
+        }
 
         // Merge with defaults
         const finalConfig = { ...DEFAULT_CONFIG, ...config };

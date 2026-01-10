@@ -1,4 +1,7 @@
-import { kv } from '@vercel/kv';
+import Redis from 'ioredis';
+
+// Initialize Redis outside handler
+const redis = new Redis(process.env.REDIS_URL);
 
 export default async function handler(req, res) {
     if (req.method !== 'POST' && req.method !== 'GET') {
@@ -18,8 +21,8 @@ export default async function handler(req, res) {
         const sessionId = cookies['admin_session'];
 
         if (sessionId) {
-            // Delete from KV (Best effort)
-            await kv.del(`session:${sessionId}`);
+            // Delete from Redis (Best effort)
+            await redis.del(`session:${sessionId}`);
         }
 
         // Clear Cookie

@@ -1,4 +1,7 @@
-import { kv } from '@vercel/kv';
+import Redis from 'ioredis';
+
+// Initialize Redis outside handler
+const redis = new Redis(process.env.REDIS_URL);
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -20,7 +23,8 @@ export default async function handler(req, res) {
             return res.status(401).json({ error: 'Unauthorized: No Session' });
         }
 
-        const sessionStatus = await kv.get(`session:${sessionId}`);
+        // Check Redis for session
+        const sessionStatus = await redis.get(`session:${sessionId}`);
         if (sessionStatus !== 'active') {
             return res.status(401).json({ error: 'Unauthorized: Invalid Session' });
         }
@@ -33,11 +37,13 @@ export default async function handler(req, res) {
         }
 
         // 3. Safe Merge (Read existing -> Merge -> Write)
-        const currentConfig = await kv.get('config:global') || {};
+        const rawConfig = await redis.get('config:global');
+        const currentConfig = rawConfig ? JSON.parse(rawConfig) : {};
 
         const mergedConfig = { ...currentConfig, ...newConfig };
 
-        await kv.set('config:global', mergedConfig);
+        // Store as Stringified JSON
+        await redis.set('config:global', JSON.stringify(mergedConfig));
 
         return res.status(200).json({ success: true });
 

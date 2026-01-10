@@ -1,5 +1,8 @@
-import { kv } from '@vercel/kv';
+import Redis from 'ioredis';
 import crypto from 'crypto';
+
+// Initialize Redis outside handler for connection reuse
+const redis = new Redis(process.env.REDIS_URL);
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -16,7 +19,6 @@ export default async function handler(req, res) {
         }
 
         if (password !== ADMIN_PASSWORD) {
-            // Log failed attempt (security best practice) (avoid logging the actual password sent)
             console.warn(`Failed login attempt from ${req.headers['x-forwarded-for'] || req.socket.remoteAddress}`);
             return res.status(401).json({ error: 'Invalid Password' }); // 401 Unauthorized
         }
@@ -24,14 +26,11 @@ export default async function handler(req, res) {
         // Generate a random session ID
         const sessionId = crypto.randomUUID();
 
-        // Store session in KV with 24h expiry (86400 seconds)
-        // Key: session:<uuid> -> Value: 'active'
-        await kv.set(`session:${sessionId}`, 'active', { ex: 86400 });
+        // Store session in Redis with 24h expiry (86400 seconds)
+        // Redis SET key value EX seconds
+        await redis.set(`session:${sessionId}`, 'active', 'EX', 86400);
 
         // Set HttpOnly Cookie
-        // Secure: true (Requires HTTPS, localhost is exception in some browsers but Vercel handles this)
-        // SameSite: Strict (CSRF protection)
-        // Path: / (Global)
         const cookieValue = `admin_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=86400`;
 
         res.setHeader('Set-Cookie', cookieValue);

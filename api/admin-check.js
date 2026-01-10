@@ -1,4 +1,7 @@
-import { kv } from '@vercel/kv';
+import Redis from 'ioredis';
+
+// Initialize Redis outside handler
+const redis = new Redis(process.env.REDIS_URL);
 
 export default async function handler(req, res) {
     // Should be GET usually, but no harm in supporting POST if needed. Sticking to GET.
@@ -22,8 +25,8 @@ export default async function handler(req, res) {
             return res.status(200).json({ authenticated: false });
         }
 
-        // Check KV for session validity
-        const sessionStatus = await kv.get(`session:${sessionId}`);
+        // Check Redis for session validity
+        const sessionStatus = await redis.get(`session:${sessionId}`);
 
         if (sessionStatus !== 'active') {
             return res.status(200).json({ authenticated: false });
