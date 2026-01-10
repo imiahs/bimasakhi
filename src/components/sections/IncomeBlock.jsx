@@ -1,9 +1,9 @@
 import React from 'react';
 
-const IncomeBlock = ({ condensed = false }) => {
+const IncomeBlock = ({ condensed = false, title = "The Reality of Income" }) => {
     return (
         <div className="income-block">
-            {!condensed && <h2>The Reality of Income</h2>}
+            {!condensed && <h2>{title}</h2>}
 
             <div className="reality-check">
                 <p><strong>Strict Note:</strong> This is a COMMISSION-BASED profession. There is NO fixed salary.</p>

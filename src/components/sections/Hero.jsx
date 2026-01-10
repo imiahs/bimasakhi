@@ -2,7 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../ui/Button';
 
-const Hero = ({ title, subtitle, ctaText, ctaLink, isAdsMode = false }) => {
+const Hero = ({
+    title = "Become a LIC Agent",
+    subtitle = "Join the team today",
+    ctaText = "Apply Now",
+    ctaLink = "/apply",
+    isAdsMode = false
+}) => {
     return (
         <section className="hero-section">
             <div className="container">

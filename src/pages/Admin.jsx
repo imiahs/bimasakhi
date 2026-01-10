@@ -21,16 +21,55 @@ const Admin = () => {
         setFormData(config);
     }, [config]);
 
-    const handleLogin = () => {
-        if (password) setIsAuthenticated(true);
+    // Check Auth on Mount
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const res = await axios.get('/api/admin-check');
+                if (res.data.authenticated) {
+                    setIsAuthenticated(true);
+                }
+            } catch (err) {
+                console.error("Auth Check Failed", err);
+                setIsAuthenticated(false);
+            }
+        };
+        checkAuth();
+    }, []);
+
+    const handleLogin = async () => {
+        if (!password) return;
+        setStatus({ loading: true, msg: 'Logging in...' });
+        try {
+            await axios.post('/api/admin-login', { password });
+            setIsAuthenticated(true);
+            setStatus({ loading: false, msg: '' });
+        } catch (error) {
+            console.error(error);
+            setStatus({ loading: false, msg: 'Login Failed: Invalid Password' });
+            alert("Invalid Password");
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            await axios.post('/api/admin-logout');
+            setIsAuthenticated(false);
+            setPassword('');
+        } catch (error) {
+            console.error("Logout failed", error);
+        }
     };
 
     const handleConfigSave = async () => {
         setStatus({ loading: true, msg: 'Saving...' });
         try {
-            await axios.post('/api/config', formData, {
-                headers: { 'Authorization': `Bearer ${password}` }
-            });
+            // No custom headers needed, credentials (cookies) sent automatically by browser 
+            // BUT for axios we might need withCredentials: true if cross-origin, 
+            // but here it is same-origin so it should be fine.
+            // However, just to be safe with axios defaults:
+            await axios.post('/api/config-save', formData);
+
             setStatus({ loading: false, msg: 'Saved Successfully!' });
             refreshConfig();
         } catch (error) {
@@ -38,7 +77,7 @@ const Admin = () => {
             setStatus({ loading: false, msg: 'Error: Unauthorized or Network Fail' });
             if (error.response && error.response.status === 401) {
                 setIsAuthenticated(false);
-                alert("Invalid Password");
+                alert("Session Expired");
             }
         }
     };
@@ -124,9 +163,12 @@ const Admin = () => {
 
     return (
         <div className="page-admin container">
-            <h1>Admin Dashboard</h1>
-            <p className="text-sm">Status: Node 24.x | Vercel KV Active</p>
-            {status.msg && <div className="alert-box">{status.msg}</div>}
+            <div className="flex justify-between items-center mb-6">
+                <h1>Admin Dashboard</h1>
+                <Button onClick={handleLogout} variant="destructive">Logout</Button>
+            </div>
+            <p className="text-sm mb-4">Status: Node 24.x | Vercel KV Active</p>
+            {status.msg && <div className="alert-box mb-4">{status.msg}</div>}
 
             <div className="admin-tabs" style={{ marginBottom: '20px', borderBottom: '1px solid #ddd' }}>
                 <button

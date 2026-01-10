@@ -10,21 +10,11 @@ import axios from 'axios';
 // CAVEAT: Production requires a real backend endpoint.
 
 export default async function handler(req, res) {
-    // CORS headers for local dev/Vite access
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-    if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
-    }
-
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    const { name, mobile, city, occupation, reason, source, medium, campaign } = req.body;
+    const { name, mobile, city, occupation, reason, source, medium, campaign, visitedPages } = req.body;
 
     // 1. Strict Validation
     if (!name || !mobile || !city || !occupation) {
@@ -37,34 +27,35 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Invalid Indian mobile number' });
     }
 
-    // 2. Mandatory Metadata (Safe Architecture Rule) - STRICT ENFORCEMENT
-    if (!source || !medium || !campaign) {
-        return res.status(400).json({ error: 'Missing mandatory metadata: source, medium, campaign' });
+    // 2. Mandatory Metadata
+    if (!source) {
+        // We can be slightly lenient on medium/campaign if missing, but source is critical
+        return res.status(400).json({ error: 'Missing mandatory metadata: source' });
     }
 
+    // Zoho Field Mapping
     const leadData = {
-        Last_Name: name, // Zoho standard
+        Last_Name: name,
         Mobile: mobile,
         City: city,
         Designation: occupation,
-        Description: reason,
+        Description: `${reason || ''}\n\nVisited Pages: ${JSON.stringify(visitedPages || [])}`,
         Lead_Source: source || 'Website',
-        Lead_Medium: medium || 'Direct',
-        Campaign_Source: campaign || 'Bima Sakhi',
-        Created_Time: new Date().toISOString()
+        Lead_Medium: medium || 'Direct', // Ensure these API Names exist in Zoho
+        Campaign_Source: campaign || 'Bima Sakhi'
     };
 
     try {
-        // 3. Real Zoho Logic
         const { ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET, ZOHO_REFRESH_TOKEN, ZOHO_API_DOMAIN = 'https://www.zohoapis.in' } = process.env;
 
         if (!ZOHO_CLIENT_ID || !ZOHO_CLIENT_SECRET || !ZOHO_REFRESH_TOKEN) {
-            throw new Error("Missing Server-Side Configuration (Zoho Keys)");
+            console.error("Missing Zoho ENV Variables");
+            return res.status(500).json({ error: "Server Configuration Error" });
         }
 
-        // A. Get Access Token
-        // URL for India DC: https://accounts.zoho.in/oauth/v2/token (Check domain)
-        const tokenUrl = `${ZOHO_API_DOMAIN.replace('www.zohoapis', 'accounts.zoho')}/oauth/v2/token`;
+        // A. Get Access Token (Server-to-Server OAuth)
+        const accountsUrl = ZOHO_API_DOMAIN.replace('www.zohoapis', 'accounts.zoho'); // e.g. https://accounts.zoho.in
+        const tokenUrl = `${accountsUrl}/oauth/v2/token`;
 
         const tokenResponse = await axios.post(tokenUrl, null, {
             params: {
@@ -76,17 +67,20 @@ export default async function handler(req, res) {
         });
 
         if (tokenResponse.data.error) {
-            console.error("Zoho Token Error:", tokenResponse.data.error);
-            throw new Error("Failed to authenticate with CRM");
+            console.error("Zoho Token Refresh Error:", tokenResponse.data.error);
+            throw new Error(`Auth Failed: ${tokenResponse.data.error}`);
         }
 
         const accessToken = tokenResponse.data.access_token;
+        if (!accessToken) {
+            throw new Error("No access token received from Zoho");
+        }
 
         // B. Create Lead in Zoho CRM
-        // Using v2.1 API
         const crmUrl = `${ZOHO_API_DOMAIN}/crm/v2.1/Leads`;
 
-        const crmResponse = await axios.post(crmUrl, { data: [leadData] }, {
+        // Trigger Workflow is vital for assignment rules/emails
+        const crmResponse = await axios.post(crmUrl, { data: [leadData], trigger: ['approval', 'workflow', 'blueprint'] }, {
             headers: {
                 'Authorization': `Zoho-oauthtoken ${accessToken}`,
                 'Content-Type': 'application/json'
@@ -94,29 +88,33 @@ export default async function handler(req, res) {
         });
 
         // C. Handle CRM Response
-        const result = crmResponse.data.data[0];
+        const result = crmResponse.data.data ? crmResponse.data.data[0] : null;
 
-        if (result.status === 'success') {
+        if (result && (result.status === 'success' || result.status === 'duplicate')) {
             const zohoId = result.details.id;
-            console.log("Lead Created in Zoho:", zohoId);
+            console.log(`Lead Processed (Status: ${result.status}, ID: ${zohoId})`);
 
-            // 4. Return Success
             return res.status(200).json({
                 success: true,
-                message: "Lead created successfully",
-                lead_id: zohoId
+                message: "Lead processed successfully",
+                lead_id: zohoId,
+                status: result.status
             });
         } else {
-            console.error("Zoho CRM Error:", result);
-            throw new Error("CRM rejected data");
+            // CRM Data Error (Validation etc)
+            console.error("Zoho CRM Data Error:", JSON.stringify(crmResponse.data));
+            return res.status(400).json({
+                success: false,
+                error: "CRM Validation Failed",
+                details: result
+            });
         }
 
     } catch (error) {
-        console.error("Zoho Creation Failed:", error);
-        // Do NOT expose system details to frontend, just 500
+        console.error("System Error in Create-Lead:", error.response ? error.response.data : error.message);
         return res.status(500).json({
             success: false,
-            error: "Failed to create lead in CRM. System Error."
+            error: "Internal Server Error"
         });
     }
 }

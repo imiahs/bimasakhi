@@ -12,24 +12,59 @@ const COMPONENT_MAP = {
     'IncomeRealityBlock': IncomeBlock
 };
 
+// Error Boundary for individual sections
+class SectionErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(error) {
+        return { hasError: true };
+    }
+
+    componentDidCatch(error, errorInfo) {
+        console.error("Section Render Error:", error, errorInfo);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            // Return null or a placeholder in dev
+            return this.props.fallback || null;
+        }
+        return this.props.children;
+    }
+}
+
 const SectionRenderer = ({ sections = [] }) => {
     if (!Array.isArray(sections) || sections.length === 0) {
         return null;
     }
 
     return (
-        <>
+        <div className="sections-container">
             {sections.map((section, index) => {
                 const Component = COMPONENT_MAP[section.type];
+
+                // Graceful fallback for unknown types
                 if (!Component) {
                     console.warn(`Unknown section type: ${section.type}`);
-                    return null;
+                    return (
+                        <div key={index} className="hidden debug-unknown-section">
+                            {/* Hidden in prod, maybe visible in dev? Keeping hidden for safety */}
+                        </div>
+                    );
                 }
 
-                // Pass all props from JSON + unique key
-                return <Component key={section.id || index} {...section.props} />;
+                return (
+                    <SectionErrorBoundary key={section.id || index}>
+                        <div id={section.id} className={`section-wrapper section-${section.type.toLowerCase()}`}>
+                            <Component {...section.props} />
+                        </div>
+                    </SectionErrorBoundary>
+                );
             })}
-        </>
+        </div>
     );
 };
 
