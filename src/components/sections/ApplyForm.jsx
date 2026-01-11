@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../context/UserContext';
 import { ConfigContext } from '../../context/ConfigContext';
+import { analytics } from '../../services/analytics';
 import { getWhatsAppUrl } from '../../utils/whatsapp';
 import Input from '../ui/Input';
 import Select from '../ui/Select';
@@ -224,8 +225,13 @@ const ApplyForm = () => {
             // Update Context (Simulated)
             markSubmitted(formData.city, payload);
 
-            // Track (Mock)
+            // Track
             console.log("Analytics: form_submit", mockLeadId);
+            analytics.track('form_submit', {
+                leadId: mockLeadId,
+                city: formData.city,
+                source: userState.source
+            });
 
             setStatus({
                 isSubmitting: false,
@@ -242,6 +248,12 @@ const ApplyForm = () => {
             source: userState.source,
             leadId: status.leadId // Pass the persisted Lead ID
         });
+
+        analytics.track('whatsapp_click', {
+            context: 'apply_success_cta',
+            leadId: status.leadId
+        });
+
         window.open(waUrl, '_blank');
     };
 

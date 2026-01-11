@@ -10,7 +10,12 @@ const DEFAULT_CONFIG = {
     delhiOnlyMessage: 'Currently onboarding women from Delhi NCR only.',
     ctaText: 'Apply on WhatsApp',
     heroTitle: 'Become a LIC Agent',
+    heroTitle: 'Become a LIC Agent',
     heroSubtitle: 'Government Backed Commission Career',
+    // Analytics (Default: Disabled)
+    isAnalyticsEnabled: false,
+    gaMeasurementId: '', // G-XXXXXXXXXX
+    gtmContainerId: '',  // GTM-XXXXXXX
     pages: {
         home: {
             title: "Home Page",

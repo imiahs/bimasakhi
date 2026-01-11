@@ -27,7 +27,8 @@ export default async function handler(req, res) {
 
         // Clear Cookie
         // Max-Age=0 expires it immediately
-        const cookieValue = `admin_session=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0`;
+        const isProd = process.env.NODE_ENV === 'production';
+        const cookieValue = `admin_session=; Path=/; HttpOnly; ${isProd ? 'Secure;' : ''} SameSite=Strict; Max-Age=0`;
         res.setHeader('Set-Cookie', cookieValue);
 
         return res.status(200).json({ success: true });

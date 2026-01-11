@@ -367,6 +367,10 @@ const Admin = () => {
                     style={{ padding: '10px 20px', fontWeight: activeTab === 'home' ? 'bold' : 'normal' }}
                     onClick={() => setActiveTab('home')}
                 >Home Page Editor</button>
+                <button
+                    style={{ padding: '10px 20px', fontWeight: activeTab === 'tracking' ? 'bold' : 'normal' }}
+                    onClick={() => setActiveTab('tracking')}
+                >Tracking</button>
             </div>
 
             {activeTab === 'insights' && (

@@ -31,7 +31,8 @@ export default async function handler(req, res) {
         await redis.set(`session:${sessionId}`, 'active', 'EX', 900);
 
         // Set HttpOnly Cookie (Session Cookie - No Max-Age)
-        const cookieValue = `admin_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Strict`;
+        const isProd = process.env.NODE_ENV === 'production';
+        const cookieValue = `admin_session=${sessionId}; Path=/; HttpOnly; ${isProd ? 'Secure;' : ''} SameSite=Strict`;
 
         res.setHeader('Set-Cookie', cookieValue);
 
