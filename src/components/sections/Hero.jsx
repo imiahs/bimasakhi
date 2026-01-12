@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import Button from '../ui/Button';
 
 const Hero = ({
-    title = "Become a LIC Agent",
-    subtitle = "Join the team today",
-    ctaText = "Apply Now",
+    title = "Bima Sakhi – LIC Career for Women",
+    subtitle = "A government-backed, commission-based career opportunity with learning support",
+    ctaText = "Check Eligibility",
     ctaLink = "/apply",
     isAdsMode = false
 }) => {
@@ -17,20 +17,24 @@ const Hero = ({
 
                 {isAdsMode ? (
                     <div className="ads-cta">
-                        {/* In ads mode, we might scroll to form or link to it */}
-                        <a href="#application-form"><Button variant="primary">{ctaText}</Button></a>
+                        {/* Ads mode: direct intent */}
+                        <a href="#application-form">
+                            <Button variant="primary">{ctaText}</Button>
+                        </a>
                     </div>
                 ) : (
                     <div className="flex gap-4 justify-center mt-6 flex-wrap">
-                        <Link to="/apply">
-                            <Button variant="primary">Apply Now</Button>
+                        <Link to={ctaLink}>
+                            <Button variant="primary">Check Eligibility</Button>
                         </Link>
+
                         <Link to="/why">
-                            <Button variant="secondary">Next: Why Bima Sakhi</Button>
+                            <Button variant="secondary">Why Bima Sakhi?</Button>
                         </Link>
+
                         {/* Scroll hint for linear flow */}
                         <div className="w-full text-center mt-4 text-sm opacity-70">
-                            <a href="#why_default">↓ Or Scroll to Learn More</a>
+                            <a href="#why_default">↓ Or scroll to understand income & process</a>
                         </div>
                     </div>
                 )}

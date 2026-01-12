@@ -13,7 +13,12 @@ const ApplyForm = () => {
     const { userState, markSubmitted } = useContext(UserContext);
     const { config } = useContext(ConfigContext);
 
-    // Steps: 1: Identity, 2: Location, 3: Profile, 4: Review/Submit
+    // Steps: 
+    // 1: Identity
+    // 2: Location
+    // 3: Profile
+    // 4: Review / Submit
+    // NOTE: This is a career onboarding flow, not a job application
     const [step, setStep] = useState(1);
 
     const [formData, setFormData] = useState({
@@ -23,11 +28,11 @@ const ApplyForm = () => {
         city: '',
         state: '',
         locality: '',
-        address: '', // Optional
+        address: '', // Optional (future use)
         email: '',
         education: '',
         occupation: '', // Reused for 'Current Status'
-        reason: '',
+        reason: '', // Reserved for future qualitative analysis
         dndConsent: false
     });
 
@@ -50,39 +55,63 @@ const ApplyForm = () => {
     const [errors, setErrors] = useState({});
 
     // 1. Pause Logic
+    // Used when applications are temporarily stopped (operational / compliance reasons)
     if (config.isAppPaused) {
-        return <div className="alert-box">Applications are currently paused. Please check back later.</div>;
+        return (
+            <div className="alert-box">
+                Applications are currently paused. Please check back later.
+            </div>
+        );
     }
 
-    // 2. Already Submitted
+    // 2. Already Submitted Guard
+    // Prevents duplicate submissions from same user/session
     if (userState.hasSubmitted && !status.success) {
-        return <div className="alert-box success">
-            You have already submitted your application.
-            If you missed the chat, <a href={getWhatsAppUrl({ ...userState.lastLeadData })} target="_blank" rel="noreferrer">click here</a>.
-        </div>;
+        return (
+            <div className="alert-box success">
+                You have already submitted your application.
+                If you missed the WhatsApp conversation,{' '}
+                <a
+                    href={getWhatsAppUrl({ ...userState.lastLeadData })}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    click here
+                </a>.
+            </div>
+        );
     }
 
     // --- Validation Logic ---
+    // Each step validates only its own required fields
     const validateStep = (currentStep) => {
         let tempErrors = {};
         let isValid = true;
 
         if (currentStep === 1) {
             if (!formData.name.trim()) tempErrors.name = "Name is required";
-            if (!formData.mobile || !/^\d{10}$/.test(formData.mobile)) tempErrors.mobile = "Valid 10-digit mobile number required";
-            if (!formData.dndConsent) tempErrors.dndConsent = "Please check the box to proceed.";
+            if (!formData.mobile || !/^\d{10}$/.test(formData.mobile))
+                tempErrors.mobile = "Valid 10-digit mobile number required";
+            if (!formData.dndConsent)
+                tempErrors.dndConsent = "Please provide consent to proceed.";
         }
 
         if (currentStep === 2) {
-            if (!formData.pincode || !/^\d{6}$/.test(formData.pincode)) tempErrors.pincode = "Valid 6-digit Pincode required";
-            if (!formData.city) tempErrors.city = "City could not be detected";
-            if (!formData.locality) tempErrors.locality = "Locality/Street is required";
+            if (!formData.pincode || !/^\d{6}$/.test(formData.pincode))
+                tempErrors.pincode = "Valid 6-digit Pincode required";
+            if (!formData.city)
+                tempErrors.city = "City could not be detected";
+            if (!formData.locality)
+                tempErrors.locality = "Locality / Area is required";
         }
 
         if (currentStep === 3) {
-            if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) tempErrors.email = "Valid Email is required";
-            if (!formData.education) tempErrors.education = "Education level is required";
-            if (!formData.occupation) tempErrors.occupation = "Current status is required";
+            if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email))
+                tempErrors.email = "Valid Email is required";
+            if (!formData.education)
+                tempErrors.education = "Education level is required";
+            if (!formData.occupation)
+                tempErrors.occupation = "Current status is required";
         }
 
         if (Object.keys(tempErrors).length > 0) {
@@ -91,6 +120,7 @@ const ApplyForm = () => {
         } else {
             setErrors({});
         }
+
         return isValid;
     };
 
@@ -98,94 +128,100 @@ const ApplyForm = () => {
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         const val = type === 'checkbox' ? checked : value;
+
         setFormData(prev => ({ ...prev, [name]: val }));
 
-        // Clear specific error
-        if (errors[name]) setErrors(prev => ({ ...prev, [name]: null }));
+        // Clear field-specific error on change
+        if (errors[name]) {
+            setErrors(prev => ({ ...prev, [name]: null }));
+        }
 
-        // Special Pincode Handler
+        // Pincode auto-lookup trigger
         if (name === 'pincode' && value.length === 6) {
             handlePincodeLookup(value);
         } else if (name === 'pincode' && value.length < 6) {
-            // Reset location fields if pincode changes
+            // Reset dependent fields if pincode changes
             if (formData.city || locationStatus.isManual) {
-                setFormData(prev => ({ ...prev, city: '', state: '', locality: '' }));
-                setLocationStatus({ loading: false, msg: '', type: '', isManual: false });
+                setFormData(prev => ({
+                    ...prev,
+                    city: '',
+                    state: '',
+                    locality: ''
+                }));
+                setLocationStatus({
+                    loading: false,
+                    msg: '',
+                    type: '',
+                    isManual: false
+                });
                 setAvailableLocalities([]);
             }
         }
     };
 
     // Real Backend Pincode Lookup
+    // Controls Delhi NCR eligibility for Phase-1 rollout
     const handlePincodeLookup = async (pincode) => {
-        setLocationStatus({ loading: true, msg: 'Locating...', type: 'loading' });
+        setLocationStatus({
+            loading: true,
+            msg: 'Locating service availability...',
+            type: 'loading'
+        });
 
         try {
             const response = await axios.get(`/api/pincode-lookup?pincode=${pincode}`);
             const data = response.data;
 
             if (data.eligible) {
-                // Formatting localities for Select
-                const localityOptions = data.localities.map(loc => ({ value: loc, label: loc }));
-                localityOptions.unshift({ value: '', label: 'Select Locality' }); // Add default option
-
-                setFormData(prev => ({
-                    ...prev,
-                    city: data.city,
-                    state: data.state,
-                    // Auto-select if only one locality? Maybe not.
+                const localityOptions = data.localities.map(loc => ({
+                    value: loc,
+                    label: loc
                 }));
+                localityOptions.unshift({
+                    value: '',
+                    label: 'Select Locality'
+                });
 
-                // We need to store localities in state just for this render cycle? 
-                // Or we can just map them directly in renderStep2.
-                // Let's store them in a temporary state or reuse existing options logic.
-                // For now, let's keep it simple and just rely on the API data.
-
-                // HACK: To pass locality options to the Select, we might need a state enhancement.
-                // But wait, the standard form data doesn't hold options.
-                // Let's add a state for `availableLocalities`
-                setAvailableLocalities(localityOptions);
-
-                setLocationStatus({ loading: false, msg: '✅ Service Available', type: 'success' });
-            } else {
-                // Ineligible (Waitlist)
                 setFormData(prev => ({
                     ...prev,
                     city: data.city,
                     state: data.state
                 }));
-                setLocationStatus({ loading: false, msg: '⚠️ We are currently only in Delhi NCR. You will be added to the waitlist.', type: 'warning' });
-                setAvailableLocalities([]); // No localities to show really, or maybe just 'Other'
+
+                setAvailableLocalities(localityOptions);
+
+                setLocationStatus({
+                    loading: false,
+                    msg: '✅ Service available in your area',
+                    type: 'success'
+                });
+            } else {
+                // Outside Delhi NCR – waitlist scenario
+                setFormData(prev => ({
+                    ...prev,
+                    city: data.city,
+                    state: data.state
+                }));
+
+                setLocationStatus({
+                    loading: false,
+                    msg: '⚠️ Currently open only for Delhi NCR. You may be added to a waitlist.',
+                    type: 'warning'
+                });
+
+                setAvailableLocalities([]);
             }
-
-
-
-            // ... (rest of code) ...
-            // Note: The previous tools have truncated the context so I need to be careful with replace_file_content target.
-            // I will target the specific `handlePincodeLookup` function block instead of re-writing the whole file logic or missing parts.
-
-            // Wait, I can't target "rest of code". 
-            // I will split this into two chunks: one for state init, one for handlePincodeLookup.
-
-            // Chunk 2: handlePincodeLookup
         } catch (error) {
             console.error("Pincode API Error", error);
 
-            // Fallback: Enable Manual Entry
-            setFormData(prev => ({
-                ...prev,
-                city: '',
-                state: ''
-            }));
-
+            // Manual fallback
             setLocationStatus({
                 loading: false,
-                msg: 'Could not fetch details. Please enter manually below.',
-                type: 'warning', // Changed to warning so it invites action rather than blocking
+                msg: 'Could not auto-detect. Please enter details manually.',
+                type: 'warning',
                 isManual: true
             });
 
-            // Provide a generic option so Select isn't empty
             setAvailableLocalities([
                 { value: 'Manual Entry', label: 'Other / Manual Entry' }
             ]);
@@ -204,11 +240,12 @@ const ApplyForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateStep(3)) return; // Final check
+        if (!validateStep(3)) return;
 
         setStatus(prev => ({ ...prev, isSubmitting: true }));
 
         // Prepare Payload
+        // NOTE: This represents an application for a commission-based LIC agency career
         const payload = {
             ...formData,
             source: userState.source || 'Website',
@@ -217,16 +254,12 @@ const ApplyForm = () => {
             visitedPages: userState.visitedPages
         };
 
-        // Mock API Call for Micro-Sprint 1
+        // Mock API Call (Micro-sprint V1)
         setTimeout(() => {
-            // Success Mock
             const mockLeadId = 'LEAD-' + Date.now().toString().slice(-6);
 
-            // Update Context (Simulated)
             markSubmitted(formData.city, payload);
 
-            // Track
-            console.log("Analytics: form_submit", mockLeadId);
             analytics.track('form_submit', {
                 leadId: mockLeadId,
                 city: formData.city,
@@ -246,7 +279,7 @@ const ApplyForm = () => {
         const waUrl = getWhatsAppUrl({
             ...formData,
             source: userState.source,
-            leadId: status.leadId // Pass the persisted Lead ID
+            leadId: status.leadId
         });
 
         analytics.track('whatsapp_click', {
@@ -262,9 +295,10 @@ const ApplyForm = () => {
     const renderStep1 = () => (
         <div className="form-step">
             <div className="step-header">
-                <h3>Let's get started</h3>
-                <p>We need your details to contact you.</p>
+                <h3>Start your application</h3>
+                <p>Please share your basic details so we can guide you further.</p>
             </div>
+
             <Input
                 label="Full Name"
                 name="name"
@@ -272,6 +306,7 @@ const ApplyForm = () => {
                 onChange={handleChange}
                 error={errors.name}
             />
+
             <Input
                 label="Mobile Number (WhatsApp)"
                 name="mobile"
@@ -284,7 +319,16 @@ const ApplyForm = () => {
             />
 
             <div className="form-group" style={{ marginTop: '15px' }}>
-                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.85em', color: '#555', cursor: 'pointer' }}>
+                <label
+                    style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '10px',
+                        fontSize: '0.85em',
+                        color: '#555',
+                        cursor: 'pointer'
+                    }}
+                >
                     <input
                         type="checkbox"
                         name="dndConsent"
@@ -293,10 +337,17 @@ const ApplyForm = () => {
                         style={{ marginTop: '3px' }}
                     />
                     <span>
-                        I voluntarily authorize Bima Sakhi / IMIAH Services to contact me via WhatsApp (including WhatsApp Business Platform), SMS, or Call regarding my application, even if my number is registered on DND.
+                        I voluntarily authorize Bima Sakhi / IMIAH Services to contact me
+                        via WhatsApp, SMS, or call regarding my application and next steps,
+                        even if my number is registered on DND.
                     </span>
                 </label>
-                {errors.dndConsent && <div style={{ color: 'red', fontSize: '0.8em', marginTop: '5px' }}>{errors.dndConsent}</div>}
+
+                {errors.dndConsent && (
+                    <div style={{ color: 'red', fontSize: '0.8em', marginTop: '5px' }}>
+                        {errors.dndConsent}
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -304,9 +355,12 @@ const ApplyForm = () => {
     const renderStep2 = () => (
         <div className="form-step">
             <div className="step-header">
-                <h3>Where are you located?</h3>
-                <p>We strictly hire in Delhi NCR currently.</p>
+                <h3>Your service location</h3>
+                <p>
+                    At present, this career opportunity is open only for women based in Delhi NCR.
+                </p>
             </div>
+
             <Input
                 label="Pincode"
                 name="pincode"
@@ -332,7 +386,7 @@ const ApplyForm = () => {
                     value={formData.city}
                     onChange={handleChange}
                     readOnly={!locationStatus.isManual}
-                    disabled={!locationStatus.isManual && !formData.city} // Disable if automatic and empty
+                    disabled={!locationStatus.isManual && !formData.city}
                     placeholder={locationStatus.isManual ? "Enter City" : "Auto-detected"}
                 />
                 <Input
@@ -352,9 +406,18 @@ const ApplyForm = () => {
                 value={formData.locality}
                 onChange={handleChange}
                 error={errors.locality}
-                options={availableLocalities.length > 0 ? availableLocalities : [
-                    { value: '', label: locationStatus.isManual ? 'Select Option' : 'Enter Pincode first' }
-                ]}
+                options={
+                    availableLocalities.length > 0
+                        ? availableLocalities
+                        : [
+                            {
+                                value: '',
+                                label: locationStatus.isManual
+                                    ? 'Select Option'
+                                    : 'Enter Pincode first'
+                            }
+                        ]
+                }
                 disabled={!formData.city && !locationStatus.isManual}
             />
         </div>
@@ -363,9 +426,12 @@ const ApplyForm = () => {
     const renderStep3 = () => (
         <div className="form-step">
             <div className="step-header">
-                <h3>A bit about you</h3>
-                <p>Help us understand your profile better.</p>
+                <h3>Your background</h3>
+                <p>
+                    This information helps us understand your profile for guidance and training.
+                </p>
             </div>
+
             <Input
                 label="Email Address"
                 name="email"
@@ -374,6 +440,7 @@ const ApplyForm = () => {
                 onChange={handleChange}
                 error={errors.email}
             />
+
             <Select
                 label="Education Level"
                 name="education"
@@ -387,6 +454,7 @@ const ApplyForm = () => {
                     { value: 'Post Graduate', label: 'Post Graduate' }
                 ]}
             />
+
             <Select
                 label="Current Status"
                 name="occupation"
@@ -401,7 +469,6 @@ const ApplyForm = () => {
                     { value: 'Job Seeker', label: 'Job Seeker' }
                 ]}
             />
-
         </div>
     );
 
@@ -411,12 +478,48 @@ const ApplyForm = () => {
                 <h3>Review & Submit</h3>
                 <p>Please check your details before submitting.</p>
             </div>
+
             <div className="review-summary">
-                <div className="review-row"><span className="review-label">Name</span><span className="review-value">{formData.name}</span></div>
-                <div className="review-row"><span className="review-label">Mobile</span><span className="review-value">{formData.mobile}</span></div>
-                <div className="review-row"><span className="review-label">Location</span><span className="review-value">{formData.city}, {formData.pincode}</span></div>
-                <div className="review-row"><span className="review-label">Email</span><span className="review-value">{formData.email}</span></div>
-                <div className="review-row"><span className="review-label">Profile</span><span className="review-value">{formData.education}, {formData.occupation}</span></div>
+                <div className="review-row">
+                    <span className="review-label">Name</span>
+                    <span className="review-value">{formData.name}</span>
+                </div>
+                <div className="review-row">
+                    <span className="review-label">Mobile</span>
+                    <span className="review-value">{formData.mobile}</span>
+                </div>
+                <div className="review-row">
+                    <span className="review-label">Location</span>
+                    <span className="review-value">
+                        {formData.city}, {formData.pincode}
+                    </span>
+                </div>
+                <div className="review-row">
+                    <span className="review-label">Email</span>
+                    <span className="review-value">{formData.email}</span>
+                </div>
+                <div className="review-row">
+                    <span className="review-label">Profile</span>
+                    <span className="review-value">
+                        {formData.education}, {formData.occupation}
+                    </span>
+                </div>
+            </div>
+
+            {/* MICRO DISCLAIMER – IMPORTANT FOR EXPECTATION SETTING */}
+            <div
+                className="micro-disclaimer"
+                style={{
+                    marginTop: '15px',
+                    padding: '10px',
+                    fontSize: '0.85em',
+                    color: '#666',
+                    borderTop: '1px dashed #ddd'
+                }}
+            >
+                <strong>Important:</strong> Bima Sakhi is a commission-based LIC agency
+                career opportunity. This is not a salaried job. Training, support,
+                and any performance-linked benefits are subject to LIC norms.
             </div>
         </div>
     );
@@ -426,18 +529,29 @@ const ApplyForm = () => {
         return (
             <div className="apply-success-card animate-pulse">
                 <div className="success-icon">✅</div>
-                <h2>Application Received!</h2>
-                <p>Reference ID: <strong>{status.leadId}</strong></p>
-                <div style={{ margin: '20px 0', borderTop: '1px solid #eee', paddingTop: '15px' }}>
+                <h2>Application Submitted Successfully</h2>
+                <p>
+                    Reference ID: <strong>{status.leadId}</strong>
+                </p>
+
+                <div
+                    style={{
+                        margin: '20px 0',
+                        borderTop: '1px solid #eee',
+                        paddingTop: '15px'
+                    }}
+                >
                     <p style={{ color: '#555', fontSize: '0.95em' }}>
-                        We have sent a confirmation to <strong>{formData.email}</strong>.
+                        Our team will connect with you on WhatsApp to guide you about the
+                        next steps.
                     </p>
                 </div>
+
                 <button
                     onClick={handleWhatsAppClick}
                     className="btn btn-whatsapp btn-block"
                 >
-                    Start Interview on WhatsApp
+                    Continue on WhatsApp
                 </button>
             </div>
         );
@@ -450,7 +564,8 @@ const ApplyForm = () => {
                 {[1, 2, 3, 4].map(num => (
                     <div
                         key={num}
-                        className={`step-indicator ${step === num ? 'active' : ''} ${step > num ? 'completed' : ''}`}
+                        className={`step-indicator ${step === num ? 'active' : ''
+                            } ${step > num ? 'completed' : ''}`}
                     >
                         {step > num ? '✓' : num}
                     </div>
@@ -465,13 +580,33 @@ const ApplyForm = () => {
 
                 <div className="form-actions">
                     {step > 1 && (
-                        <Button onClick={handleBack} variant="secondary" className="btn-block">Back</Button>
+                        <Button
+                            onClick={handleBack}
+                            variant="secondary"
+                            className="btn-block"
+                        >
+                            Back
+                        </Button>
                     )}
+
                     {step < 4 ? (
-                        <Button onClick={handleNext} variant="primary" className="btn-block">Next</Button>
+                        <Button
+                            onClick={handleNext}
+                            variant="primary"
+                            className="btn-block"
+                        >
+                            Next
+                        </Button>
                     ) : (
-                        <Button type="submit" variant="primary" className="btn-block" disabled={status.isSubmitting}>
-                            {status.isSubmitting ? 'Submitting...' : 'Confirm & Submit'}
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            className="btn-block"
+                            disabled={status.isSubmitting}
+                        >
+                            {status.isSubmitting
+                                ? 'Submitting...'
+                                : 'Confirm & Submit'}
                         </Button>
                     )}
                 </div>
