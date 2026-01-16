@@ -6,6 +6,7 @@ import HowItWorks from '../sections/HowItWorks';
 import IncomeBlock from '../sections/IncomeBlock';
 
 import EligibilityBlock from '../sections/EligibilityBlock';
+import Benefits from '../sections/Benefits';
 
 // Component Map: Maps string 'type' from JSON to React Component
 const COMPONENT_MAP = {
