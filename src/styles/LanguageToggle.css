@@ -1,0 +1,43 @@
+.language-toggle-floating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 30px;
+    padding: 4px;
+    z-index: 1000;
+    display: flex;
+    gap: 4px;
+    border: 1px solid #eee;
+}
+
+.lang-btn {
+    border: none;
+    background: transparent;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lang-btn.active {
+    background-color: var(--color-primary, #e91e63);
+    color: white;
+}
+
+.lang-btn:hover:not(.active) {
+    background-color: #f5f5f5;
+}
+
+/* Ensure it doesn't overlap with WhatsApp button if present or bottom navigation */
+@media (max-width: 768px) {
+    .language-toggle-floating {
+        bottom: 80px;
+        /* Push up on mobile if needed */
+        right: 15px;
+    }
+}

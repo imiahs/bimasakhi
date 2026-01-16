@@ -23,23 +23,21 @@ const DEFAULT_CONFIG = {
                 {
                     id: "hero_default",
                     type: "HeroSection",
-                    props: {
-                        title: "Become a LIC Agent - Earn Unlimited Income",
-                        subtitle: "Government Supported Career for Women in Delhi NCR",
-                        ctaText: "See How It Works",
-                        ctaLink: "#why_default" // Scroll link
-                    }
+                    props: {}
                 },
                 {
-                    id: "why_default",
-                    type: "TrustBlock",
-                    props: {
-                        title: "Why Join Bima Sakhi?"
-                    }
+                    id: "trust_default",
+                    type: "TrustSignals",
+                    props: {}
                 },
                 {
                     id: "income_default",
                     type: "IncomeRealityBlock",
+                    props: {}
+                },
+                {
+                    id: "how_it_works_default",
+                    type: "HowItWorks",
                     props: {}
                 },
                 {

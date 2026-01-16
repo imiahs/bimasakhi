@@ -1,7 +1,8 @@
 import React from 'react';
 import Hero from '../sections/Hero';
 import ApplyForm from '../sections/ApplyForm';
-import Benefits from '../sections/Benefits';
+import TrustSignals from '../sections/TrustSignals';
+import HowItWorks from '../sections/HowItWorks';
 import IncomeBlock from '../sections/IncomeBlock';
 
 import EligibilityBlock from '../sections/EligibilityBlock';
@@ -9,8 +10,11 @@ import EligibilityBlock from '../sections/EligibilityBlock';
 // Component Map: Maps string 'type' from JSON to React Component
 const COMPONENT_MAP = {
     'HeroSection': Hero,
+    'TrustBlock': TrustSignals, // Replaced old mapping or added new one. Let's keep Benefits as Benefits but map TrustBlock to TrustSignals
+    'TrustSignals': TrustSignals,
+    'HowItWorks': HowItWorks,
     'ApplyFormBlock': ApplyForm,
-    'TrustBlock': Benefits, // Mapping Benefits to TrustBlock for now
+    'BenefitsBlock': Benefits, // Explicit mapping for Benefits if needed
     'IncomeRealityBlock': IncomeBlock,
     'EligibilityBlock': EligibilityBlock
 };
