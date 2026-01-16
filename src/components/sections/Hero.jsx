@@ -8,20 +8,30 @@ const Hero = ({ isAdsMode = false }) => {
 
     const content = {
         en: {
-            title: "Government Backed Career for Women",
-            subtitle: "Join LIC as an Agent. Work from home, earn commission, and get financial independence.",
+            title: "Become a Successful Bima Sakhi (LIC Lady Agent)",
+            subtitle: "Career Opportunity for Women with LIC. 10th Pass | Age 18-70 Years.",
             cta: "Apply Now (2 Mins)",
+            ctaSecondary: "See Details First",
             trust: "✅ 100% Free Training | 🏛️ Govt Supported"
         },
         hi: {
-            title: "LIC के साथ जुड़कर अपना करियर बनाएं",
-            subtitle: "घर बैठे काम करें, कमीशन कमाएं और आत्मनिर्भर बनें। सरकारी सपोर्ट के साथ।",
+            title: "बनिए एक सफल Bima Sakhi (LIC महिला एजेंट)",
+            subtitle: "LIC के साथ महिलाओं के लिए करियर अवसर। 10वीं पास | उम्र 18-70 वर्ष।",
             cta: "अभी अप्लाई करें (2 मिनट)",
+            ctaSecondary: "पहले पूरी जानकारी देखें",
             trust: "✅ 100% फ्री ट्रेनिंग | 🏛️ सरकारी सपोर्ट"
         }
     };
 
     const t = content[language];
+
+    const scrollToNext = (e) => {
+        e.preventDefault();
+        const nextSection = document.getElementById('trust_default');
+        if (nextSection) {
+            nextSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     return (
         <section className="hero-section relative overflow-hidden bg-gradient-to-b from-pink-50 to-white pt-12 pb-16 lg:pt-20 lg:pb-24">
@@ -49,6 +59,11 @@ const Hero = ({ isAdsMode = false }) => {
                                 </Button>
                             </Link>
 
+                            <a href="#trust_default" onClick={scrollToNext} className="w-full sm:w-auto">
+                                <Button variant="secondary" className="w-full text-lg px-8 py-4 bg-white border-2 hover:bg-gray-50 text-gray-700">
+                                    {t.ctaSecondary}
+                                </Button>
+                            </a>
                         </div>
                     </div>
 
