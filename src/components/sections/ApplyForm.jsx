@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../context/UserContext';
 import { ConfigContext } from '../../context/ConfigContext';
+import { LanguageContext } from '../../context/LanguageContext';
 import { analytics } from '../../services/analytics';
 import { getWhatsAppUrl } from '../../utils/whatsapp';
 import Input from '../ui/Input';
@@ -292,65 +293,82 @@ const ApplyForm = () => {
 
     // --- Steps Rendering ---
 
-    const renderStep1 = () => (
-        <div className="form-step">
-            <div className="step-header">
-                <h3>Start your application</h3>
-                <p>Please share your basic details so we can guide you further.</p>
+    const renderStep1 = () => {
+        const { language } = useContext(LanguageContext);
+
+        const texts = {
+            en: {
+                title: "Now the opportunity is in your hands",
+                desc: "Apply today and start your future."
+            },
+            hi: {
+                title: "अब मौका आपके हाथ में है",
+                desc: "आज आवेदन करें और अपने भविष्य की शुरुआत करें।"
+            }
+        };
+
+        const t = texts[language] || texts.en;
+
+        return (
+            <div className="form-step">
+                <div className="step-header">
+                    <h3>{t.title}</h3>
+                    <p>{t.desc}</p>
+                </div>
+
+                <Input
+                    label="Full Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    error={errors.name}
+                />
+
+                <Input
+                    label="Mobile Number (WhatsApp)"
+                    name="mobile"
+                    type="tel"
+                    maxLength="10"
+                    value={formData.mobile}
+                    onChange={handleChange}
+                    error={errors.mobile}
+                    placeholder="10 digit number"
+                />
+
+                <div className="form-group" style={{ marginTop: '15px' }}>
+                    <label
+                        style={{
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '10px',
+                            fontSize: '0.85em',
+                            color: '#555',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        <input
+                            type="checkbox"
+                            name="dndConsent"
+                            checked={formData.dndConsent}
+                            onChange={handleChange}
+                            style={{ marginTop: '3px' }}
+                        />
+                        <span>
+                            I voluntarily authorize Bima Sakhi / IMIAH Services to contact me
+                            via WhatsApp, SMS, or call regarding my application and next steps,
+                            even if my number is registered on DND.
+                        </span>
+                    </label>
+
+                    {errors.dndConsent && (
+                        <div style={{ color: 'red', fontSize: '0.8em', marginTop: '5px' }}>
+                            {errors.dndConsent}
+                        </div>
+                    )}
+                </div>
             </div>
-
-            <Input
-                label="Full Name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                error={errors.name}
-            />
-
-            <Input
-                label="Mobile Number (WhatsApp)"
-                name="mobile"
-                type="tel"
-                maxLength="10"
-                value={formData.mobile}
-                onChange={handleChange}
-                error={errors.mobile}
-                placeholder="10 digit number"
-            />
-
-            <div className="form-group" style={{ marginTop: '15px' }}>
-                <label
-                    style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        gap: '10px',
-                        fontSize: '0.85em',
-                        color: '#555',
-                        cursor: 'pointer'
-                    }}
-                >
-                    <input
-                        type="checkbox"
-                        name="dndConsent"
-                        checked={formData.dndConsent}
-                        onChange={handleChange}
-                        style={{ marginTop: '3px' }}
-                    />
-                    <span>
-                        I voluntarily authorize Bima Sakhi / IMIAH Services to contact me
-                        via WhatsApp, SMS, or call regarding my application and next steps,
-                        even if my number is registered on DND.
-                    </span>
-                </label>
-
-                {errors.dndConsent && (
-                    <div style={{ color: 'red', fontSize: '0.8em', marginTop: '5px' }}>
-                        {errors.dndConsent}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+        );
+    };
 
     const renderStep2 = () => (
         <div className="form-step">

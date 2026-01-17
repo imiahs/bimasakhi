@@ -20,36 +20,16 @@ const DEFAULT_CONFIG = {
         home: {
             title: "Home Page",
             sections: [
-                {
-                    id: "hero_default",
-                    type: "HeroSection",
-                    props: {}
-                },
-                {
-                    id: "trust_default",
-                    type: "TrustSignals",
-                    props: {}
-                },
-                {
-                    id: "income_default",
-                    type: "IncomeRealityBlock",
-                    props: {}
-                },
-                {
-                    id: "how_it_works_default",
-                    type: "HowItWorks",
-                    props: {}
-                },
-                {
-                    id: "eligibility_default",
-                    type: "EligibilityBlock",
-                    props: {}
-                },
-                {
-                    id: "apply_default",
-                    type: "ApplyFormBlock",
-                    props: {}
-                }
+                { id: "hero_default", type: "HeroSection", props: {} },
+                { id: "trust_default", type: "TrustSignals", props: {} },
+                { id: "income_default", type: "IncomeRealityBlock", props: {} },
+                { id: "benefits_default", type: "BenefitsBlock", props: {} },
+                { id: "how_it_works_default", type: "HowItWorks", props: {} },
+                { id: "eligibility_default", type: "EligibilityBlock", props: { id: "elig_home" } },
+                { id: "testimonials_default", type: "TestimonialsBlock", props: {} },
+                { id: "gallery_default", type: "GalleryBlock", props: {} },
+                { id: "faq_default", type: "FAQBlock", props: {} },
+                { id: "apply_default", type: "ApplyFormBlock", props: {} }
             ]
         }
     }

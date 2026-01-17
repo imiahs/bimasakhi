@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { LanguageContext } from '../../context/LanguageContext';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
 
 const EligibilityBlock = ({ id }) => {
+    const { language } = useContext(LanguageContext);
     const [canProceed, setCanProceed] = useState(false);
     const [checks, setChecks] = useState({
         age: false,
@@ -33,18 +35,43 @@ const EligibilityBlock = ({ id }) => {
         }
     };
 
+
+    const content = {
+        en: {
+            title: "Check Your Eligibility",
+            sub: "This opportunity is not suitable for everyone. Please proceed only if you meet all conditions.",
+            l_age: "I am a woman between 18 and 70 years of age.",
+            l_edu: "I have completed at least 10th standard education.",
+            l_loc: "I currently live in Delhi NCR and can serve clients locally.",
+            l_com: "I understand that this is a commission-based career, not a fixed-salary job.",
+            btn_active: "Proceed to Application ↓",
+            btn_disabled: "Confirm All Conditions to Proceed"
+        },
+        hi: {
+            title: "क्या आप योग्य हैं?",
+            sub: "यह अवसर सभी के लिए नहीं है। कृपया तभी आगे बढ़ें जब आप ये शर्तें पूरी करती हों।",
+            l_age: "मैं एक महिला हूँ और मेरी उम्र 18 से 70 वर्ष के बीच है।",
+            l_edu: "मैं कम से कम 10वीं कक्षा पास हूँ।",
+            l_loc: "मैं दिल्ली NCR में रहती हूँ।",
+            l_com: "मैं समझती हूँ कि यह कमीशन-आधारित काम है, फिक्स सैलरी वाली नौकरी नहीं।",
+            btn_active: "आवेदन के लिए आगे बढ़ें ↓",
+            btn_disabled: "आगे बढ़ने के लिए सभी शर्तें चुनें"
+        }
+    };
+
+    const t = content[language];
+
     return (
         <div className="section-eligibility container py-8">
-            <h2 className="text-center mb-4">
-                Check Your Eligibility
+            <h2 className="text-center mb-4 text-2xl font-bold text-gray-800">
+                {t.title}
             </h2>
 
-            <p className="text-center mb-6 opacity-80">
-                This opportunity is not suitable for everyone.
-                Please proceed only if you meet all the conditions below.
+            <p className="text-center mb-6 opacity-80 max-w-2xl mx-auto">
+                {t.sub}
             </p>
 
-            <Card className="checklist max-w-2xl mx-auto">
+            <Card className="checklist max-w-2xl mx-auto border-t-4 border-pink-500 shadow-lg">
                 <div className="checkbox-group mb-4 flex items-start gap-3">
                     <input
                         type="checkbox"
@@ -53,8 +80,8 @@ const EligibilityBlock = ({ id }) => {
                         onChange={() => handleCheck('age')}
                         className="mt-1 w-5 h-5 accent-pink-600"
                     />
-                    <label htmlFor={`${id}_age`}>
-                        I am a woman between 18 and 70 years of age.
+                    <label htmlFor={`${id}_age`} className="cursor-pointer select-none">
+                        {t.l_age}
                     </label>
                 </div>
 
@@ -66,8 +93,8 @@ const EligibilityBlock = ({ id }) => {
                         onChange={() => handleCheck('education')}
                         className="mt-1 w-5 h-5 accent-pink-600"
                     />
-                    <label htmlFor={`${id}_education`}>
-                        I have completed at least 10th standard education.
+                    <label htmlFor={`${id}_education`} className="cursor-pointer select-none">
+                        {t.l_edu}
                     </label>
                 </div>
 
@@ -79,12 +106,12 @@ const EligibilityBlock = ({ id }) => {
                         onChange={() => handleCheck('delhi')}
                         className="mt-1 w-5 h-5 accent-pink-600"
                     />
-                    <label htmlFor={`${id}_delhi`}>
-                        I currently live in Delhi NCR and can serve clients locally.
+                    <label htmlFor={`${id}_delhi`} className="cursor-pointer select-none">
+                        {t.l_loc}
                     </label>
                 </div>
 
-                <div className="checkbox-group flex items-start gap-3">
+                <div className="checkbox-group flex items-start gap-3 bg-yellow-50 p-3 rounded border border-yellow-200">
                     <input
                         type="checkbox"
                         id={`${id}_understanding`}
@@ -92,9 +119,8 @@ const EligibilityBlock = ({ id }) => {
                         onChange={() => handleCheck('understanding')}
                         className="mt-1 w-5 h-5 accent-pink-600"
                     />
-                    <label htmlFor={`${id}_understanding`}>
-                        I understand that this is a commission-based LIC career opportunity,
-                        not a fixed-salary job.
+                    <label htmlFor={`${id}_understanding`} className="cursor-pointer select-none font-medium text-gray-800">
+                        {t.l_com}
                     </label>
                 </div>
             </Card>
@@ -104,11 +130,9 @@ const EligibilityBlock = ({ id }) => {
                     variant="primary"
                     disabled={!canProceed}
                     onClick={handleProceed}
-                    className="w-full sm:w-auto"
+                    className="w-full sm:w-auto px-8 py-3 text-lg transition-all"
                 >
-                    {canProceed
-                        ? "Proceed to Application ↓"
-                        : "Confirm All Conditions to Proceed"}
+                    {canProceed ? t.btn_active : t.btn_disabled}
                 </Button>
             </div>
         </div>

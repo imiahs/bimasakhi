@@ -8,22 +8,24 @@ const HowItWorks = () => {
 
     const text = {
         en: {
-            title: "How to Start?",
+            title: "How to Become Bima Sakhi?",
             steps: [
-                { num: 1, title: "Apply Online", desc: "Fill simple form in 2 mins" },
-                { num: 2, title: "Get Training", desc: "Online exam prep (25 Hours)" },
-                { num: 3, title: "Start Earning", desc: "Get License & Commission" }
+                { num: 1, title: "Apply Online", desc: "Just 2 minutes process" },
+                { num: 2, title: "Training & Exam", desc: "Online preparation by LIC" },
+                { num: 3, title: "Get License", desc: "Start working immediately" },
+                { num: 4, title: "Start Earning", desc: "Commission + Potential Stipend" }
             ],
-            cta: "Start Application"
+            cta: "Start Application Now"
         },
         hi: {
-            title: "शुरुआत कैसे करें?",
+            title: "Bima Sakhi कैसे बनें?",
             steps: [
-                { num: 1, title: "फॉर्म भरें", desc: "सिर्फ 2 मिनट में अर्जी डालें" },
-                { num: 2, title: "ट्रेनिंग पाएं", desc: "ऑनलाइन एग्जाम की तैयारी (25 घंटे)" },
-                { num: 3, title: "कमाई शुरू", desc: "लाइसेंस पाएं और कमीशन कमाएं" }
+                { num: 1, title: "ऑनलाइन आवेदन करें", desc: "सिर्फ 2 मिनट का प्रोसेस" },
+                { num: 2, title: "ट्रेनिंग और परीक्षा", desc: "LIC द्वारा ऑनलाइन तैयारी" },
+                { num: 3, title: "लाइसेंस प्राप्त करें", desc: "और काम शुरू करें" },
+                { num: 4, title: "कमाई शुरू", desc: "कमीशन + संभावित स्टाइपेंड" }
             ],
-            cta: "अभी फॉर्म भरें"
+            cta: "अभी आवेदन शुरू करें"
         }
     };
 
@@ -34,9 +36,8 @@ const HowItWorks = () => {
             <div className="container text-center">
                 <h2 className="text-2xl font-bold mb-8 text-gray-800">{t.title}</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 relative">
-                    {/* Visual Connector Line (Hidden on Mobile) */}
-                    <div className="hidden md:block absolute top-6 left-1/6 right-1/6 h-1 bg-gray-200 -z-10"></div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8 relative">
+                    {/* Visual Connector Line (Removed for simplified 4-step layout) */}
 
                     {t.steps.map((step, index) => (
                         <div key={index} className="relative bg-white p-6 rounded-xl shadow-sm border border-gray-100">

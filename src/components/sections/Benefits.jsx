@@ -1,40 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { LanguageContext } from '../../context/LanguageContext';
 import Card from '../ui/Card';
 
 const Benefits = ({ title = "Why Bima Sakhi?", items = [] }) => {
-    // Default content aligned with Bima Sakhi Yojana
-    const displayItems = items.length > 0 ? items : [
-        {
-            title: 'Respect & Professional Identity',
-            description:
-                'Build your own identity as a trained LIC professional and serve families in your community with trust and responsibility.'
+    const { language } = useContext(LanguageContext);
+
+    const content = {
+        en: {
+            title: "Benefits of Becoming Bima Sakhi",
+            items: [
+                { title: "Work from Home", description: "Manage both home and career together." },
+                { title: "Digital Platform", description: "Complete work via LIC ANANDA App." },
+                { title: "No Investment", description: "Free training and guidance by LIC." },
+                { title: "Freedom & Respect", description: "No boss, decide your own time." }
+            ]
         },
-        {
-            title: 'Income Growth Potential',
-            description:
-                'This is a commission-based career with no fixed salary. Your income grows with experience, effort, and long-term client relationships.'
-        },
-        {
-            title: 'Structured Learning & Support',
-            description:
-                'Training, guidance, and performance-based support are provided during the initial phase, as per LIC norms.'
-        },
-        {
-            title: 'Flexible Work Structure',
-            description:
-                'Plan your work schedule based on your availability while balancing family and professional responsibilities.'
-        },
-        {
-            title: 'Digital LIC Platforms',
-            description:
-                'Policy issuance, servicing, and follow-ups can be handled digitally using LIC’s official platforms such as LIC Ananda.'
+        hi: {
+            title: "Bima Sakhi बनने के फायदे",
+            items: [
+                { title: "घर से काम", description: "घर और करियर दोनों संभालें।" },
+                { title: "डिजिटल प्लेटफॉर्म", description: "LIC ANANDA ऐप से पूरा काम।" },
+                { title: "कोई निवेश नहीं", description: "ट्रेनिंग और मार्गदर्शन LIC द्वारा।" },
+                { title: "फ्रीडम और सम्मान", description: "कोई बॉस नहीं, अपना समय खुद तय करें।" }
+            ]
         }
-    ];
+    };
+
+    const t = content[language];
+    const displayItems = items.length > 0 ? items : t.items;
 
     return (
         <section className="benefits-section">
             <div className="container">
-                <h2>{title}</h2>
+                <h2>{t.title}</h2>
                 <div className="benefits-grid">
                     {displayItems.map((b, index) => (
                         <Card key={index} className="benefit-card">

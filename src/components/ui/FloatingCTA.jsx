@@ -22,7 +22,7 @@ const FloatingCTA = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const text = language === 'hi' ? 'अभी अप्लाई करें' : 'Apply Now';
+    const text = language === 'hi' ? 'अभी अप्लाई करें (2 मिनट)' : 'Apply Now (2 Mins)';
 
     if (!isVisible) return null;
 

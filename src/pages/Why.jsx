@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 
+import SEOHead from '../components/core/SEOHead';
+
 const Why = () => {
     const { markPageVisited } = useContext(UserContext);
 
@@ -13,6 +15,11 @@ const Why = () => {
 
     return (
         <div className="page-why container">
+            <SEOHead
+                title="क्यों बनें Bima Sakhi? – फायदे और सम्मान"
+                description="घर से काम, फ्रीडम और सम्मान। जानिए Bima Sakhi बनने के असली फायदे और LIC का भरोसा।"
+                path="/why"
+            />
             <h1>Why Bima Sakhi?</h1>
 
             <Card className="content-block">

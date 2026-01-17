@@ -3,6 +3,7 @@ import { UserContext } from '../context/UserContext';
 import { Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
+import SEOHead from '../components/core/SEOHead';
 
 const Eligibility = () => {
     const { markPageVisited } = useContext(UserContext);
@@ -27,6 +28,11 @@ const Eligibility = () => {
 
     return (
         <div className="page-eligibility container">
+            <SEOHead
+                title="योग्यता चेक करें – Bima Sakhi (Delhi NCR)"
+                description="10वीं पास | 18-70 वर्ष | दिल्ली NCR। अपनी एलिजिबिलिटी चेक करें और अप्लाई करें।"
+                path="/eligibility"
+            />
             <h1>Eligibility Check</h1>
             <p>Before applying, please confirm you meet the criteria:</p>
 

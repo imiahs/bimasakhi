@@ -7,17 +7,23 @@ import IncomeBlock from '../sections/IncomeBlock';
 
 import EligibilityBlock from '../sections/EligibilityBlock';
 import Benefits from '../sections/Benefits';
+import Testimonials from '../sections/Testimonials';
+import Gallery from '../sections/Gallery';
+import FAQ from '../sections/FAQ';
 
 // Component Map: Maps string 'type' from JSON to React Component
 const COMPONENT_MAP = {
     'HeroSection': Hero,
-    'TrustBlock': TrustSignals, // Replaced old mapping or added new one. Let's keep Benefits as Benefits but map TrustBlock to TrustSignals
+    'TrustBlock': TrustSignals,
     'TrustSignals': TrustSignals,
     'HowItWorks': HowItWorks,
     'ApplyFormBlock': ApplyForm,
-    'BenefitsBlock': Benefits, // Explicit mapping for Benefits if needed
+    'BenefitsBlock': Benefits,
     'IncomeRealityBlock': IncomeBlock,
-    'EligibilityBlock': EligibilityBlock
+    'EligibilityBlock': EligibilityBlock,
+    'TestimonialsBlock': Testimonials,
+    'GalleryBlock': Gallery,
+    'FAQBlock': FAQ
 };
 
 // Error Boundary for individual sections
