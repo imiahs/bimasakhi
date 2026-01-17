@@ -42,13 +42,10 @@ const FAQSchema = () => {
     };
 
     return (
-        null // The schema is injected via SEOHead usually, but since this is a standalone component requested by prompt as JSON-LD generator, 
-        // we can either return a Helmet or just the object. 
-        // However, to keep it clean and composable, I'll return the object structure to be passed into SEOHead or return a Helmet script block directly.
-        // Given the prompt asked for "FAQSchema.jsx (JSON-LD only)", I will make it return a script tag wrapped in fragment or just use it inside Home.
-        // Actually, simpler: Let it be a component that renders the script tag.
-        < script type = "application/ld+json" dangerouslySetInnerHTML = {{ __html: JSON.stringify(faqData) }
-} />
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
+        />
     );
 };
 
