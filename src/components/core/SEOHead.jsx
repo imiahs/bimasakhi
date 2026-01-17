@@ -18,7 +18,7 @@ const SEOHead = ({
         "@type": "Organization",
         "name": "Bima Sakhi",
         "url": "https://www.bimasakhi.com",
-        "logo": "https://www.bimasakhi.com/logo.png", // Assuming logo exists or will exist, purely metadata
+        "logo": "https://www.bimasakhi.com/vite.svg", // Assuming logo exists or will exist, purely metadata
         "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer support",
