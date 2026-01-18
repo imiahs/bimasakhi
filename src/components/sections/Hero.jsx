@@ -9,14 +9,14 @@ const Hero = ({ isAdsMode = false }) => {
     const content = {
         en: {
             title: "Become a Successful Bima Sakhi (LIC Lady Agent)",
-            subtitle: "A respectful career for women with LIC.<br> 10th Pass | Age 18-70 Years | Delhi NCR",
+            subtitle: "A respectful career for women with LIC. 10th Pass | Age 18-70 Years | Delhi NCR",
             cta: "Apply Now (2 Mins)",
             ctaSecondary: "See Details First",
             trust: "✅ 100% Free Training | 🏛️ Govt Supported"
         },
         hi: {
             title: "बनिए एक सफल Bima Sakhi (LIC महिला एजेंट)",
-            subtitle: "LIC के साथ जुड़कर महिलाओं के लिए सम्मानजनक करियर<br>। 10वीं पास | उम्र 18–70 वर्ष | दिल्ली NCR",
+            subtitle: "LIC के साथ जुड़कर महिलाओं के लिए सम्मानजनक करियर । 10वीं पास | उम्र 18–70 वर्ष | दिल्ली NCR",
             cta: "अभी अप्लाई करें (2 मिनट)",
             ctaSecondary: "पहले पूरी जानकारी देखें",
             trust: "✅ 100% फ्री ट्रेनिंग | 🏛️ सरकारी सपोर्ट"
