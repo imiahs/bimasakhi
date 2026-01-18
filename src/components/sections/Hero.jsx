@@ -60,7 +60,7 @@ const Hero = ({ isAdsMode = false }) => {
                             </Link>
 
                             <a href="#trust_default" onClick={scrollToNext} className="w-full sm:w-auto">
-                                <Button variant="secondary" className="w-full text-lg px-8 py-4 bg-white border-2 hover:bg-gray-50 text-gray-700">
+                                <Button variant="accent" className="w-full text-lg px-8 py-4 bg-white border-2 hover:bg-gray-50 text-gray-700">
                                     {t.ctaSecondary}
                                 </Button>
                             </a>
