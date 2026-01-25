@@ -32,3 +32,6 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Ignore website template drafts
+src/homepage/websitetemplate/
