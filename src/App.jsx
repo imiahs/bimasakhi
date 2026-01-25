@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Layout from './components/core/Layout';
-import Home from './pages/Home';
+import HomePage from './homepage/HomePage';
+// import Home from './pages/Home'; // Deprecated V1 Home
 import Why from './pages/Why';
 import Income from './pages/Income';
 import Eligibility from './pages/Eligibility';
@@ -44,7 +45,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* Organic Flow */}
-          <Route index element={<Home />} />
+          <Route index element={<HomePage />} />
           <Route path="why" element={<Why />} />
           <Route path="income" element={<Income />} />
           <Route path="eligibility" element={<Eligibility />} />
