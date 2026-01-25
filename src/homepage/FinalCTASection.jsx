@@ -12,8 +12,8 @@ const FinalCTASection = () => {
             </p>
 
             <div className="action-wrapper">
-                <Link to="/apply">
-                    <Button variant="primary">Check Eligibility</Button>
+                <Link to="/why">
+                    <Button variant="primary">Why Bima Sakhi?</Button>
                 </Link>
             </div>
         </div>
