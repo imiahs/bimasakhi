@@ -164,40 +164,92 @@
 /* -----------------------------------------------------------
    SECTION 2: WHAT IS BIMA SAKHI
    ----------------------------------------------------------- */
+/* -----------------------------------------------------------
+   SECTION 2: WHAT IS BIMA SAKHI
+   ----------------------------------------------------------- */
 .what-is {
-    padding: var(--bs-spacing-section) 0;
+    padding: 6rem 0;
+    /* Increased calm spacing */
     background-color: var(--bs-color-bg-white);
 }
 
 .what-is-inner {
     display: flex;
     flex-direction: column-reverse;
-    /* Visual on top on mobile if needed, or structured differently */
-    gap: 3rem;
+    /* Mobile: Content Top, Visual Bottom */
+    gap: 4rem;
     align-items: center;
 }
 
 .what-is-visual {
     width: 100%;
     max-width: 500px;
-    height: 300px;
-    /* Placeholder height */
-    background-color: #e9ecef;
-    border-radius: 8px;
+    height: 400px;
+    /* Taller, more substantial */
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    /* Soft lift */
+    background-color: #f0f2f5;
+
+    /* Image Strategy: */
+    /* background-image: url('/public/images/home/about-intro.jpg'); */
+    /* background-size: cover; */
+    /* background-position: center; */
+
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--bs-color-secondary);
+    font-weight: 500;
+    border: 1px solid var(--bs-color-border);
 }
+
+/* Optional: Subtle deco line or shape behind visual can go here if needed later */
 
 .what-is-content {
     flex: 1;
+    text-align: left;
 }
 
-@media (min-width: 768px) {
+.what-is-content h2 {
+    font-size: 2.25rem;
+    color: var(--bs-color-primary-dark);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    position: relative;
+}
+
+.what-is-content h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--bs-color-primary);
+    margin-top: 0.75rem;
+    border-radius: 2px;
+}
+
+.what-is-content p {
+    font-size: 1.125rem;
+    color: var(--bs-color-text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+/* Desktop Split */
+@media (min-width: 992px) {
     .what-is-inner {
         flex-direction: row;
-        align-items: flex-start;
+        /* Desktop: Visual Left, Content Right */
+        align-items: center;
+        gap: 5rem;
+    }
+
+    .what-is-visual {
+        height: 450px;
+        /* Full standing presence */
     }
 }
 
