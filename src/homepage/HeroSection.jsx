@@ -22,6 +22,9 @@ const HeroSection = () => {
                             This website exists to explain how the Bima Sakhi opportunity works, who it is suitable for,
                             and what the actual process looks like before taking any next step.
                         </p>
+                        <Link to="/why">
+                            <Button variant="primary">Why Bima Sakhi?</Button>
+                        </Link>
                     </div>
                 </div>
             </div>
