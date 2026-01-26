@@ -1,4 +1,5 @@
 import React from 'react';
+import './homepage.css'; // Phase 5B: Styles
 import SEOHead from '../components/core/SEOHead';
 
 // Section Imports (Locked Order)
@@ -16,7 +17,7 @@ import FinalCTASection from './FinalCTASection';
 
 const HomePage = () => {
     return (
-        <div className="homepage-container">
+        <div className="homepage-wrapper">
             <SEOHead
                 title="Bima Sakhi - Independent LIC Agency Career for Women (Delhi NCR)"
                 description="Official platform for women to start an independent LIC agency in Delhi NCR. LIC-regulated process. No fixed salary, full commission-based career."
