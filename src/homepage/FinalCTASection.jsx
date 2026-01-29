@@ -19,6 +19,9 @@ const FinalCTASection = () => {
                     <Link to="/why">
                         <Button variant="primary">Why Bima Sakhi?</Button>
                     </Link>
+                    <Link to="/apply">
+                        <Button variant="secondary">Apply Now</Button>
+                    </Link>
                 </div>
 
             </div>

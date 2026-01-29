@@ -16,9 +16,8 @@ const ProcessOverview = () => {
 
                     {/* Step 1 */}
                     <div className="process-step">
-                        <div className="process-step-header">
-                            1. Check Eligibility
-                        </div>
+                        <div className="process-step-header" data-step="1">Check Eligibility</div>
+
                         <div className="process-step-body">
                             You first check whether you meet the basic criteria such as age, education, and location.
                             This helps confirm if the opportunity is suitable for you.

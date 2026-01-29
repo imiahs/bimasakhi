@@ -18,13 +18,7 @@ const HeroSection = () => {
                         <p>
                             Launched by Hon. PM to empower women and provide them with an opportunity to become financially independent.
                         </p>
-                        <p>
-                            <li> Full Time</li>
-                            <li> Part Time</li>
-                            <li> Flexible Hours</li>
-                            <li> Zero Investment</li>
-                            <li> Only for Female</li>
-                        </p>
+                        <ul className="hero-options"> <li>Full Time</li> <li>Part Time</li> <li>Zero Investment</li> <li>Only for Female</li> </ul> <div className="hero-cta"> <button>Know More</button> </div>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ const WhatIsBimaSakhi = () => {
 
                 {/* Visual Column */}
                 <div className="what-is-visual">
-                    <span>Professional Guidance</span>
+                    <span>Bima Sakhi Yojana</span>
                 </div>
 
                 {/* Content Column */}

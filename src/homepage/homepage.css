@@ -158,9 +158,51 @@
     }
 }
 
-/* -----------------------------------------------------------
-   SECTION 2: WHAT IS BIMA SAKHI
-   ----------------------------------------------------------- */
+.hero-options {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.hero-options li {
+    background: #fff;
+    color: var(--bs-color-primary);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.hero-options li:hover {
+    background: var(--bs-color-primary);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.hero-cta button {
+    margin-top: 2rem;
+    background: var(--bs-color-accent);
+    color: #212529;
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-cta button:hover {
+    background: #e0a800;
+    transform: scale(1.05);
+}
+
+
+
+
 /* -----------------------------------------------------------
    SECTION 2: WHAT IS BIMA SAKHI
    ----------------------------------------------------------- */
@@ -310,6 +352,9 @@
     padding-left: 2rem;
     margin-bottom: 1rem;
     color: var(--bs-color-text-light);
+    background: #f8f9fa;
+    padding: 0.75rem 1rem 0.75rem 2rem;
+    border-radius: 6px;
 }
 
 /* Icon replacement with CSS checkmark/cross */
@@ -383,6 +428,21 @@
     gap: 0.5rem;
 }
 
+.process-step-header::before {
+    content: attr(data-step);
+    background: var(--bs-color-primary);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5rem;
+}
+
+
 /* Visual enhancement for step numbering (implicit in text in JSX, but we can style the text) */
 .process-step-body {
     color: var(--bs-color-text-light);
@@ -434,6 +494,17 @@
     margin-bottom: 1.5rem;
     font-size: 1.1rem;
     color: #495057;
+    position: relative;
+    padding-left: 2rem;
+}
+
+.transparency-text p::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--bs-color-primary);
+    font-weight: bold;
 }
 
 .transparency-text p:last-child {
@@ -468,6 +539,12 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
     text-align: left;
     transition: transform 0.2s;
+}
+
+.proof-item::before {
+    content: "👩";
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
 }
 
 .proof-item:hover {
@@ -590,6 +667,12 @@
     font-size: 1.25rem;
     color: var(--bs-color-primary);
     font-weight: 600;
+}
+
+.benefit-item::before {
+    content: "⭐";
+    margin-right: 0.5rem;
+    color: var(--bs-color-accent);
 }
 
 .benefit-item p {
