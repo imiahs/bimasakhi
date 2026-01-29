@@ -14,7 +14,7 @@ const HeroSection = () => {
                     <div className="hero-content">
                         <h4>LIC & Government of India Initiative</h4>
                         <h1>Bima Sakhi Yojana</h1>
-                        <h3>Mahila Career Agency Yojana in Delhi NCR</h3>
+                        <h2>Mahila Career Agency Yojana in Delhi NCR</h2>
                         <p>
                             Bima Sakhi is an initiative that helps women become licensed LIC agents and work independently
                             as insurance advisors. The focus is on guidance, training, and step-by-step support
