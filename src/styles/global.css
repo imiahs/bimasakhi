@@ -190,28 +190,9 @@ p {
 }
 
 .brand-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
     font-size: var(--font-size-xl);
     font-weight: 800;
     color: var(--color-primary);
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.brand-logo:hover {
-    transform: scale(1.05);
-    color: var(--color-accent-hover);
-}
-
-.brand-logo img {
-    width: auto;
-    height: 40px;
-    object-fit: contain;
-    display: block;
 }
 
 /* Layout: Footer */
