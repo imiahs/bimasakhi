@@ -71,7 +71,7 @@
     position: relative;
     background-color: var(--bs-color-primary);
     color: #fff;
-    padding: 8rem 0;
+    padding: 5rem 0;
     /* Taller hero for impact */
     text-align: center;
     overflow: hidden;
@@ -185,7 +185,7 @@
 
 @media (max-width: 768px) {
     .hero {
-        padding: 5rem 0;
+        padding: 2.5rem 0;
     }
 
     .hero-content h1 {
