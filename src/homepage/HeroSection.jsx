@@ -46,7 +46,7 @@ const HeroSection = () => {
                         <h2 className="hero-intro">New Opportunities for Women</h2>
                         <h1 className="hero-title">Financial Freedom Program</h1>
                         <h3 className="hero-subtitle">Skill Development & Training</h3>
-                        <img src="/images/bima_sakhi_ai.png" alt="Empowerment Visual" className="hero-image" />
+                        <img src="/images/Bima_Sakhi_Ai.png" alt="Empowerment Visual" className="hero-image" />
                         <p className="hero-description">
                             A new initiative under Bima Sakhi Yojana to provide skill training, career guidance, and financial literacy.
                         </p>
@@ -64,7 +64,7 @@ const HeroSection = () => {
                         <h2 className="hero-intro">Nationwide Expansion</h2>
                         <h1 className="hero-title">Bima Sakhi Outreach</h1>
                         <h3 className="hero-subtitle">Connecting Women Across India</h3>
-                        <img src="/images/bima_sakhi_amita.png" alt="Outreach Visual" className="hero-image" />
+                        <img src="/images/Bima_Sakhi_Amita.png" alt="Outreach Visual" className="hero-image" />
                         <p className="hero-description">
                             Expanding the program to reach women in rural and urban areas, ensuring inclusivity and equal opportunity.
                         </p>
@@ -82,7 +82,7 @@ const HeroSection = () => {
                         <h2 className="hero-intro">Future Ready Women</h2>
                         <h1 className="hero-title">Digital Sakhi Program</h1>
                         <h3 className="hero-subtitle">Technology & Entrepreneurship</h3>
-                        <img src="/images/bima_sakhi_avneet.png" alt="Digital Visual" className="hero-image" />
+                        <img src="/images/Bima_Sakhi_Avneet.png" alt="Digital Visual" className="hero-image" />
                         <p className="hero-description">
                             Preparing women for the digital economy with entrepreneurship training, online tools, and modern skills.
                         </p>
