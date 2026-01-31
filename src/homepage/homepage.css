@@ -166,6 +166,7 @@
     font-size: clamp(1rem, 3vw, 1.5rem);
     margin-bottom: 1.5rem;
     color: #fff;
+    text-wrap: nowrap;
 }
 
 .hero-description {
