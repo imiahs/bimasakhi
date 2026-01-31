@@ -10,7 +10,7 @@ const HeroSection = () => {
         const interval = setInterval(() => {
             setActiveIndex((prev) => (prev + 1) % totalSlides);
             setProgress(0);
-        }, 5000);
+        }, 10000);
 
         const progressInterval = setInterval(() => {
             setProgress((prev) => (prev >= 100 ? 100 : prev + 2));
