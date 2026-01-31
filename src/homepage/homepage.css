@@ -161,9 +161,12 @@
 .hero-options {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
+    /* ✅ allow wrapping */
     gap: 1rem;
     justify-content: center;
     margin-top: 2rem;
+    padding: 0;
 }
 
 .hero-options li {
@@ -175,28 +178,19 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
     cursor: pointer;
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    /* ✅ text shrink/expand according to screen */
-    white-space: nowrap;
-    /* ✅ text stays in one line */
-}
-
-
-
-
-.hero-options li:hover {
-    background: var(--bs-color-primary);
-    color: #fff;
-    transform: translateY(-3px);
+    flex: 1 1 auto;
+    /* ✅ pills expand/shrink */
+    text-align: center;
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    /* ✅ text auto-shrink */
+    min-width: 120px;
+    /* ✅ avoid too small pills */
 }
 
 .hero-cta {
     display: flex;
     justify-content: center;
-    align-items: center;
     margin-top: 2rem;
-    overflow: visible;
-    /* ✅ ensures button not cut */
 }
 
 .hero-cta button {
@@ -208,17 +202,11 @@
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+    /* ✅ button text shrink */
     white-space: nowrap;
-    max-width: 100%;
-    /* ✅ prevents overflow */
 }
 
-
-.hero-cta button:hover {
-    background: #e0a800;
-    transform: scale(1.05);
-}
 
 
 
