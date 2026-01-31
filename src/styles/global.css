@@ -190,9 +190,29 @@ p {
 }
 
 .brand-logo {
+    background-image: url('/public/images/home/logo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     font-size: var(--font-size-xl);
     font-weight: 800;
     color: var(--color-primary);
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: all 0.3s ease;
+
 }
 
 /* Layout: Footer */
