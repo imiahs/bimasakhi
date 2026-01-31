@@ -67,9 +67,23 @@
 /* -----------------------------------------------------------
    SECTION 1: HERO
    ----------------------------------------------------------- */
+
+
+
+
+/* -----------------------------------------------------------
+   SECTION 2: WHAT IS BIMA SAKHI
+   ----------------------------------------------------------- */
+.what-is {
+    padding: 6rem 0;
+    /* Increased calm spacing */
+    background-color: var(--bs-color-bg-white);
+}
+
 /* -----------------------------------------------------------
    HERO SECTION
 ----------------------------------------------------------- */
+
 /* ------------------------------
    HERO BASE
 ------------------------------ */
@@ -110,34 +124,30 @@
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
-    min-height: 600px;
-    /* ensures space for slides */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    min-height: auto;
+    /* allow auto height */
+    padding-bottom: 4rem;
+    /* safe space for CTA */
 }
 
 /* ------------------------------
    SLIDE CONTENT
 ------------------------------ */
 .hero-content {
-    position: absolute;
-    /* stack all slides */
-    top: 0;
-    left: 0;
+    display: none;
+    /* hide inactive slides */
     width: 100%;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    pointer-events: none;
 }
 
 .hero-content.active {
+    display: block;
+    /* show active slide */
     opacity: 1;
-    pointer-events: auto;
+    position: relative;
+    /* take natural height */
     z-index: 2;
-    padding-bottom: 4rem;
-    /* ensure CTA never touches bottom edge */
 }
 
 /* ------------------------------
@@ -298,7 +308,6 @@
     border-radius: 50%;
     display: inline-block;
     cursor: pointer;
-    transition: background-color 0.3s;
     overflow: hidden;
 }
 
@@ -306,11 +315,9 @@
     background-color: #FFD700;
 }
 
-/* Progress bar inside dot */
 .progress-bar {
     position: absolute;
     bottom: -4px;
-    /* sits just below the dot */
     left: 0;
     height: 3px;
     background: #FFD700;
@@ -340,20 +347,16 @@
 }
 
 /* ------------------------------
-   PAUSE ON HOVER
------------------------------- */
-.hero:hover .progress-bar {
-    animation-play-state: paused;
-    transition: none;
-    /* freeze progress bar width */
-}
-
-/* ------------------------------
    RESPONSIVE
 ------------------------------ */
 @media (max-width: 768px) {
     .hero {
         padding: 2rem 1rem;
+    }
+
+    .hero-inner {
+        min-height: auto;
+        padding-bottom: 4rem;
     }
 
     .hero-title {
@@ -364,8 +367,9 @@
         font-size: clamp(0.85rem, 3vw, 1rem);
     }
 
-    .hero-options {
-        gap: 0.5rem;
+    .hero-cta button {
+        width: 100%;
+        max-width: 280px;
     }
 
     .hero-nav {
@@ -376,41 +380,8 @@
     .hero-dots {
         bottom: 10px;
     }
-
-    .nav-btn {
-        font-size: 1.5rem;
-        padding: 0.4rem 0.8rem;
-    }
-
-    .hero-inner {
-        min-height: auto;
-        /* allow auto height on mobile */
-        padding-bottom: 3rem;
-        /* extra space for CTA button */
-    }
-
-    .hero-cta {
-        margin-top: 1.5rem;
-    }
-
-    .hero-cta button {
-        width: 100%;
-        /* full width button on mobile */
-        max-width: 280px;
-        /* but not too wide */
-    }
 }
 
-
-
-/* -----------------------------------------------------------
-   SECTION 2: WHAT IS BIMA SAKHI
-   ----------------------------------------------------------- */
-.what-is {
-    padding: 6rem 0;
-    /* Increased calm spacing */
-    background-color: var(--bs-color-bg-white);
-}
 
 .what-is-inner {
     display: flex;
