@@ -190,8 +190,16 @@
     transform: translateY(-3px);
 }
 
-.hero-cta button {
+.hero-cta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 2rem;
+    overflow: visible;
+    /* ✅ ensures button not cut */
+}
+
+.hero-cta button {
     background: var(--bs-color-accent);
     color: #212529;
     font-weight: 700;
@@ -201,10 +209,11 @@
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    /* ✅ button text auto shrink */
     white-space: nowrap;
-    /* ✅ no wrapping */
+    max-width: 100%;
+    /* ✅ prevents overflow */
 }
+
 
 .hero-cta button:hover {
     background: #e0a800;
