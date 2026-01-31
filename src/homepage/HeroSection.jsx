@@ -16,7 +16,7 @@ const HeroSection = () => {
                         <h1 className="hero-title">Bima Sakhi Yojana</h1> {/* main title */}
                         <h3 className="hero-subtitle">Mahila Career Agency Scheme in Delhi NCR</h3> {/* subtitle */}
                         {/* ✅ Image above description */}
-                        <img src="/public/images/Bima_Sakhi_Ai.png" alt="Bima Sakhi Visual" className="hero-image" />
+                        <img src="/images/home/hero-bg.jpg" alt="Bima Sakhi Visual" className="hero-image" />
                         <p className="hero-description"> Launched by Hon. PM to empower women and provide them with an opportunity to become financially independent. </p>
                         <ul className="hero-options">
                             <li>Full Time</li>

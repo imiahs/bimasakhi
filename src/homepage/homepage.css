@@ -151,9 +151,10 @@
 }
 
 .hero-description {
+
     font-size: clamp(1rem, 2.5vw, 1.25rem);
     /* ✅ responsive text size */
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(255, 255, 255, 1);
     /* ✅ white with slight transparency */
     margin-bottom: 1.5rem;
     line-height: 1.8;
