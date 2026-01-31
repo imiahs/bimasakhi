@@ -112,6 +112,10 @@
     margin: 0 auto;
     min-height: 600px;
     /* ensures space for slides */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ------------------------------
@@ -347,7 +351,7 @@
 ------------------------------ */
 @media (max-width: 768px) {
     .hero {
-        padding: 3rem 0;
+        padding: 2rem 1rem;
     }
 
     .hero-title {
@@ -374,6 +378,24 @@
     .nav-btn {
         font-size: 1.5rem;
         padding: 0.4rem 0.8rem;
+    }
+
+    .hero-inner {
+        min-height: auto;
+        /* allow auto height on mobile */
+        padding-bottom: 3rem;
+        /* extra space for CTA button */
+    }
+
+    .hero-cta {
+        margin-top: 1.5rem;
+    }
+
+    .hero-cta button {
+        width: 100%;
+        /* full width button on mobile */
+        max-width: 280px;
+        /* but not too wide */
     }
 }
 
