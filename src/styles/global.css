@@ -195,6 +195,12 @@ p {
     color: var(--color-primary);
 }
 
+.brand-logo img {
+    width: auto;
+    height: 40px;
+    margin-right: 10px;
+}
+
 /* Layout: Footer */
 .site-footer {
     margin-top: auto;
