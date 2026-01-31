@@ -126,7 +126,7 @@
     font-weight: 700;
     margin-bottom: 0.5rem;
     white-space: nowrap;
-    background: linear-gradient(90deg, #FFD700, #FF69B4, #00CFFF);
+    background: linear-gradient(90deg, #FFD700, #FF69B4, #00CFFF, #fff);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
