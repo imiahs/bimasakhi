@@ -14,7 +14,7 @@ const HeroSection = () => {
                     <div className="hero-content">
                         <h4>LIC & Government of India Initiative</h4>
                         <h1>Bima Sakhi Yojana</h1>
-                        <h2>Mahila Career Agency Scheme in Delhi NCR</h2>
+                        <h3>Mahila Career Agency Scheme in Delhi NCR</h3>
                         <p>
                             Launched by Hon. PM to empower women and provide them with an opportunity to become financially independent.
                         </p>

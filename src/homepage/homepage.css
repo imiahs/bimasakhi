@@ -175,7 +175,14 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
     cursor: pointer;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    /* ✅ text shrink/expand according to screen */
+    white-space: nowrap;
+    /* ✅ text stays in one line */
 }
+
+
+
 
 .hero-options li:hover {
     background: var(--bs-color-primary);
@@ -193,6 +200,10 @@
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    /* ✅ button text auto shrink */
+    white-space: nowrap;
+    /* ✅ no wrapping */
 }
 
 .hero-cta button:hover {
