@@ -3,19 +3,38 @@ import React, { useState, useEffect } from 'react';
 const HeroSection = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const totalSlides = 4;
+    const [progress, setProgress] = useState(0);
 
     // Auto-rotate every 5 seconds
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex((prev) => (prev + 1) % totalSlides);
+            setProgress(0);
         }, 5000);
-        return () => clearInterval(interval);
+
+        const progressInterval = setInterval(() => {
+            setProgress((prev) => (prev >= 100 ? 100 : prev + 2));
+        }, 100); // 100ms → 2% increment → 5s total
+
+        return () => {
+            clearInterval(interval);
+            clearInterval(progressInterval);
+        };
     }, []);
 
     // Manual navigation
-    const goToSlide = (index) => setActiveIndex(index);
-    const nextSlide = () => setActiveIndex((prev) => (prev + 1) % totalSlides);
-    const prevSlide = () => setActiveIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+    const goToSlide = (index) => {
+        setActiveIndex(index);
+        setProgress(0);
+    };
+    const nextSlide = () => {
+        setActiveIndex((prev) => (prev + 1) % totalSlides);
+        setProgress(0);
+    };
+    const prevSlide = () => {
+        setActiveIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+        setProgress(0);
+    };
 
     return (
         <section className="hero">
@@ -46,7 +65,7 @@ const HeroSection = () => {
                         <h2 className="hero-intro">New Opportunities for Women</h2>
                         <h1 className="hero-title">Financial Freedom Program</h1>
                         <h3 className="hero-subtitle">Skill Development & Training</h3>
-                        <img src="/images/Bima_Sakhi_Ai.png" alt="Empowerment Visual" className="hero-image" />
+                        <img src="/images/bima_sakhi_ai.png" alt="Empowerment Visual" className="hero-image" />
                         <p className="hero-description">
                             A new initiative under Bima Sakhi Yojana to provide skill training, career guidance, and financial literacy.
                         </p>
@@ -64,7 +83,7 @@ const HeroSection = () => {
                         <h2 className="hero-intro">Nationwide Expansion</h2>
                         <h1 className="hero-title">Bima Sakhi Outreach</h1>
                         <h3 className="hero-subtitle">Connecting Women Across India</h3>
-                        <img src="/images/Bima_Sakhi_Amita.png" alt="Outreach Visual" className="hero-image" />
+                        <img src="/images/bima_sakhi_amita.png" alt="Outreach Visual" className="hero-image" />
                         <p className="hero-description">
                             Expanding the program to reach women in rural and urban areas, ensuring inclusivity and equal opportunity.
                         </p>
@@ -82,7 +101,7 @@ const HeroSection = () => {
                         <h2 className="hero-intro">Future Ready Women</h2>
                         <h1 className="hero-title">Digital Sakhi Program</h1>
                         <h3 className="hero-subtitle">Technology & Entrepreneurship</h3>
-                        <img src="/images/Bima_Sakhi_Avneet.png" alt="Digital Visual" className="hero-image" />
+                        <img src="/images/bima_sakhi_avneet.png" alt="Digital Visual" className="hero-image" />
                         <p className="hero-description">
                             Preparing women for the digital economy with entrepreneurship training, online tools, and modern skills.
                         </p>
@@ -101,14 +120,21 @@ const HeroSection = () => {
                         <button onClick={nextSlide} className="nav-btn">›</button>
                     </div>
 
-                    {/* Dots Navigation */}
+                    {/* Dots + Progress Bar */}
                     <div className="hero-dots">
                         {[...Array(totalSlides)].map((_, index) => (
                             <span
                                 key={index}
                                 className={`dot ${activeIndex === index ? "active" : ""}`}
                                 onClick={() => goToSlide(index)}
-                            ></span>
+                            >
+                                {activeIndex === index && (
+                                    <span
+                                        className="progress-bar"
+                                        style={{ width: `${progress}%` }}
+                                    ></span>
+                                )}
+                            </span>
                         ))}
                     </div>
 
