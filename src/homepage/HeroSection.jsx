@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { LanguageContext } from '../../context/LanguageContext'; // Adjust path if needed
+import { LanguageContext } from '../context/LanguageContext'; // Adjust path if needed
+
 
 const HeroSection = () => {
     const { language } = useContext(LanguageContext);
