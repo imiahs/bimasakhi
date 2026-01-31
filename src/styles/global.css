@@ -190,15 +190,20 @@ p {
 }
 
 .brand-logo {
+    display: flex;
+    align-items: center;
     font-size: var(--font-size-xl);
     font-weight: 800;
     color: var(--color-primary);
+    text-decoration: none;
+    gap: 10px;
 }
 
 .brand-logo img {
     width: auto;
     height: 40px;
     margin-right: 10px;
+    display: block;
 }
 
 /* Layout: Footer */
