@@ -71,7 +71,7 @@
     position: relative;
     background-color: var(--bs-color-primary);
     color: #fff;
-    padding: 5rem 0;
+    padding: 2.5rem 0;
     /* Taller hero for impact */
     text-align: center;
     overflow: hidden;
@@ -228,6 +228,17 @@
     /* ✅ avoid too small pills */
 }
 
+/* ✅ Hover effect for pills */
+.hero-options li:hover {
+    background: var(--bs-color-primary);
+    /* background changes to brand blue */
+    color: #fff;
+    /* text turns white */
+    transform: translateY(-3px);
+    /* subtle lift effect */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
 .hero-cta {
     display: flex;
     justify-content: center;
@@ -248,8 +259,15 @@
     white-space: nowrap;
 }
 
-
-
+.hero-cta button:hover {
+    background: #fff;
+    /* invert colors */
+    color: var(--bs-color-accent);
+    /* text matches accent */
+    transform: scale(1.05);
+    /* slight zoom */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
 
 
 /* -----------------------------------------------------------
