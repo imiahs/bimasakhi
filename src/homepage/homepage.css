@@ -136,6 +136,8 @@
     opacity: 1;
     pointer-events: auto;
     z-index: 2;
+    padding-bottom: 4rem;
+    /* ensure CTA never touches bottom edge */
 }
 
 /* ------------------------------
