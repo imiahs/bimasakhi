@@ -46,49 +46,49 @@ const HeroSection = () => {
                 subtitle: "Special Opportunity for Women in East Delhi",
                 desc: "Become a LIC Bima Sakhi and gain financial independence. Special scheme only for women!",
                 options: [
-                    "Only for Women (18-50 years)",
-                    "10th Pass or Above",
+                    "Only for Women",
+                    "Min. 10th Pass",
                     "Zero Investment",
-                    "Work Full Time or Part Time"
+                    "Flexible Work"
                 ],
                 cta: "Know More"
             },
             slide2: {
-                intro: "Stipend Support for 3 Years",
+                intro: "Stipend for 3 Years",
                 title: "Monthly Stipend + Commission",
                 subtitle: "Earn While You Learn in East Delhi",
                 desc: "Get monthly stipend for first 3 years + regular commission on policies (as per LIC terms).",
                 options: [
-                    "1st Year: ₹7000/month (subject to min. 1 policy/month + total 24 policies & ₹48,000 commission in year)",
-                    "2nd Year: ₹6000/month (subject to 65% policies from 1st year active)",
-                    "3rd Year: ₹5000/month (subject to 65% policies from 2nd year active)",
-                    "Plus Commission Every Month!"
+                    "1st Year: ₹7000/month",
+                    "2nd Year: ₹6000/month",
+                    "3rd Year: ₹5000/month",
+                    "Plus Commission"
                 ],
                 cta: "Join Now"
             },
             slide3: {
                 intro: "Empower Yourself Today",
                 title: "Women of East Delhi – Your Chance!",
-                subtitle: "Simple Work | Good Income | Respect",
+                subtitle: "Flexible Work | Good Income | Respect",
                 desc: "Work as LIC agent in your area. Help families, earn money, and become strong & independent.",
                 options: [
-                    "Training Provided",
-                    "Work from Home / Field",
-                    "East Delhi Special Focus",
-                    "Financial Freedom for Women"
+                    "Free Training",
+                    "Flexible Work",
+                    "Only for Female",
+                    "Financial Independence"
                 ],
                 cta: "Get Started"
             },
             slide4: {
                 intro: "Build Your Bright Future",
                 title: "Become a Successful Bima Sakhi",
-                subtitle: "After 3 Years – Unlimited Earnings!",
+                subtitle: "Stipend for 3 Years – Earn More After That!",
                 desc: "After stipend period, continue as regular LIC agent and earn good commission for life (as per LIC rules).",
                 options: [
-                    "Life Long Career",
+                    "Rewarding Career",
                     "Respect in Society",
                     "Help Your Community",
-                    "Secure Your Family"
+                    "Financial Independence"
                 ],
                 cta: "Apply Today"
             }
@@ -100,23 +100,23 @@ const HeroSection = () => {
                 subtitle: "पूर्वी दिल्ली की महिलाओं के लिए खास अवसर",
                 desc: "एलआईसी बीमा सखी बनें और आर्थिक रूप से आत्मनिर्भर बनें। सिर्फ महिलाओं के लिए विशेष योजना!",
                 options: [
-                    "केवल महिलाओं के लिए (18-50 वर्ष)",
-                    "10वीं पास या उससे अधिक",
+                    "केवल महिलाओं के लिए",
+                    "10वीं पास",
                     "शून्य निवेश",
-                    "पूर्णकालिक या अंशकालिक काम"
+                    "लचीला काम"
                 ],
                 cta: "और जानें"
             },
             slide2: {
-                intro: "3 साल की स्टाइपेंड सहायता",
+                intro: "3 साल की स्टाइपेंड",
                 title: "मासिक स्टाइपेंड + कमीशन",
                 subtitle: "पूर्वी दिल्ली में सीखते हुए कमाएं",
                 desc: "पहले 3 साल तक मासिक स्टाइपेंड + हर पॉलिसी पर नियमित कमीशन (एलआईसी नियमों के अनुसार)।",
                 options: [
-                    "पहला साल: ₹7000/माह (न्यूनतम 1 पॉलिसी/माह + साल में कुल 24 पॉलिसी और ₹48000 कमीशन पर निर्भर)",
-                    "दूसरा साल: ₹6000/माह (पहले साल की 65% पॉलिसी सक्रिय रहने पर)",
-                    "तीसरा साल: ₹5000/माह (दूसरे साल की 65% पॉलिसी सक्रिय रहने पर)",
-                    "प्लस हर महीने कमीशन!"
+                    "पहला साल: ₹7000/माह",
+                    "दूसरा साल: ₹6000/माह",
+                    "तीसरा साल: ₹5000/माह",
+                    "प्लस कमीशन!"
                 ],
                 cta: "अभी जुड़ें"
             },
