@@ -19,8 +19,8 @@ const HomePage = () => {
     return (
         <div className="homepage-wrapper">
             <SEOHead
-                title="Bima Sakhi - Independent LIC Agency Career for Women (Delhi NCR)"
-                description="Official platform for women to start an independent LIC agency in Delhi NCR. LIC-regulated process. No fixed salary, full commission-based career."
+                title="Bima Sakhi - LIC Agency Career for Women (Delhi NCR)"
+                description="Opportunity for women to start an independent LIC agency in Delhi NCR. No fixed salary, full commission-based career."
                 path="/"
             />
 

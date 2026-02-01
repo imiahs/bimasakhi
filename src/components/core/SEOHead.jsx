@@ -6,7 +6,7 @@ const SEOHead = ({
     title,
     description,
     path,
-    ogImage = '/Bima_Sakhi_Pratibha.png', // Default Ad Creative
+    ogImage = 'images/home/hero-bg.jpg', // Default Ad Creative
     schema = null
 }) => {
     const location = useLocation();
@@ -18,10 +18,12 @@ const SEOHead = ({
         "@type": "Organization",
         "name": "Bima Sakhi",
         "url": "https://www.bimasakhi.com",
-        "logo": "https://www.bimasakhi.com/vite.svg", // Assuming logo exists or will exist, purely metadata
+        "logo": "https://www.bimasakhi.com/images/logo.png", // Assuming logo exists or will exist, purely metadata
         "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer support",
+            "email": "support@bimasakhi.com",
+            "telephone": "+91 9311073365",
             "areaServed": "Delhi NCR",
             "availableLanguage": ["Hindi", "English"]
         },
