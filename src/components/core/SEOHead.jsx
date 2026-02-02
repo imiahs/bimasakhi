@@ -22,7 +22,7 @@ const SEOHead = ({
         "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer support",
-            "email": "support@bimasakhi.com",
+            "email": "info@bimasakhi.com",
             "telephone": "+91 9311073365",
             "areaServed": "Delhi NCR",
             "availableLanguage": ["Hindi", "English"]
