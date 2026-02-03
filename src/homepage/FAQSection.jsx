@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { LanguageContext } from '../context/LanguageContext'; // Adjust path if needed
 
 const FAQSection = () => {
