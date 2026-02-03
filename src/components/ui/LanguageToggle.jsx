@@ -1,49 +1,28 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { LanguageContext } from '../../context/LanguageContext';
 import '../../styles/LanguageToggle.css';
 
 const LanguageToggle = () => {
     const { language, switchLanguage } = useContext(LanguageContext);
-    const [isOpen, setIsOpen] = useState(false);
 
-    const toggleOpen = () => setIsOpen(!isOpen);
+    // Current language check
+    const isEnglish = language === 'en';
 
-    const handleSelect = (lang) => {
-        switchLanguage(lang);
-        setIsOpen(false);
-    };
+    // Next language (what button should switch to)
+    const nextLanguage = isEnglish ? 'hi' : 'en';
+
+    // Button label (what user sees)
+    const buttonLabel = isEnglish ? 'हिंदी' : 'English';
 
     return (
-        <div className={`language-toggle-floating ${isOpen ? 'open' : 'collapsed'}`}>
-            {/* When collapsed, show only active language (or toggle button) */}
-            {/* When open, show both options */}
-
-            {/* Option: Hindi */}
-            {(isOpen || language === 'hi') && (
-                <button
-                    className={`lang-btn ${language === 'hi' ? 'active' : ''}`}
-                    onClick={isOpen ? () => handleSelect('hi') : toggleOpen}
-                    aria-label="Switch to Hindi"
-                >
-                    हिंदी
-                </button>
-            )}
-
-            {/* Option: English */}
-            {(isOpen || language === 'en') && (
-                <button
-                    className={`lang-btn ${language === 'en' ? 'active' : ''}`}
-                    onClick={isOpen ? () => handleSelect('en') : toggleOpen}
-                    aria-label="Switch to English"
-                >
-                    ENG
-                </button>
-            )}
-
-            {/* Close/Toggle Indication (Optional, but good for UX) */}
-            {!isOpen && (
-                <div className="toggle-hint" onClick={toggleOpen}></div>
-            )}
+        <div className="language-toggle-floating">
+            <button
+                className="lang-btn"
+                onClick={() => switchLanguage(nextLanguage)}
+                aria-label={`Switch to ${buttonLabel}`}
+            >
+                {buttonLabel}
+            </button>
         </div>
     );
 };
