@@ -170,11 +170,12 @@
     margin-top: 20px;
 }
 
-/* iOS Safari Fix: Checkbox Text Wrapping */
+/* Cross-Platform Fix: Checkbox Layout */
 .checkbox-label {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
+    /* Standardize gap */
     font-size: 0.85em;
     color: #555;
     cursor: pointer;
@@ -182,14 +183,21 @@
 }
 
 .checkbox-label span {
+    display: block;
+    /* Ensure block behavior inside flex item */
     flex: 1;
-    /* Critical for iOS wrapping */
     min-width: 0;
-    /* Flexbox text wrap fix */
+    /* Flexbox safety */
+    line-height: 1.5;
+    white-space: normal;
+    word-break: break-word;
+    /* Prevent overflow on long words */
 }
 
 .checkbox-label input {
     margin-top: 3px;
     flex-shrink: 0;
-    /* Prevent checkbox squish */
+    /* NEVER shrink the checkbox */
+    width: 16px;
+    height: 16px;
 }
