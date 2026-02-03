@@ -121,13 +121,11 @@
 }
 
 /* ------------------------------ in hero-inner */
-/* ------------------------------ in hero-inner */
 .hero-inner {
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
-    /* Slider Fix: Restore height for absolute centering */
-    min-height: 100svh;
+    /* Height Fix: Allow content to dictate, prevents stacking */
     height: auto;
 
     display: flex;
