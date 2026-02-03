@@ -166,7 +166,8 @@
 .hero-content.active {
     /* Animation: Active State */
     opacity: 1;
-    z-index: 2;
+    z-index: 3;
+    /* Fix: Raised stacking context */
     transform: translateY(0);
     pointer-events: auto;
 
@@ -207,6 +208,12 @@
     white-space: normal;
 
     font-weight: 700;
+
+    /* Fix: Gradient Rendering Regression */
+    position: relative;
+    z-index: 4;
+    backface-visibility: hidden;
+    transform: translateZ(0);
     margin-bottom: 0.5rem;
     background: linear-gradient(90deg, #FFD700, #FF69B4, #00CFFF);
     background-size: 200% auto;
