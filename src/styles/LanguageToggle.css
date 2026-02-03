@@ -5,36 +5,55 @@
     z-index: 1000;
 }
 
-/* Single smart button */
+/* ===============================
+   Language Toggle Button
+   =============================== */
 .language-toggle-floating .lang-btn {
     border: none;
-    background: white;
-    padding: 6px 12px;
-    /* compact */
+
+    /* Primary background */
+    background: linear-gradient(135deg, #0056b3, #007bff);
+    color: #ffffff;
+
+    padding: 6px 14px;
     border-radius: 18px;
+
     font-size: 0.85rem;
     font-weight: 600;
-    color: #333;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     white-space: nowrap;
 
+    cursor: pointer;
     min-width: auto;
-    /* 🔥 IMPORTANT */
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition:
+        background 0.25s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-/* Hover only on non-touch devices */
+/* Hover effects (desktop only) */
 @media (hover: hover) {
     .language-toggle-floating .lang-btn:hover {
-        background-color: #f5f5f5;
-        transform: translateY(-1px);
+        background: linear-gradient(135deg, #004a99, #006ae0);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
     }
 }
 
-/* Mobile spacing safety */
+/* Active / tap feedback */
+.language-toggle-floating .lang-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============================
+   Mobile spacing (WhatsApp safe)
+   =============================== */
 @media (max-width: 768px) {
     .language-toggle-floating {
         bottom: 90px;
+        /* 👈 WhatsApp button ke liye safe gap */
         right: 15px;
     }
 }
