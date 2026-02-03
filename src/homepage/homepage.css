@@ -406,10 +406,8 @@
 
     /* Image Strategy: */
     background-image: url('/public/images/home/about-intro.jpg');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-
 
     display: flex;
     align-items: center;
