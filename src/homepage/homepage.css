@@ -81,9 +81,14 @@
     background: linear-gradient(135deg, #004E92, #000428);
     /* Blue gradient */
     color: #fff;
-    padding: 6rem 0 4rem 0;
-    /* Increased top padding */
+    padding: 4rem 0;
+    /* Reduced top padding for mobile safety */
     text-align: center;
+
+    /* Small viewport adjustment */
+    @media (max-height: 700px) {
+        padding: 3rem 0;
+    }
 
     /* UX Fix 4: Content Growth */
     overflow: visible;
@@ -121,7 +126,7 @@
     max-width: 1000px;
     margin: 0 auto;
     /* UX Fix: Growth */
-    min-height: 100svh;
+    /* min-height removed to allow .hero to control viewport */
     height: auto;
 
     display: flex;
@@ -162,7 +167,10 @@
     pointer-events: auto;
 }
 
-TEXT STYLES ------------------------------ */ .hero-intro {
+/* ------------------------------
+   TEXT STYLES
+------------------------------ */
+.hero-intro {
     font-size: clamp(1rem, 2.5vw, 1.25rem);
     margin-bottom: 0.75rem;
     font-weight: 500;
