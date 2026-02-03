@@ -468,7 +468,7 @@
    SECTION 3: WHO IT IS FOR
    ----------------------------------------------------------- */
 .who-for {
-    padding: 6rem 0;
+    padding: 3rem 0;
     background-color: var(--bs-color-bg-light);
 }
 
@@ -560,7 +560,7 @@
    SECTION 4: PROCESS OVERVIEW
    ----------------------------------------------------------- */
 .process {
-    padding: 6rem 0;
+    padding: 3rem 0;
     background-color: var(--bs-color-bg-white);
 }
 
@@ -632,7 +632,7 @@
    SECTION 5: TRANSPARENCY
    ----------------------------------------------------------- */
 .transparency {
-    padding: 6rem 0;
+    padding: 3rem 0;
     background-color: #f8f9fa;
     /* Slight contrast */
     border-top: 1px solid var(--bs-color-border);
@@ -687,7 +687,7 @@
    SECTION 6: SOCIAL PROOF
    ----------------------------------------------------------- */
 .social-proof {
-    padding: 6rem 0;
+    padding: 3rem 0;
     background-color: var(--bs-color-bg-white);
     text-align: center;
 }
@@ -748,7 +748,7 @@
    SECTION 7: AUTHORITY / MENTOR
    ----------------------------------------------------------- */
 .authority {
-    padding: 6rem 0;
+    padding: 3rem 0;
     background-color: #f1f5f9;
     /* Slate tint for trust */
     overflow: hidden;
@@ -809,7 +809,7 @@
    SECTION 8: BENEFITS
    ----------------------------------------------------------- */
 .benefits {
-    padding: 6rem 0;
+    padding: 3rem 0;
     background-color: var(--bs-color-bg-white);
 }
 
@@ -862,7 +862,7 @@
    SECTION 9: LOCAL TRUST
    ----------------------------------------------------------- */
 .local-trust {
-    padding: 6rem 0;
+    padding: 3rem 0;
     background-color: #fff;
     position: relative;
     text-align: center;
@@ -908,7 +908,7 @@
    SECTION 10: FAQ
    ----------------------------------------------------------- */
 .faq {
-    padding: 6rem 0;
+    padding: 3rem 0;
     background-color: #f8f9fa;
 }
 
@@ -959,7 +959,7 @@
    SECTION 11: FINAL CTA
    ----------------------------------------------------------- */
 .final-cta {
-    padding: 8rem 0;
+    padding: 5rem 0;
     /* Distinct block height */
     background-color: var(--bs-color-primary);
     background: linear-gradient(135deg, var(--bs-color-primary) 0%, var(--bs-color-primary-dark) 100%);
