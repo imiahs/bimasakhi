@@ -108,35 +108,20 @@
 
 }
 
+/* ------------------------------ in hero-inner */
 .hero-inner {
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
-    min-height: auto;
-    /* allow auto height */
+    /* UX Fix 3: Viewport Fit */
+    min-height: 85svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-bottom: 4rem;
-    /* safe space for CTA */
 }
 
-/* ------------------------------
-   SLIDE CONTENT
------------------------------- */
-.hero-content {
-    display: none;
-    /* hide inactive slides */
-    width: 100%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.hero-content.active {
-    display: block;
-    /* show active slide */
-    opacity: 1;
-    position: relative;
-    /* take natural height */
-    z-index: 2;
-}
+/* ... existing styles ... */
 
 /* ------------------------------
    TEXT STYLES
@@ -147,16 +132,21 @@
     font-weight: 500;
     text-transform: uppercase;
     color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /* UX Fix 1: Natural Wrap */
+    white-space: normal;
 }
 
 .hero-title {
     font-size: clamp(1.8rem, 4vw, 2.75rem);
-    white-space: nowrap;
+    /* UX Fix 1: Max 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    /* Standard property */
+    -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: normal;
 
     font-weight: 700;
     margin-bottom: 0.5rem;
@@ -173,9 +163,8 @@
     font-size: clamp(1rem, 3vw, 1.5rem);
     margin-bottom: 1.5rem;
     color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /* UX Fix 1: Natural Wrap */
+    white-space: normal;
 }
 
 .hero-description {
@@ -204,26 +193,39 @@
 /* ------------------------------
    PILLS
 ------------------------------ */
+/* ------------------------------
+   PILLS
+------------------------------ */
 .hero-options {
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    /* UX Fix 2: Grid for even sizing */
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     justify-content: center;
     margin-top: 2rem;
     padding: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-options li {
     background: #fff;
     color: #004E92;
     font-weight: 600;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 1rem;
     border-radius: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
     cursor: pointer;
-    min-width: 120px;
+
+    /* UX Fix 2: Equal Height & Centering */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    width: 100%;
 }
 
 @media (hover: hover) {
@@ -1008,9 +1010,19 @@
 .final-cta-content p {
     color: rgba(255, 255, 255, 0.95);
     max-width: 600px;
-    margin: 0 auto 3rem auto;
     font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
     line-height: 1.6;
+}
+
+.final-cta-action {
+    /* UX Fix 4: Button Alignment */
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .final-cta-action button {
