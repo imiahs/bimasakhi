@@ -121,12 +121,13 @@
 }
 
 /* ------------------------------ in hero-inner */
+/* ------------------------------ in hero-inner */
 .hero-inner {
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
-    /* UX Fix: Growth */
-    /* min-height removed to allow .hero to control viewport */
+    /* Slider Fix: Restore height for absolute centering */
+    min-height: 100svh;
     height: auto;
 
     display: flex;
@@ -139,13 +140,12 @@
    SLIDE CONTENT (Slider Fix)
 ------------------------------ */
 .hero-content {
-    /* Default: Absolute (Hidden/Overlay layers) */
+    /* Always Absolute for smooth transitions */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 100%;
-    /* Allow growth */
+    height: 100%;
 
     /* Center content within the slide */
     display: flex;
@@ -153,18 +153,34 @@
     justify-content: center;
     align-items: center;
 
+    /* Animation: Initial State */
     opacity: 0;
     z-index: 0;
-    transition: opacity 0.6s ease-in-out;
+    transform: translateY(20px);
+    /* Subtle slide-up */
+
+    /* Smooth, synchronized transition */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     pointer-events: none;
+    will-change: opacity, transform;
 }
 
 .hero-content.active {
-    /* Active: Relative (Dictates Container Height) */
-    position: relative;
+    /* Animation: Active State */
     opacity: 1;
     z-index: 2;
+    transform: translateY(0);
     pointer-events: auto;
+
+    /* Removed position switching (relative) to prevent layout jumps */
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+    .hero-content {
+        transition: opacity 0s;
+        transform: none;
+    }
 }
 
 /* ------------------------------
