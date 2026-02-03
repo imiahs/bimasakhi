@@ -8,35 +8,57 @@
     padding: 4px;
     z-index: 1000;
     display: flex;
-    gap: 4px;
+    flex-direction: column-reverse;
+    /* Stack upwards usually safer for bottom-right fab */
+    gap: 8px;
     border: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.language-toggle-floating.collapsed {
+    padding: 4px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.language-toggle-floating.open {
+    padding: 12px;
+    border-radius: 12px;
 }
 
 .lang-btn {
     border: none;
-    background: transparent;
-    padding: 6px 12px;
+    background: white;
+    padding: 10px 16px;
+    /* Min touch target safe */
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #666;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
+    min-width: 80px;
 }
 
 .lang-btn.active {
-    background-color: var(--color-primary, #e91e63);
+    background-color: var(--color-primary, #0056b3);
     color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.lang-btn:hover:not(.active) {
-    background-color: #f5f5f5;
+@media (hover: hover) {
+    .lang-btn:hover:not(.active) {
+        background-color: #f5f5f5;
+        transform: translateY(-2px);
+    }
 }
 
 /* Ensure it doesn't overlap with WhatsApp button if present or bottom navigation */
 @media (max-width: 768px) {
     .language-toggle-floating {
-        bottom: 80px;
+        bottom: 90px;
         /* Push up on mobile if needed */
         right: 15px;
     }

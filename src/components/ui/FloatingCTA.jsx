@@ -27,10 +27,10 @@ const FloatingCTA = () => {
     if (!isVisible) return null;
 
     return (
-        <div className="fixed bottom-0 left-0 w-full p-4 z-50 bg-gradient-to-t from-white via-white to-transparent pb-6 md:hidden">
+        <div className="floating-cta-safe md:hidden">
             <Link to="/apply">
-                <Button variant="primary" className="w-full shadow-2xl py-3 text-lg font-bold animate-slide-up">
-                    {text} ➝
+                <Button variant="primary" className="shadow-lg w-full">
+                    {text} <span style={{ marginLeft: '8px' }}>➝</span>
                 </Button>
             </Link>
         </div>

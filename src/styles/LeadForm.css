@@ -169,3 +169,27 @@
     gap: 10px;
     margin-top: 20px;
 }
+
+/* iOS Safari Fix: Checkbox Text Wrapping */
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.85em;
+    color: #555;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.checkbox-label span {
+    flex: 1;
+    /* Critical for iOS wrapping */
+    min-width: 0;
+    /* Flexbox text wrap fix */
+}
+
+.checkbox-label input {
+    margin-top: 3px;
+    flex-shrink: 0;
+    /* Prevent checkbox squish */
+}

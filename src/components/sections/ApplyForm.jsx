@@ -336,22 +336,12 @@ const ApplyForm = () => {
                 />
 
                 <div className="form-group" style={{ marginTop: '15px' }}>
-                    <label
-                        style={{
-                            display: 'flex',
-                            alignItems: 'flex-start',
-                            gap: '10px',
-                            fontSize: '0.85em',
-                            color: '#555',
-                            cursor: 'pointer'
-                        }}
-                    >
+                    <label className="checkbox-label">
                         <input
                             type="checkbox"
                             name="dndConsent"
                             checked={formData.dndConsent}
                             onChange={handleChange}
-                            style={{ marginTop: '3px' }}
                         />
                         <span>
                             I voluntarily authorize Bima Sakhi / IMIAH Services to contact me

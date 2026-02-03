@@ -84,10 +84,14 @@ p {
     border-radius: var(--border-radius-md);
     cursor: pointer;
     border: none;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.1s;
     width: 100%;
     /* Mobile first: full width */
     font-size: var(--font-size-lg);
+
+    /* iOS Touch Target Hardening */
+    min-height: 48px;
+    touch-action: manipulation;
 }
 
 .btn-primary {
@@ -95,19 +99,52 @@ p {
     color: var(--color-white);
 }
 
-.btn-primary:hover {
-    background-color: var(--color-primary-hover);
+@media (hover: hover) {
+    .btn-primary:hover {
+        background-color: var(--color-primary-hover);
+        transform: translateY(-1px);
+    }
 }
 
 .btn-primary:disabled {
     background-color: var(--color-text-light);
     cursor: not-allowed;
+    transform: none;
 }
 
 .btn-secondary {
     background-color: var(--color-bg-light);
     color: var(--color-text-secondary);
     border: 1px solid var(--border-color);
+}
+
+/* Floating CTA (Safe for iOS) */
+.floating-cta-safe {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    z-index: 999;
+
+    /* Gradient fade-up background */
+    background: linear-gradient(to top, #ffffff 80%, rgba(255, 255, 255, 0) 100%);
+
+    /* Safe Area for iPhone Home Indicator */
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+
+    /* Animation */
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
 
 /* Components: Cards */
@@ -138,6 +175,8 @@ p {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
     background-color: var(--color-bg-light);
+    font-size: 16px;
+    /* Critical for iOS to prevent zoom on focus */
 }
 
 .form-input:focus,
