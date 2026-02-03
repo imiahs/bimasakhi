@@ -125,12 +125,15 @@
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
-    /* Height Fix: Allow content to dictate, prevents stacking */
+
+    /* STABILIZATION FIX: CSS Grid Layout */
+    display: grid;
+    grid-template-areas: "stack";
+    /* Grid container expands to tallest content -> No clipping */
     height: auto;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /* Center alignment for grid items */
+    place-items: center;
     padding-bottom: 4rem;
 }
 
@@ -138,12 +141,11 @@
    SLIDE CONTENT (Slider Fix)
 ------------------------------ */
 .hero-content {
-    /* Always Absolute for smooth transitions */
-    position: absolute;
-    top: 0;
-    left: 0;
+    /* Grid Item Strategy: Stack all slides in same cell */
+    grid-area: stack;
+    position: relative;
+    /* All slides relative, no position switching */
     width: 100%;
-    height: 100%;
 
     /* Center content within the slide */
     display: flex;
@@ -152,10 +154,9 @@
     align-items: center;
 
     /* Animation: Initial State */
-    opacity: 1;
-    z-index: 1;
+    opacity: 0;
+    z-index: 0;
     transform: translateY(20px);
-    /* Subtle slide-up */
 
     /* Smooth, synchronized transition */
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -167,11 +168,9 @@
     /* Animation: Active State */
     opacity: 1;
     z-index: 3;
-    /* Fix: Raised stacking context */
+    /* Matches previous fix */
     transform: translateY(0);
     pointer-events: auto;
-
-    /* Removed position switching (relative) to prevent layout jumps */
 }
 
 /* Reduced Motion Preference */
