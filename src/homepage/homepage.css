@@ -80,7 +80,7 @@
     background: linear-gradient(135deg, #004E92, #000428);
     /* LIC Blue gradient */
     color: #fff;
-    padding: 6rem 0;
+    padding: 4rem 0;
     text-align: center;
     overflow: hidden;
 }
@@ -406,8 +406,10 @@
 
     /* Image Strategy: */
     background-image: url('/public/images/home/about-intro.jpg');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
+
 
     display: flex;
     align-items: center;
@@ -987,6 +989,7 @@
     color: var(--bs-color-primary) !important;
     font-weight: 700;
     padding: 1rem 3rem;
+    gap: 12px;
     border: none;
     border-radius: 50px;
     /* Pill shape for "friendly" feel */
