@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LanguageContext } from '../context/LanguageContext'; // Adjust path if needed
 import Button from '../components/ui/Button'; // Assuming your Button component
 
 const FinalCTASection = () => {
     const { language } = useContext(LanguageContext);
+    const navigate = useNavigate();
 
     const content = {
         en: {
@@ -15,7 +16,7 @@ const FinalCTASection = () => {
         },
         hi: {
             title: "बीमा सखी बनकर अपना भविष्य सुरक्षित करने के लिए तैयार हैं?",
-            subtitle: "हजारों महिलाएं पहले से ही आर्थिक आत्मनिर्भरता, समाज में सम्मान और परिवारों की सुरक्षा की दिशा में यह कदम उठा रही हैं। निःशुल्क ट्रेनिंग, 3 साल का मासिक स्टाइपेंड (₹7000 → ₹6000 → ₹5000), और असीमित कमीशन की संभावना के साथ, यह आपका एक अर्थपूर्ण, लचीला करियर बनाने का मौका है।",
+            subtitle: "हजारों महिलाएं पहले से ही आर्थिक आत्मनिर्भरता, समाज में सम्मान और परिवारों की सुरक्षा की दिशा में यह कदम उठा रही हैं। निःशुल्क प्रशिक्षण, 3 साल का मासिक स्टाइपेंड (₹7000 → ₹6000 → ₹5000), और असीमित कमीशन की संभावना के साथ, यह आपका एक अर्थपूर्ण, लचीला करियर बनाने का मौका है।",
             primaryCTA: "योग्यता जांचें और शुरू करें",
             secondaryCTA: "अभी आवेदन करें"
         }
@@ -33,16 +34,22 @@ const FinalCTASection = () => {
                 </div>
 
                 <div className="final-cta-action">
-                    <Link to="/eligibility"> {/* Adjust route to your eligibility/check page */}
-                        <Button variant="primary" size="large">
-                            {t.primaryCTA}
-                        </Button>
-                    </Link>
-                    <Link to="/apply"> {/* Adjust route to your application/form page */}
-                        <Button variant="secondary" size="large">
-                            {t.secondaryCTA}
-                        </Button>
-                    </Link>
+                    {/* Phase 1 Fix: Replace nested Link with onClick to prevent invalid HTML */}
+                    <Button
+                        variant="primary"
+                        size="large"
+                        onClick={() => navigate('/eligibility')}
+                    >
+                        {t.primaryCTA}
+                    </Button>
+
+                    <Button
+                        variant="secondary"
+                        size="large"
+                        onClick={() => navigate('/apply')}
+                    >
+                        {t.secondaryCTA}
+                    </Button>
                 </div>
 
             </div>

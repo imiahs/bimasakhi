@@ -3,6 +3,11 @@ import { LanguageContext } from '../context/LanguageContext'; // Adjust path if 
 
 const FAQSection = () => {
     const { language } = useContext(LanguageContext);
+    const [activeIndex, setActiveIndex] = useState(null); // Default all closed
+
+    const toggleFAQ = (index) => {
+        setActiveIndex(activeIndex === index ? null : index);
+    };
 
     const content = {
         en: {
@@ -98,9 +103,24 @@ const FAQSection = () => {
 
                 <div className="faq-list">
                     {t.faqs.map((faq, index) => (
-                        <div className="faq-item" key={index}>
-                            <h3>{faq.question}</h3>
-                            <p>{faq.answer}</p>
+                        <div
+                            className={`faq-item ${activeIndex === index ? 'active' : ''}`}
+                            key={index}
+                            onClick={() => toggleFAQ(index)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleFAQ(index); }}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <div className="faq-question-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <h3>{faq.question}</h3>
+                                <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{activeIndex === index ? '−' : '+'}</span>
+                            </div>
+
+                            {/* Conditional Rendering for Phase 1 (No CSS changes) */}
+                            {activeIndex === index && (
+                                <p style={{ marginTop: '1rem' }}>{faq.answer}</p>
+                            )}
                         </div>
                     ))}
                 </div>
