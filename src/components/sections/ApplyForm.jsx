@@ -262,25 +262,34 @@ const ApplyForm = () => {
             const data = response.data;
 
             if (data.success) {
-                const leadId = data.lead_id || 'PENDING';
+                // Check if Duplicate
+                if (data.duplicate) {
+                    setStatus({
+                        isSubmitting: false,
+                        success: false, // Don't trigger generic success view
+                        error: null,
+                        duplicate: true, // Trigger duplicate view
+                        leadId: data.lead_id,
+                        duplicateData: data.data // Pass existing lead data
+                    });
+                } else {
+                    // Normal Success
+                    const leadId = data.lead_id || 'PENDING';
+                    markSubmitted(formData.city, payload);
 
-                // 1. Mark as locally submitted
-                markSubmitted(formData.city, payload);
+                    analytics.track('form_submit', {
+                        leadId: leadId,
+                        city: formData.city,
+                        source: userState.source
+                    });
 
-                // 2. Track Analytics
-                analytics.track('form_submit', {
-                    leadId: leadId,
-                    city: formData.city,
-                    source: userState.source
-                });
-
-                // 3. Update UI
-                setStatus({
-                    isSubmitting: false,
-                    success: true,
-                    error: null,
-                    leadId: leadId
-                });
+                    setStatus({
+                        isSubmitting: false,
+                        success: true,
+                        error: null,
+                        leadId: leadId
+                    });
+                }
             } else {
                 throw new Error(data.error || 'Submission Failed');
             }
@@ -555,7 +564,43 @@ const ApplyForm = () => {
         </div>
     );
 
-    // 3. Success View
+    // 3. Duplicate View (Welcome Back)
+    if (status.duplicate) {
+        const existingDate = status.duplicateData?.created_at
+            ? new Date(status.duplicateData.created_at).toLocaleDateString()
+            : 'a previous date';
+
+        return (
+            <div className="apply-success-card">
+                <div className="success-icon">👋</div>
+                <h2>Welcome Back, {formData.name}</h2>
+                <p>
+                    We already have your application from <strong>{existingDate}</strong>.
+                </p>
+
+                <div style={{
+                    margin: '20px 0',
+                    padding: '15px',
+                    background: '#f8f9fa',
+                    borderRadius: '8px',
+                    fontSize: '0.9em',
+                    color: '#666'
+                }}>
+                    Our team is reviewing your profile. There is no need to apply again.
+                    <br />If you haven't heard from us, you can connect on WhatsApp.
+                </div>
+
+                <button
+                    onClick={handleWhatsAppClick}
+                    className="btn btn-whatsapp btn-block"
+                >
+                    Check Status on WhatsApp
+                </button>
+            </div>
+        );
+    }
+
+    // 4. Success View
     if (status.success) {
         return (
             <div className="apply-success-card animate-pulse">
