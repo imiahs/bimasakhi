@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { LanguageContext } from '../../context/LanguageContext';
-import Button from '../ui/Button';
-import Card from '../ui/Card';
+import Button from '../../components/ui/Button';
+import Card from '../../components/ui/Card';
 
 const EligibilityBlock = ({ id }) => {
     const { language } = useContext(LanguageContext);

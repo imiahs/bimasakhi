@@ -1,3 +1,6 @@
+// ⚠️ Temporary static homepage (V1 fast ship)
+// Will be replaced by dynamic SectionRenderer in V2
+
 import React from 'react';
 import './homepage.css'; // Phase 5B: Styles
 import SEOHead from '../components/core/SEOHead';

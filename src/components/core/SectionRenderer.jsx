@@ -1,11 +1,11 @@
 import React from 'react';
 import Hero from '../sections/Hero';
-import ApplyForm from '../sections/ApplyForm';
+import ApplyForm from '../../features/leads/ApplyForm';
 import TrustSignals from '../sections/TrustSignals';
 import HowItWorks from '../sections/HowItWorks';
 import IncomeBlock from '../sections/IncomeBlock';
 
-import EligibilityBlock from '../sections/EligibilityBlock';
+import EligibilityBlock from '../../features/leads/EligibilityBlock';
 import Benefits from '../sections/Benefits';
 import Testimonials from '../sections/Testimonials';
 import Gallery from '../sections/Gallery';

@@ -5,9 +5,9 @@ import { ConfigContext } from '../../context/ConfigContext';
 import { LanguageContext } from '../../context/LanguageContext';
 import { analytics } from '../../services/analytics';
 import { getWhatsAppUrl } from '../../utils/whatsapp';
-import Input from '../ui/Input';
-import Select from '../ui/Select';
-import Button from '../ui/Button';
+import Input from '../../components/ui/Input';
+import Select from '../../components/ui/Select';
+import Button from '../../components/ui/Button';
 import '../../styles/LeadForm.css';
 
 const ApplyForm = () => {
@@ -239,14 +239,27 @@ const ApplyForm = () => {
         setStep(prev => prev - 1);
     };
 
+    // SAFEGUARD: Track mounted state to prevent memory leaks
+    const isMounted = useRef(true);
+
+    useEffect(() => {
+        isMounted.current = true;
+        return () => { isMounted.current = false; };
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // GUARD 1: Prevent submission if already submitting
+        if (status.isSubmitting) return;
+
+        // GUARD 2: Validation
         if (!validateStep(3)) return;
 
-        setStatus(prev => ({ ...prev, isSubmitting: true }));
+        // LOCK UI
+        setStatus(prev => ({ ...prev, isSubmitting: true, error: null }));
 
         // Prepare Payload
-        // NOTE: This represents an application for a commission-based LIC agency career
         const payload = {
             ...formData,
             source: userState.source || 'Website',
@@ -255,25 +268,30 @@ const ApplyForm = () => {
             visitedPages: userState.visitedPages
         };
 
-        // Mock API Call (Micro-sprint V1)
-        // Real Backend Call (Production Fix)
         try {
-            const response = await axios.post('/api/create-lead', payload);
+            // TIMEOUT PROTECTION (15s)
+            const timeoutPromise = new Promise((_, reject) =>
+                setTimeout(() => reject(new Error("Request timed out")), 15000)
+            );
+
+            const apiCall = axios.post('/api/create-lead', payload);
+
+            const response = await Promise.race([apiCall, timeoutPromise]);
             const data = response.data;
 
+            if (!isMounted.current) return;
+
             if (data.success) {
-                // Check if Duplicate
                 if (data.duplicate) {
                     setStatus({
                         isSubmitting: false,
-                        success: false, // Don't trigger generic success view
+                        success: false,
                         error: null,
-                        duplicate: true, // Trigger duplicate view
+                        duplicate: true,
                         leadId: data.lead_id,
-                        duplicateData: data.data // Pass existing lead data
+                        duplicateData: data.data
                     });
                 } else {
-                    // Normal Success
                     const leadId = data.lead_id || 'PENDING';
                     markSubmitted(formData.city, payload);
 
@@ -295,16 +313,19 @@ const ApplyForm = () => {
             }
         } catch (error) {
             console.error("Submission Error", error);
-            setStatus({
-                isSubmitting: false,
-                success: false,
-                error: "Network/Server Error. Please retry.",
-                leadId: null
-            });
-            // Optional: Analytics for failure
-            analytics.track('form_error', {
-                error: error.message
-            });
+
+            if (isMounted.current) {
+                setStatus({
+                    isSubmitting: false,
+                    success: false,
+                    error: error.message || "Network/Server Error. Please retry.",
+                    leadId: null
+                });
+
+                analytics.track('form_error', {
+                    error: error.message
+                });
+            }
         }
     };
 

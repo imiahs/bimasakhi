@@ -1,3 +1,7 @@
+// ⚠️ Legacy Dynamic Section Component
+// Not used in current homepage architecture (V1)
+// Do not import without architectural review
+
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../ui/Button';

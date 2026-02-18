@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import ApplyForm from '../components/sections/ApplyForm';
+import ApplyForm from '../features/leads/ApplyForm';
 import { UserContext } from '../context/UserContext';
 import SEOHead from '../components/core/SEOHead';
 
