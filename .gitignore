@@ -35,3 +35,6 @@ Thumbs.db
 
 # Ignore website template drafts
 src/homepage/websitetemplate/
+project-tree.txt
+earlier_tree.txt
+tree.txt

@@ -2,12 +2,15 @@
   Bima Sakhi Homepage Styles
   Theme: Trust, Professionalism, Mentorship
   Approach: Mobile-First, Semantic Classes
+  Original Author: Imiah Services
+  Original Author URL: https://imiahservices.com
+
 */
 
 :root {
     /* Color Palette */
     --bs-color-primary: #0056b3;
-    /* LIC Blue / Trust Blue */
+    /* Blue / Trust Blue */
     --bs-color-primary-dark: #004494;
     --bs-color-secondary: #6c757d;
     --bs-color-text-main: #212529;
