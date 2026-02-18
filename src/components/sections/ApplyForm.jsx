@@ -256,24 +256,47 @@ const ApplyForm = () => {
         };
 
         // Mock API Call (Micro-sprint V1)
-        setTimeout(() => {
-            const mockLeadId = 'LEAD-' + Date.now().toString().slice(-6);
+        // Real Backend Call (Production Fix)
+        try {
+            const response = await axios.post('/api/create-lead', payload);
+            const data = response.data;
 
-            markSubmitted(formData.city, payload);
+            if (data.success) {
+                const leadId = data.lead_id || 'PENDING';
 
-            analytics.track('form_submit', {
-                leadId: mockLeadId,
-                city: formData.city,
-                source: userState.source
-            });
+                // 1. Mark as locally submitted
+                markSubmitted(formData.city, payload);
 
+                // 2. Track Analytics
+                analytics.track('form_submit', {
+                    leadId: leadId,
+                    city: formData.city,
+                    source: userState.source
+                });
+
+                // 3. Update UI
+                setStatus({
+                    isSubmitting: false,
+                    success: true,
+                    error: null,
+                    leadId: leadId
+                });
+            } else {
+                throw new Error(data.error || 'Submission Failed');
+            }
+        } catch (error) {
+            console.error("Submission Error", error);
             setStatus({
                 isSubmitting: false,
-                success: true,
-                error: null,
-                leadId: mockLeadId
+                success: false,
+                error: "Network/Server Error. Please retry.",
+                leadId: null
             });
-        }, 1000);
+            // Optional: Analytics for failure
+            analytics.track('form_error', {
+                error: error.message
+            });
+        }
     };
 
     const handleWhatsAppClick = () => {
