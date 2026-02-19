@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { LanguageContext } from '../context/LanguageContext'; // Adjust path if needed
+import { LanguageContext } from '../../../../context/LanguageContext'; // Adjust path if needed
 
 const ProcessOverview = () => {
     const { language } = useContext(LanguageContext);

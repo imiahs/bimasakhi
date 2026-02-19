@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { LanguageContext } from '../context/LanguageContext'; // Adjust path as needed
+import { LanguageContext } from '../../../../context/LanguageContext'; // Adjust path as needed
 
 const WhoItIsFor = () => {
     const { language } = useContext(LanguageContext);

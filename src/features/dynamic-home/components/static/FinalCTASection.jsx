@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LanguageContext } from '../context/LanguageContext'; // Adjust path if needed
-import Button from '../components/ui/Button'; // Assuming your Button component
+import { LanguageContext } from '../../../../context/LanguageContext'; // Adjust path if needed
+import Button from '../../../../components/ui/Button'; // Assuming your Button component
 
 const FinalCTASection = () => {
     const { language } = useContext(LanguageContext);

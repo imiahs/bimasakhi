@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { LanguageContext } from '../../context/LanguageContext';
-import Button from '../ui/Button';
+import { LanguageContext } from '../../../../context/LanguageContext';
+import Button from '../../../../components/ui/Button';
 
 const HowItWorks = () => {
     const { language } = useContext(LanguageContext);

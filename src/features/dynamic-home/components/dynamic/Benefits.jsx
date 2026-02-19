@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { LanguageContext } from '../../context/LanguageContext';
-import Card from '../ui/Card';
+import { LanguageContext } from '../../../../context/LanguageContext';
+import Card from '../../../../components/ui/Card';
 
 const Benefits = ({ title = "Why Bima Sakhi?", items = [] }) => {
     const { language } = useContext(LanguageContext);

@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import '../../homepage/homepage.css';
+import './components/static/homepage.css';
 import SEOHead from '../../components/core/SEOHead';
 
 // Section Imports (Static Fallback - Locked Order)
@@ -17,8 +17,8 @@ import SocialProofSection from './components/static/SocialProofSection';
 import AuthoritySection from './components/static/AuthoritySection';
 import BenefitsSection from './components/static/BenefitsSection';
 import LocalTrustSection from './components/static/LocalTrustSection';
-import FAQSection from '../../homepage/FAQSection';
-import FinalCTASection from '../../homepage/FinalCTASection';
+import FAQSection from './components/static/FAQSection';
+import FinalCTASection from './components/static/FinalCTASection';
 
 // Dynamic Engine (co-located in this domain)
 import SectionRenderer from './engine/SectionRenderer';

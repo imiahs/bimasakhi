@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
-import Hero from '../components/sections/Hero';
-import Benefits from '../components/sections/Benefits';
-import IncomeBlock from '../components/sections/IncomeBlock';
+import Hero from '../features/dynamic-home/components/dynamic/Hero';
+import Benefits from '../features/dynamic-home/components/dynamic/Benefits';
+import IncomeBlock from '../features/dynamic-home/components/dynamic/IncomeBlock';
 import ApplyForm from '../features/leads/ApplyForm';
 import Card from '../components/ui/Card';
 

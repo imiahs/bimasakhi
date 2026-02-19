@@ -1,14 +1,14 @@
 import React from 'react';
 import { logger } from '../../../utils/logger';
 // Dynamic Section Components (will move to ../components/dynamic/ in Stage 3)
-import Hero from '../../../components/sections/Hero';
-import TrustSignals from '../../../components/sections/TrustSignals';
-import HowItWorks from '../../../components/sections/HowItWorks';
-import IncomeBlock from '../../../components/sections/IncomeBlock';
-import Benefits from '../../../components/sections/Benefits';
-import Testimonials from '../../../components/sections/Testimonials';
-import Gallery from '../../../components/sections/Gallery';
-import FAQ from '../../../components/sections/FAQ';
+import Hero from '../components/dynamic/Hero';
+import TrustSignals from '../components/dynamic/TrustSignals';
+import HowItWorks from '../components/dynamic/HowItWorks';
+import IncomeBlock from '../components/dynamic/IncomeBlock';
+import Benefits from '../components/dynamic/Benefits';
+import Testimonials from '../components/dynamic/Testimonials';
+import Gallery from '../components/dynamic/Gallery';
+import FAQ from '../components/dynamic/FAQ';
 // Feature Components (stay in features/leads/)
 import ApplyForm from '../../leads/ApplyForm';
 import EligibilityBlock from '../../leads/EligibilityBlock';

@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
-import IncomeBlock from '../components/sections/IncomeBlock';
+import IncomeBlock from '../features/dynamic-home/components/dynamic/IncomeBlock';
 import SEOHead from '../components/core/SEOHead';
 
 const Income = () => {

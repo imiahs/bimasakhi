@@ -4,8 +4,8 @@
 
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../ui/Button';
-import { LanguageContext } from '../../context/LanguageContext';
+import Button from '../../../../components/ui/Button';
+import { LanguageContext } from '../../../../context/LanguageContext';
 
 const Hero = ({ isAdsMode = false }) => {
     const { language } = useContext(LanguageContext);
