@@ -40,3 +40,12 @@ export const AVAILABLE_SECTIONS = [
     { type: 'ApplyFormBlock', label: 'Application Form' },
     { type: 'IncomeRealityBlock', label: 'Income Table' }
 ];
+
+// LIGHTWEIGHT VALIDATOR (Engine Safety)
+export function validateSection(section) {
+    if (!section || typeof section !== 'object') return false;
+    if (!section.type) return false;
+    // Check if type is known in schema registry
+    if (!SECTION_SCHEMAS[section.type]) return false;
+    return true;
+}

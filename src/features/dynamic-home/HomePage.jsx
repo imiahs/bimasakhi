@@ -3,26 +3,27 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import './homepage.css';
-import SEOHead from '../components/core/SEOHead';
+import '../../homepage/homepage.css';
+import SEOHead from '../../components/core/SEOHead';
 
 // Section Imports (Static Fallback - Locked Order)
-import HeroSection from './HeroSection';
-import WhatIsBimaSakhi from './WhatIsBimaSakhi';
-import WhoItIsFor from './WhoItIsFor';
-import ProcessOverview from './ProcessOverview';
-import TransparencySection from './TransparencySection';
-import SocialProofSection from './SocialProofSection';
-import AuthoritySection from './AuthoritySection';
-import BenefitsSection from './BenefitsSection';
-import LocalTrustSection from './LocalTrustSection';
-import FAQSection from './FAQSection';
-import FinalCTASection from './FinalCTASection';
+// These still live in src/homepage/ until Stage 2B moves them
+import HeroSection from './components/static/HeroSection';
+import WhatIsBimaSakhi from './components/static/WhatIsBimaSakhi';
+import WhoItIsFor from './components/static/WhoItIsFor';
+import ProcessOverview from './components/static/ProcessOverview';
+import TransparencySection from './components/static/TransparencySection';
+import SocialProofSection from './components/static/SocialProofSection';
+import AuthoritySection from './components/static/AuthoritySection';
+import BenefitsSection from './components/static/BenefitsSection';
+import LocalTrustSection from './components/static/LocalTrustSection';
+import FAQSection from '../../homepage/FAQSection';
+import FinalCTASection from '../../homepage/FinalCTASection';
 
-// Dynamic Engine (Feature Flagged)
-import SectionRenderer from '../features/dynamic-home/engine/SectionRenderer';
-import { fetchHomepageSections } from '../features/dynamic-home/services/homepageService';
-import { logger } from '../utils/logger';
+// Dynamic Engine (co-located in this domain)
+import SectionRenderer from './engine/SectionRenderer';
+import { fetchHomepageSections } from './services/homepageService';
+import { logger } from '../../utils/logger';
 
 const HomePage = () => {
     // ACTIVATION STRATEGY (Phase 5.5 - Stability Hardening)

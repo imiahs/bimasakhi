@@ -1,16 +1,18 @@
 import React from 'react';
-import { logger } from '../../utils/logger';
-import Hero from '../sections/Hero';
-import ApplyForm from '../../features/leads/ApplyForm';
-import TrustSignals from '../sections/TrustSignals';
-import HowItWorks from '../sections/HowItWorks';
-import IncomeBlock from '../sections/IncomeBlock';
-
-import EligibilityBlock from '../../features/leads/EligibilityBlock';
-import Benefits from '../sections/Benefits';
-import Testimonials from '../sections/Testimonials';
-import Gallery from '../sections/Gallery';
-import FAQ from '../sections/FAQ';
+import { logger } from '../../../utils/logger';
+// Dynamic Section Components (will move to ../components/dynamic/ in Stage 3)
+import Hero from '../../../components/sections/Hero';
+import TrustSignals from '../../../components/sections/TrustSignals';
+import HowItWorks from '../../../components/sections/HowItWorks';
+import IncomeBlock from '../../../components/sections/IncomeBlock';
+import Benefits from '../../../components/sections/Benefits';
+import Testimonials from '../../../components/sections/Testimonials';
+import Gallery from '../../../components/sections/Gallery';
+import FAQ from '../../../components/sections/FAQ';
+// Feature Components (stay in features/leads/)
+import ApplyForm from '../../leads/ApplyForm';
+import EligibilityBlock from '../../leads/EligibilityBlock';
+import { validateSection } from '../../../config/sectionSchemas';
 
 // Component Map: Maps string 'type' from JSON to React Component
 const COMPONENT_MAP = {
@@ -49,8 +51,6 @@ class SectionErrorBoundary extends React.Component {
         return this.props.children;
     }
 }
-
-import { validateSection } from '../../config/sectionSchemas';
 
 const SectionRenderer = ({ sections = [] }) => {
     // GUARD 1: Array Check

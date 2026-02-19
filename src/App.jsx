@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Layout from './components/core/Layout';
-import HomePage from './homepage/HomePage';
+import HomePage from './features/dynamic-home/HomePage';
 // import Home from './pages/Home'; // Deprecated V1 Home
 import Why from './pages/Why';
 import Income from './pages/Income';
