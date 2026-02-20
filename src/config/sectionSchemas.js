@@ -31,14 +31,63 @@ export const SECTION_SCHEMAS = {
         fields: [
             { name: 'title', label: 'Title', type: 'text', default: 'Real Income Potential' }
         ]
+    },
+    'TrustSignals': {
+        name: 'Trust Signals',
+        fields: [
+            { name: 'title', label: 'Section Title', type: 'text', default: 'Why is Bima Sakhi Trusted?' }
+        ]
+    },
+    'HowItWorks': {
+        name: 'How It Works',
+        fields: [
+            { name: 'title', label: 'Section Title', type: 'text', default: 'How to Become Bima Sakhi?' }
+        ]
+    },
+    'BenefitsBlock': {
+        name: 'Benefits',
+        fields: [
+            { name: 'title', label: 'Section Title', type: 'text', default: 'Benefits of Becoming Bima Sakhi' }
+        ]
+    },
+    'EligibilityBlock': {
+        name: 'Eligibility Check',
+        fields: [
+            { name: 'title', label: 'Section Title', type: 'text', default: 'Check Eligibility' }
+        ]
+    },
+    'TestimonialsBlock': {
+        name: 'Testimonials',
+        fields: [
+            { name: 'title', label: 'Section Title', type: 'text', default: 'Real Stories of Women' }
+        ]
+    },
+    'GalleryBlock': {
+        name: 'Gallery',
+        fields: [
+            { name: 'title', label: 'Section Title', type: 'text', default: 'LIC Lady Agents – Glimpses' }
+        ]
+    },
+    'FAQBlock': {
+        name: 'FAQ',
+        fields: [
+            { name: 'title', label: 'Section Title', type: 'text', default: 'Frequently Asked Questions' }
+        ]
     }
 };
 
 export const AVAILABLE_SECTIONS = [
     { type: 'HeroSection', label: 'Hero Section' },
     { type: 'TrustBlock', label: 'Trust & Benefits' },
+    { type: 'TrustSignals', label: 'Trust Signals' },
+    { type: 'HowItWorks', label: 'How It Works' },
     { type: 'ApplyFormBlock', label: 'Application Form' },
-    { type: 'IncomeRealityBlock', label: 'Income Table' }
+    { type: 'BenefitsBlock', label: 'Benefits' },
+    { type: 'IncomeRealityBlock', label: 'Income Table' },
+    { type: 'EligibilityBlock', label: 'Eligibility Check' },
+    { type: 'TestimonialsBlock', label: 'Testimonials' },
+    { type: 'GalleryBlock', label: 'Gallery' },
+    { type: 'FAQBlock', label: 'FAQ' }
 ];
 
 // LIGHTWEIGHT VALIDATOR (Engine Safety)
