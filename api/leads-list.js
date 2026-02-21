@@ -1,36 +1,14 @@
-import Redis from 'ioredis';
+import { withAuth } from './_middleware/auth.js';
+import { withLogger } from './_middleware/logger.js';
 import axios from 'axios';
-import { parse } from 'cookie';
 
-// Initialize Redis 
-const redis = new Redis(process.env.REDIS_URL);
-
-/**
- * Checks if the request has a valid admin session cookie.
- */
-const checkAuth = async (req) => {
-    const cookies = parse(req.headers.cookie || '');
-    const sessionToken = cookies.admin_session;
-
-    if (!sessionToken) return false;
-    const sessionData = await redis.get(`session:${sessionToken}`);
-    if (!sessionData) return false;
-    return true; // No refresh here to keep it simple/fast for list view
-};
-
-export default async function handler(req, res) {
+export default withLogger(withAuth(async (req, res) => {
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
     try {
-        // 1. Auth Guard
-        const isAuthenticated = await checkAuth(req);
-        if (!isAuthenticated) {
-            return res.status(401).json({ error: 'Unauthorized' });
-        }
-
-        // 5. Zoho COQL Query
+        // Zoho COQL Query
         const { ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET, ZOHO_REFRESH_TOKEN, ZOHO_API_DOMAIN = 'https://www.zohoapis.in' } = process.env;
         const accountsUrl = ZOHO_API_DOMAIN.replace('www.zohoapis', 'accounts.zoho');
 
@@ -62,4 +40,4 @@ export default async function handler(req, res) {
         console.error("Leads List API Error", error.response ? error.response.data : error.message);
         return res.status(500).json({ error: "Failed to fetch leads" });
     }
-}
+}));

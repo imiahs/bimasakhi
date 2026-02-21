@@ -2,7 +2,6 @@ import React, { useContext, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Layout from './components/core/Layout';
 import HomePage from './features/dynamic-home/HomePage';
-// import Home from './pages/Home'; // Deprecated V1 Home
 import Why from './pages/Why';
 import Income from './pages/Income';
 import Eligibility from './pages/Eligibility';
@@ -12,7 +11,7 @@ import { ConfigContext } from './context/ConfigContext';
 import { analytics } from './services/analytics'; // Phase 5.6: Analytics
 
 // Lazy load Admin to reduce initial bundle size
-const Admin = lazy(() => import('./pages/Admin'));
+const Admin = lazy(() => import('./features/admin/AdminShell'));
 const Privacy = lazy(() => import('./pages/legal/Privacy'));
 const Terms = lazy(() => import('./pages/legal/Terms'));
 const Disclaimer = lazy(() => import('./pages/legal/Disclaimer'));

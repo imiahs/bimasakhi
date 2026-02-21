@@ -1,9 +1,10 @@
 import Redis from 'ioredis';
+import { withLogger } from './_middleware/logger.js';
 
 // Initialize Redis outside handler
 const redis = new Redis(process.env.REDIS_URL);
 
-export default async function handler(req, res) {
+export default withLogger(async function handler(req, res) {
     // Should be GET usually, but no harm in supporting POST if needed. Sticking to GET.
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method Not Allowed' });
@@ -43,4 +44,4 @@ export default async function handler(req, res) {
         // Fail open? No, fail closed.
         return res.status(200).json({ authenticated: false, error: 'Check Failed' });
     }
-}
+});
