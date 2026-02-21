@@ -1,5 +1,6 @@
 import Redis from 'ioredis';
 import { withLogger } from './_middleware/logger.js';
+import { parse } from 'cookie';
 
 // Initialize Redis outside handler
 const redis = new Redis(process.env.REDIS_URL);
@@ -11,16 +12,9 @@ export default withLogger(async function handler(req, res) {
     }
 
     try {
-        // Parse Cookies manually
-        const cookieHeader = req.headers.cookie || '';
-        const cookies = Object.fromEntries(
-            cookieHeader.split('; ').map(c => {
-                const [key, ...v] = c.split('=');
-                return [key, v.join('=')];
-            })
-        );
-
-        const sessionId = cookies['admin_session'];
+        // Parse Cookies using standardized cookie.parse
+        const cookies = parse(req.headers.cookie || '');
+        const sessionId = cookies.admin_session;
 
         if (!sessionId) {
             return res.status(200).json({ authenticated: false });

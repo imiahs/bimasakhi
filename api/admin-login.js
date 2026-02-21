@@ -2,6 +2,14 @@ import Redis from 'ioredis';
 import crypto from 'crypto';
 import { withLogger } from './_middleware/logger.js';
 
+// --- FAIL-FAST ENV GUARD (per-request) ---
+function assertEnv(vars) {
+    const missing = vars.filter(v => !process.env[v]);
+    if (missing.length) {
+        throw new Error(`Missing required ENV: ${missing.join(', ')}`);
+    }
+}
+
 // Initialize Redis outside handler for connection reuse
 const redis = new Redis(process.env.REDIS_URL);
 
@@ -13,6 +21,8 @@ export default withLogger(async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
+
+    assertEnv(['REDIS_URL', 'ADMIN_PASSWORD']);
 
     try {
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;

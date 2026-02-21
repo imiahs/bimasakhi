@@ -1,5 +1,6 @@
 import Redis from 'ioredis';
 import axios from 'axios';
+import { withLogger } from './_middleware/logger.js';
 
 // Initialize Redis Client
 // We assume REDIS_URL is already present in Vercel env
@@ -10,7 +11,7 @@ const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
 const DELHI_NCR_STATES = ['Delhi'];
 const DELHI_NCR_DISTRICTS = ['Gurugram', 'Gurgaon', 'Faridabad', 'Noida', 'Gautam Buddha Nagar', 'Ghaziabad'];
 
-export default async function handler(req, res) {
+export default withLogger(async function handler(req, res) {
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
@@ -81,4 +82,4 @@ export default async function handler(req, res) {
         console.error('Pincode Lookup Error:', error);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
-}
+});

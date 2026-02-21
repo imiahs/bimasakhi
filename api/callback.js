@@ -1,5 +1,7 @@
 // api/zoho-callback.js
-export default async function handler(req, res) {
+import { withLogger } from './_middleware/logger.js';
+
+export default withLogger(async function handler(req, res) {
   const { code } = req.query;
 
   if (!code) {
@@ -11,4 +13,4 @@ export default async function handler(req, res) {
     message: "Zoho authorization code received",
     code
   });
-}
+});

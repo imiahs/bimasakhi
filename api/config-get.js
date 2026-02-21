@@ -1,4 +1,5 @@
 import Redis from 'ioredis';
+import { withLogger } from './_middleware/logger.js';
 
 // Initialize Redis outside handler
 const redis = new Redis(process.env.REDIS_URL);
@@ -35,7 +36,7 @@ const DEFAULT_CONFIG = {
     }
 };
 
-export default async function handler(req, res) {
+export default withLogger(async function handler(req, res) {
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
@@ -59,4 +60,4 @@ export default async function handler(req, res) {
         // Fallback to defaults
         return res.status(200).json(DEFAULT_CONFIG);
     }
-}
+});

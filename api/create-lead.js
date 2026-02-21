@@ -1,5 +1,15 @@
 import axios from 'axios';
 import { createClient } from '@supabase/supabase-js';
+import { redis } from './_middleware/auth.js';
+import { withLogger } from './_middleware/logger.js';
+
+// --- FAIL-FAST ENV GUARD (per-request) ---
+function assertEnv(vars) {
+    const missing = vars.filter(v => !process.env[v]);
+    if (missing.length) {
+        throw new Error(`Missing required ENV: ${missing.join(', ')}`);
+    }
+}
 
 // --- PRODUCTION HARDENING (PHASE 2) ---
 
@@ -23,10 +33,12 @@ try {
     console.error("Supabase Init Error:", e);
 }
 
-export default async function handler(req, res) {
+export default withLogger(async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
+
+    assertEnv(['REDIS_URL', 'ZOHO_CLIENT_ID', 'ZOHO_CLIENT_SECRET', 'ZOHO_REFRESH_TOKEN']);
 
     // --- INPUT VALIDATION & NORMALIZATION ---
     let {
@@ -52,6 +64,20 @@ export default async function handler(req, res) {
 
     if (!source) {
         return res.status(400).json({ error: 'Missing mandatory metadata: source' });
+    }
+
+    // --- IDEMPOTENCY CHECK (Atomic Redis Lock) ---
+    const idempotencyKey = `lead_submit:${normalizedMobile}`;
+
+    const locked = await redis.set(idempotencyKey, '1', 'NX', 'EX', 300);
+
+    if (!locked) {
+        console.info(JSON.stringify({
+            type: 'lead_duplicate_blocked',
+            mobile: normalizedMobile,
+            source
+        }));
+        return res.status(200).json({ success: true, duplicate: true });
     }
 
     // --- SUPABASE FLOW (SAFE & HARDENED) ---
@@ -167,6 +193,7 @@ export default async function handler(req, res) {
 
     // --- STOP IF DUPLICATE ---
     if (isDuplicate) {
+        await redis.del(idempotencyKey).catch(() => { });
         return res.status(200).json({
             success: true,
             duplicate: true,
@@ -277,15 +304,17 @@ export default async function handler(req, res) {
             return res.status(400).json({
                 success: false,
                 error: "CRM Validation Failed",
-                details: result
+                details: "CRM validation failed"
             });
         }
 
     } catch (error) {
+        // Allow retry: clear idempotency lock on failure
+        await redis.del(idempotencyKey).catch(() => { });
         console.error("System Error in Create-Lead:", error.response ? error.response.data : error.message);
         return res.status(500).json({
             success: false,
             error: "Internal Server Error"
         });
     }
-}
+});

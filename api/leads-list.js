@@ -2,10 +2,20 @@ import { withAuth } from './_middleware/auth.js';
 import { withLogger } from './_middleware/logger.js';
 import axios from 'axios';
 
+// --- FAIL-FAST ENV GUARD (per-request) ---
+function assertEnv(vars) {
+    const missing = vars.filter(v => !process.env[v]);
+    if (missing.length) {
+        throw new Error(`Missing required ENV: ${missing.join(', ')}`);
+    }
+}
+
 export default withLogger(withAuth(async (req, res) => {
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
+
+    assertEnv(['ZOHO_CLIENT_ID', 'ZOHO_CLIENT_SECRET', 'ZOHO_REFRESH_TOKEN']);
 
     try {
         // Zoho COQL Query
