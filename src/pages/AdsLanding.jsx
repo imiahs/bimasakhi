@@ -19,6 +19,8 @@ import QuickInfoStrip from '../features/ads-landing/components/QuickInfoStrip';
 
 import '../styles/AdsLanding.css';
 import '../features/dynamic-home/components/dynamic/Hero.css';
+import '../features/ads-landing/components/QuickInfoStrip.css';
+import '../features/dynamic-home/components/dynamic/Testimonials.css';
 
 const AdsLanding = () => {
 

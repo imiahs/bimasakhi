@@ -1,111 +1,85 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Button from '../../../../components/ui/Button';
+import { useNavigate } from 'react-router-dom';
 import { LanguageContext } from '../../../../context/LanguageContext';
 import './Hero.css';
-
 const Hero = ({
     isAdsMode = false,
     customTitle,
     customSubtitle,
     customTrust,
-    primaryCTA,
-    secondaryCTA
+    primaryCTA
 }) => {
+
     const { language } = useContext(LanguageContext);
     const navigate = useNavigate();
 
     const content = {
         en: {
-            title: "Become a Successful Bima Sakhi (LIC Agent)",
-            subtitle: "A Respectable & Flexible Career Opportunity in Delhi NCR",
-            trust: "3 Years Stipend + Commission | Free Training | No Joining Fee",
-            cta: "Apply Now (2 Mins)",
-            ctaSecondary: "See Details First"
+            title: "Become a Successful LIC Agent with Bima Sakhi Support",
+            subtitle: "Flexible, Respectable & Commission-Based Career in Delhi NCR",
+            trust: "3 Years Stipend Support | Free Training | No Joining Fee",
+            cta: "Check Eligibility & Apply Now"
         },
         hi: {
-            title: "बनिए एक सफल Bima Sakhi (LIC एजेंट)",
-            subtitle: "दिल्ली NCR में सम्मानजनक और लचीला करियर अवसर",
-            trust: "3 साल स्टाइपेंड + कमीशन | निःशुल्क प्रशिक्षण | कोई जॉइनिंग फीस नहीं",
-            cta: "अभी अप्लाई करें (2 मिनट)",
-            ctaSecondary: "पहले पूरी जानकारी देखें"
+            title: "Bima Sakhi सपोर्ट के साथ सफल LIC एजेंट बनें",
+            subtitle: "दिल्ली NCR में लचीला, सम्मानजनक और कमीशन आधारित करियर",
+            trust: "3 साल स्टाइपेंड सहायता | निःशुल्क प्रशिक्षण | कोई जॉइनिंग फीस नहीं",
+            cta: "अपनी योग्यता जांचें और आवेदन करें"
         }
     };
 
     const t = content[language] || content.en;
 
-    const handlePrimaryClick = () => {
+    const handleApplyClick = () => {
         if (isAdsMode) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 event: "ads_hero_apply_click"
             });
 
-            navigate('/apply?source=ads');
+            navigate('/apply?source=google_ads');
         }
     };
 
     return (
-        <section className="hero-section relative overflow-hidden bg-gradient-to-b from-blue-900 to-blue-600 text-white pt-16 pb-20">
-            <div className="container px-4 mx-auto">
-                <div className="flex flex-col lg:flex-row items-center gap-12">
+        <section className="ads-hero">
 
-                    {/* TEXT */}
-                    <div className="w-full lg:w-1/2 text-center lg:text-left z-10">
+            <div className="ads-container ads-hero-flex">
 
-                        <div className="inline-block bg-white text-blue-700 px-4 py-1 rounded-full text-xs font-semibold mb-6 shadow-sm">
-                            {customTrust || t.trust}
-                        </div>
+                {/* TEXT BLOCK */}
+                <div className="ads-hero-text">
 
-                        <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6">
-                            {customTitle || t.title}
-                        </h1>
+                    <h1>
+                        {customTitle || t.title}
+                    </h1>
 
-                        <p className="text-lg opacity-90 mb-8">
-                            {customSubtitle || t.subtitle}
-                        </p>
+                    <p className="ads-sub">
+                        {customSubtitle || t.subtitle}
+                    </p>
 
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <p className="ads-trust">
+                        {customTrust || t.trust}
+                    </p>
 
-                            {isAdsMode ? (
-                                <Button
-                                    variant="primary"
-                                    className="text-lg px-8 py-4 shadow-xl"
-                                    onClick={handlePrimaryClick}
-                                >
-                                    {primaryCTA || t.cta}
-                                </Button>
-                            ) : (
-                                <Link to="/apply">
-                                    <Button variant="primary" className="text-lg px-8 py-4 shadow-xl">
-                                        {t.cta}
-                                    </Button>
-                                </Link>
-                            )}
-
-                            {!isAdsMode && (
-                                <a href="#trust_default">
-                                    <Button variant="secondary" className="text-lg px-8 py-4 bg-white text-gray-700">
-                                        {secondaryCTA || t.ctaSecondary}
-                                    </Button>
-                                </a>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* IMAGE */}
-                    <div className="w-full lg:w-1/2 relative">
-                        <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                            <img
-                                src="/Bima_Sakhi_Ai.png"
-                                alt="Confident Bima Sakhi"
-                                className="w-full h-auto object-cover"
-                            />
-                        </div>
-                    </div>
+                    <button
+                        className="ads-btn-primary"
+                        onClick={handleApplyClick}
+                    >
+                        {primaryCTA || t.cta}
+                    </button>
 
                 </div>
+
+                {/* IMAGE BLOCK */}
+                <div className="ads-hero-img">
+                    <img
+                        src="/Bima_Sakhi_Ai.png"
+                        alt="Confident LIC Agent"
+                    />
+                </div>
+
             </div>
+
         </section>
     );
 };
