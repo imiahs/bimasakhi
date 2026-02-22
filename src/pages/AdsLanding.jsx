@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SEOHead from '../components/core/SEOHead';
 import { UserContext } from '../context/UserContext';
+import '../styles/AdsLanding.css';   // ✅ IMPORTANT FIX
 
 const AdsLanding = () => {
     const { setSource } = useContext(UserContext);
@@ -9,7 +10,7 @@ const AdsLanding = () => {
 
     useEffect(() => {
         setSource('ads');
-    }, []);
+    }, [setSource]);
 
     const handleApplyClick = () => {
         window.dataLayer = window.dataLayer || [];
@@ -21,7 +22,7 @@ const AdsLanding = () => {
     };
 
     return (
-        <div className="ads-landing-page">
+        <div className="ads-landing-wrapper">
 
             <SEOHead
                 title="Bima Sakhi Yojana – LIC Agency Career for Women in Delhi NCR"
@@ -29,11 +30,11 @@ const AdsLanding = () => {
                 path="/bima-sakhi-delhi"
             />
 
-            {/* HERO SECTION */}
-            <section className="ads-hero">
-                <div className="ads-hero-container">
+            {/* HERO */}
+            <section className="ads-hero-section">
+                <div className="ads-hero-inner">
 
-                    <div className="ads-hero-text">
+                    <div className="ads-hero-content">
                         <h1>
                             Bima Sakhi Yojana – LIC Agency Career for Women in Delhi NCR
                         </h1>
@@ -42,19 +43,22 @@ const AdsLanding = () => {
                             3 Years Stipend + Commission | 10th Pass | Age 18–70
                         </p>
 
-                        <p className="ads-trust">
+                        <p className="ads-trust-line">
                             Free Training | Government Supported | No Joining Fee
                         </p>
 
-                        <button className="ads-primary-btn" onClick={handleApplyClick}>
+                        <button
+                            className="ads-cta-btn"
+                            onClick={handleApplyClick}
+                        >
                             Check Eligibility & Apply Now
                         </button>
                     </div>
 
-                    <div className="ads-hero-image">
+                    <div className="ads-hero-image-box">
                         <img
                             src="/images/home/hero-bg.jpg"
-                            alt="Professional Woman LIC Agent"
+                            alt="LIC Bima Sakhi Career Opportunity"
                         />
                     </div>
 
@@ -65,23 +69,22 @@ const AdsLanding = () => {
             <section className="ads-section">
                 <div className="ads-container">
                     <h2>Why Consider This Opportunity?</h2>
-                    <ul className="ads-benefits">
-                        <li>✔ Monthly Stipend Support for 3 Years (As per LIC norms)</li>
-                        <li>✔ Flexible Work in Your Local Area</li>
-                        <li>✔ Unlimited Commission-Based Income Potential</li>
+                    <ul className="ads-list">
+                        <li>Monthly Stipend Support for 3 Years (As per LIC norms)</li>
+                        <li>Flexible Work in Your Local Area</li>
+                        <li>Unlimited Commission-Based Income Potential</li>
                     </ul>
                 </div>
             </section>
 
-            {/* INCOME REALITY */}
-            <section className="ads-section alt-bg">
+            {/* INCOME */}
+            <section className="ads-section ads-alt-bg">
                 <div className="ads-container">
                     <h2>Important: Income Reality</h2>
                     <p>
                         This is a commission-based LIC agency career. Stipend support is
-                        available during the initial period as per LIC guidelines. Long-term
-                        income depends on your dedication, client relationships, and
-                        performance.
+                        available during the initial period as per LIC guidelines.
+                        Long-term income depends on your dedication and performance.
                     </p>
                 </div>
             </section>
@@ -90,14 +93,17 @@ const AdsLanding = () => {
             <section className="ads-section">
                 <div className="ads-container">
                     <h2>Basic Eligibility</h2>
-                    <ul className="ads-benefits">
-                        <li>✔ Woman (18–70 Years)</li>
-                        <li>✔ Minimum 10th Pass</li>
-                        <li>✔ Resident of Delhi NCR</li>
+                    <ul className="ads-list">
+                        <li>Woman (18–70 Years)</li>
+                        <li>Minimum 10th Pass</li>
+                        <li>Resident of Delhi NCR</li>
                     </ul>
 
-                    <div style={{ textAlign: "center", marginTop: "30px" }}>
-                        <button className="ads-primary-btn" onClick={handleApplyClick}>
+                    <div className="ads-bottom-cta">
+                        <button
+                            className="ads-cta-btn"
+                            onClick={handleApplyClick}
+                        >
                             Proceed to Application
                         </button>
                     </div>

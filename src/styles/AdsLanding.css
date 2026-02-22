@@ -1,34 +1,34 @@
-.ads-landing-page {
+.ads-landing-wrapper {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-    color: #212529;
+    color: #1f2937;
     background: #ffffff;
 }
 
 /* HERO */
-.ads-hero {
-    padding: 4rem 1rem;
+.ads-hero-section {
     background: linear-gradient(135deg, #004e92, #000428);
     color: #ffffff;
+    padding: 4rem 1.5rem;
 }
 
-.ads-hero-container {
+.ads-hero-inner {
     max-width: 1140px;
-    margin: auto;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
+    gap: 2.5rem;
     align-items: center;
-    gap: 2rem;
 }
 
-.ads-hero-text {
+.ads-hero-content {
     text-align: center;
     max-width: 600px;
 }
 
-.ads-hero h1 {
+.ads-hero-content h1 {
     font-size: 2rem;
-    margin-bottom: 1rem;
     line-height: 1.3;
+    margin-bottom: 1rem;
 }
 
 .ads-subtitle {
@@ -36,75 +36,84 @@
     margin-bottom: 0.5rem;
 }
 
-.ads-trust {
+.ads-trust-line {
     font-size: 1rem;
     margin-bottom: 2rem;
     opacity: 0.95;
 }
 
-.ads-primary-btn {
+.ads-cta-btn {
     background: #ff69b4;
     color: #fff;
-    padding: 0.75rem 2rem;
+    padding: 0.8rem 2.2rem;
     border: none;
     border-radius: 40px;
     font-weight: 600;
-    cursor: pointer;
     font-size: 1rem;
+    cursor: pointer;
     transition: 0.3s ease;
 }
 
-.ads-primary-btn:hover {
+.ads-cta-btn:hover {
     background: #ffffff;
     color: #ff69b4;
 }
 
-/* IMAGE */
-.ads-hero-image img {
+/* HERO IMAGE */
+.ads-hero-image-box img {
     max-width: 100%;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
 /* SECTIONS */
 .ads-section {
-    padding: 3rem 1rem;
+    padding: 3.5rem 1.5rem;
 }
 
-.alt-bg {
-    background: #f8f9fa;
+.ads-alt-bg {
+    background: #f8fafc;
 }
 
 .ads-container {
     max-width: 900px;
-    margin: auto;
+    margin: 0 auto;
     text-align: center;
 }
 
-.ads-benefits {
-    list-style: none;
-    padding: 0;
-    margin-top: 1.5rem;
+.ads-container h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
 }
 
-.ads-benefits li {
+.ads-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.ads-list li {
     margin-bottom: 1rem;
     font-size: 1.05rem;
 }
 
+.ads-bottom-cta {
+    margin-top: 2rem;
+}
+
 /* DESKTOP */
 @media (min-width: 992px) {
-    .ads-hero-container {
+    .ads-hero-inner {
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
+    }
+
+    .ads-hero-content {
         text-align: left;
     }
 
-    .ads-hero-text {
-        text-align: left;
-    }
-
-    .ads-hero h1 {
-        font-size: 2.5rem;
+    .ads-hero-content h1 {
+        font-size: 2.6rem;
     }
 }
