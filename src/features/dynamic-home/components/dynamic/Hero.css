@@ -1,0 +1,106 @@
+/* =========================================
+   BIMA SAKHI HERO SECTION
+========================================= */
+
+.bs-hero {
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    color: #ffffff;
+    padding: 4rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.bs-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+}
+
+.bs-hero-text {
+    text-align: center;
+    max-width: 600px;
+}
+
+.bs-hero-trust {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    backdrop-filter: blur(4px);
+}
+
+.bs-hero-title {
+    font-size: 2rem;
+    line-height: 1.3;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.bs-hero-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.bs-hero-btn {
+    font-size: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: 40px;
+}
+
+.bs-hero-image-wrapper {
+    max-width: 420px;
+    position: relative;
+}
+
+.bs-hero-image {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Subtle background shape */
+.bs-hero::before {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent);
+    top: -100px;
+    right: -100px;
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+    .bs-hero-inner {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .bs-hero-text {
+        text-align: left;
+    }
+
+    .bs-hero-title {
+        font-size: 2.8rem;
+    }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,30 @@
+.quick-info-strip {
+    background: #ffffff;
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.quick-info-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+}
+
+.quick-info-item {
+    background: #f9fafb;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    color: #1e3a8a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    font-size: 0.95rem;
+}
+
+@media (min-width: 768px) {
+    .quick-info-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

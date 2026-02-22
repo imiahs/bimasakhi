@@ -1,93 +1,87 @@
+// ============================================
+// AdsLanding.jsx
+// Purpose: High Conversion Google Ads Landing Page
+// Target: Delhi NCR (Phase 1)
+// Strategy: Fast clarity + Emotional trigger + Social proof + Clear CTA
+// ============================================
+
 import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import SEOHead from '../components/core/SEOHead';
 import { UserContext } from '../context/UserContext';
 import { LanguageContext } from '../context/LanguageContext';
-import '../styles/AdsLanding.css';
+
+// Reusable Components
+import Hero from '../features/dynamic-home/components/dynamic/Hero';
 import Testimonials from '../features/dynamic-home/components/dynamic/Testimonials';
+import QuickInfoStrip from '../features/ads-landing/components/QuickInfoStrip';
+
+import '../styles/AdsLanding.css';
+import '../features/dynamic-home/components/dynamic/Hero.css';
 
 const AdsLanding = () => {
+
+    // ---------------- CONTEXT ----------------
     const { setSource } = useContext(UserContext);
     const { language } = useContext(LanguageContext);
     const navigate = useNavigate();
 
+    // ---------------- SET TRAFFIC SOURCE ----------------
     useEffect(() => {
-        setSource('ads');
-    }, []);
+        setSource('google_ads');
+    }, [setSource]);
 
+    // ---------------- CTA HANDLER ----------------
     const handleApplyClick = () => {
+
+        // Google Tag Manager Event
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-            event: "ads_landing_apply_click"
+            event: "ads_landing_apply_click",
+            source: "google_ads"
         });
 
-        navigate('/apply?source=ads');
+        navigate('/apply?source=google_ads');
     };
 
+    // ---------------- BILINGUAL CONTENT ----------------
     const content = {
         en: {
-            heroTitle: "Become a Successful Bima Sakhi (LIC Agent)",
-            heroSub: "A Respectable & Flexible Career Opportunity in Delhi NCR",
-            heroTrust: "3 Years Stipend + Commission | Free Training | No Joining Fee",
+            heroTitle: "Become a Successful LIC Agent with Bima Sakhi Support",
+            heroSub: "A Flexible, Respectable & Commission-Based Career in Delhi NCR",
+            heroTrust: "3 Years Stipend Support | Free Training | No Joining Fee",
             heroBtn: "Check Eligibility & Apply Now",
 
-            whyTitle: "Why Become a LIC Agent?",
-            whyText: "Becoming a LIC Agent is not just about income — it is about identity, respect, and financial independence.",
-            whyPoints: [
-                "Complete control over your income",
-                "Flexible working hours",
-                "Respect in society",
-                "Opportunity to secure families",
-                "Long-term growth potential"
-            ],
+            emotionalTitle: "Why Do People Choose LIC Agency Career?",
+            emotionalText:
+                "Because it gives freedom. Income control. Respect in society. And the power to build your own identity.",
 
-            bsTitle: "Special Benefits under Bima Sakhi",
-            bsPoints: [
-                "Monthly Stipend for 3 Years (₹7000 → ₹6000 → ₹5000)",
-                "Dedicated training & guidance",
-                "Safe start for beginners",
-                "Strong support system"
-            ],
+            socialProofTitle: "2.5 Lakh+ Women Have Already Joined Across India",
+            socialProofText:
+                "Thousands have transformed their lives through this opportunity.",
 
-            socialProofTitle: "2.5 Lakh+ Women Across India Have Already Joined",
-            socialProofText: "You are not alone. Thousands of women are building successful LIC careers across India.",
-
-            fearTitle: "Thinking 'Can I Really Do This?'",
-            fearText: "Every successful agent started from zero. With proper guidance and effort, you can build your own respected career.",
+            urgency: "Limited Phase-1 Onboarding for Delhi NCR – Apply Before Seats Fill",
 
             finalCTA: "Take the First Step Towards Your Independent Future",
             finalBtn: "Apply Now"
         },
 
         hi: {
-            heroTitle: "बनिए एक सफल Bima Sakhi (LIC एजेंट)",
-            heroSub: "दिल्ली NCR में सम्मानजनक और लचीला करियर अवसर",
-            heroTrust: "3 साल स्टाइपेंड + कमीशन | निःशुल्क प्रशिक्षण | कोई जॉइनिंग फीस नहीं",
+            heroTitle: "Bima Sakhi सपोर्ट के साथ सफल LIC एजेंट बनें",
+            heroSub: "दिल्ली NCR में लचीला, सम्मानजनक और कमीशन आधारित करियर",
+            heroTrust: "3 साल स्टाइपेंड सहायता | निःशुल्क प्रशिक्षण | कोई जॉइनिंग फीस नहीं",
             heroBtn: "अपनी योग्यता जांचें और आवेदन करें",
 
-            whyTitle: "LIC एजेंट क्यों बनें?",
-            whyText: "LIC एजेंट बनना सिर्फ कमाई नहीं, बल्कि पहचान, सम्मान और आर्थिक स्वतंत्रता है।",
-            whyPoints: [
-                "अपनी आय पर पूरा नियंत्रण",
-                "समय की स्वतंत्रता",
-                "समाज में सम्मान",
-                "परिवारों को सुरक्षा देने का अवसर",
-                "लंबी अवधि का विकास"
-            ],
-
-            bsTitle: "Bima Sakhi के विशेष लाभ",
-            bsPoints: [
-                "3 साल मासिक स्टाइपेंड (₹7000 → ₹6000 → ₹5000)",
-                "विशेष प्रशिक्षण और मार्गदर्शन",
-                "सुरक्षित शुरुआत",
-                "मजबूत सपोर्ट सिस्टम"
-            ],
+            emotionalTitle: "लोग LIC एजेंट क्यों बनते हैं?",
+            emotionalText:
+                "क्योंकि यह देता है स्वतंत्रता। आय पर नियंत्रण। समाज में सम्मान। और अपनी पहचान बनाने का अवसर।",
 
             socialProofTitle: "2.5 लाख+ महिलाएं पूरे भारत में जुड़ चुकी हैं",
-            socialProofText: "आप अकेली नहीं हैं। हजारों महिलाएं LIC एजेंट बनकर सफल करियर बना रही हैं।",
+            socialProofText:
+                "हजारों लोगों ने इस अवसर से अपना जीवन बदला है।",
 
-            fearTitle: "क्या आप सोच रही हैं कि क्या मैं कर पाऊंगी?",
-            fearText: "हर सफल एजेंट ने शून्य से शुरुआत की थी। सही मार्गदर्शन और मेहनत से आप भी सफल बन सकती हैं।",
+            urgency: "दिल्ली NCR के लिए सीमित Phase-1 ऑनबोर्डिंग – सीटें सीमित हैं",
 
             finalCTA: "अपने आत्मनिर्भर भविष्य की ओर पहला कदम उठाएं",
             finalBtn: "अभी आवेदन करें"
@@ -97,63 +91,43 @@ const AdsLanding = () => {
     const t = content[language] || content.en;
 
     return (
-        <div className="ads-landing">
+        <div className="ads-landing-wrapper">
 
+            {/* ================= SEO ================= */}
             <SEOHead
                 title="Bima Sakhi – LIC Agency Career Opportunity in Delhi NCR"
-                description="Join Bima Sakhi LIC Agency opportunity in Delhi NCR. 3-year stipend + commission-based career. Empowering women across India."
+                description="Join Bima Sakhi LIC Agency opportunity in Delhi NCR. 3-year stipend support + commission-based career. Empowering agents across India."
                 path="/bima-sakhi-delhi"
             />
-            <div className="ads-countdown">
-                Limited Phase-1 Onboarding for Delhi NCR – Applications Closing Soon
+
+            {/* ================= URGENCY STRIP ================= */}
+            <div className="ads-urgency-bar">
+                {t.urgency}
             </div>
-            {/* HERO */}
-            <section className="ads-hero">
-                <div className="ads-container ads-hero-flex">
-                    <div className="ads-hero-text">
-                        <h1>{t.heroTitle}</h1>
-                        <p className="ads-sub">{t.heroSub}</p>
-                        <p className="ads-trust">{t.heroTrust}</p>
-                        <button className="ads-btn-primary" onClick={handleApplyClick}>
-                            {t.heroBtn}
-                        </button>
-                    </div>
 
-                    <div className="ads-hero-img">
-                        <img
-                            src="/Bima_Sakhi_Ai.png"
-                            alt="Confident Bima Sakhi"
-                        />
-                    </div>
-                </div>
-            </section>
+            {/* ================= HERO SECTION ================= */}
+            <Hero
+                isAdsMode={true}
+                customTitle={t.heroTitle}
+                customSubtitle={t.heroSub}
+                customTrust={t.heroTrust}
+                primaryCTA={t.heroBtn}
+            />
 
-            {/* WHY LIC */}
+            {/* ================= QUICK INFO STRIP ================= */}
+            <QuickInfoStrip />
+
+            {/* ================= EMOTIONAL CONVERSION SECTION ================= */}
             <section className="ads-section light">
                 <div className="ads-container">
-                    <h2>{t.whyTitle}</h2>
-                    <p className="section-desc">{t.whyText}</p>
-                    <ul className="ads-list">
-                        {t.whyPoints.map((point, i) => (
-                            <li key={i}>✔ {point}</li>
-                        ))}
-                    </ul>
+                    <h2>{t.emotionalTitle}</h2>
+                    <p className="section-description">
+                        {t.emotionalText}
+                    </p>
                 </div>
             </section>
 
-            {/* BIMA SAKHI BENEFITS */}
-            <section className="ads-section">
-                <div className="ads-container">
-                    <h2>{t.bsTitle}</h2>
-                    <ul className="ads-list">
-                        {t.bsPoints.map((point, i) => (
-                            <li key={i}>✔ {point}</li>
-                        ))}
-                    </ul>
-                </div>
-            </section>
-
-            {/* SOCIAL PROOF */}
+            {/* ================= SOCIAL PROOF BLOCK ================= */}
             <section className="ads-section highlight">
                 <div className="ads-container">
                     <h2>{t.socialProofTitle}</h2>
@@ -161,19 +135,18 @@ const AdsLanding = () => {
                 </div>
             </section>
 
-            {/* FEAR REMOVAL */}
-            <section className="ads-section light">
-                <div className="ads-container">
-                    <h2>{t.fearTitle}</h2>
-                    <p>{t.fearText}</p>
-                </div>
-            </section>
+            {/* ================= TESTIMONIALS ================= */}
             <Testimonials />
-            {/* FINAL CTA */}
-            <section className="ads-final">
+
+            {/* ================= FINAL CTA ================= */}
+            <section className="ads-final-cta">
                 <div className="ads-container">
                     <h2>{t.finalCTA}</h2>
-                    <button className="ads-btn-primary" onClick={handleApplyClick}>
+
+                    <button
+                        className="ads-btn-primary"
+                        onClick={handleApplyClick}
+                    >
                         {t.finalBtn}
                     </button>
                 </div>
