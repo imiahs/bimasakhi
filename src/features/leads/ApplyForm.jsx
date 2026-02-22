@@ -270,7 +270,7 @@ const ApplyForm = () => {
 
                 setLocationStatus({
                     loading: false,
-                    msg: 'Currently onboarding candidates from Delhi NCR (Phase 1). You are eligible for our upcoming expansion waitlist.',
+                    msg: 'We are currently active in Delhi NCR. You can still apply — we will keep you informed as we expand to your area.',
                     type: 'info',
                     isManual: true   // 🔥 IMPORTANT
                 });
@@ -459,6 +459,12 @@ const ApplyForm = () => {
                 <div className="step-header">
                     <h3>{t.title}</h3>
                     <p>{t.desc}</p>
+                    <p style={{ fontSize: "0.85em", color: "#666" }}>
+                        Your details remain confidential and are reviewed personally.
+                    </p>
+                    <p style={{ fontSize: "0.8em", color: "#888" }}>
+                        Step 1 of 4 – Basic Details
+                    </p>
                 </div>
 
                 <Input
@@ -479,9 +485,7 @@ const ApplyForm = () => {
                     error={errors.mobile}
                     placeholder="10 digit number"
                 />
-                <p style={{ fontSize: "0.85em", color: "#666" }}>
-                    Your details remain confidential and are reviewed personally.
-                </p>
+
 
                 <div className="form-group" style={{ marginTop: '15px' }}>
                     <label className="checkbox-label">
@@ -511,10 +515,19 @@ const ApplyForm = () => {
     const renderStep2 = () => (
         <div className="form-step">
             <div className="step-header">
-                <h3>Your service location</h3>
+                <h3>Where are you based?</h3>
                 <p>
-                    Currently onboarding candidates from Delhi NCR as part of Phase 1.
-                    Applications from other cities are welcomed for upcoming expansion.
+                    We are currently guiding applicants from Delhi NCR.
+                    If you are from another city, you can still apply — we will inform you when expansion begins in your area.
+                </p>
+                <p style={{ fontSize: "0.85em", color: "#666" }}>
+                    Enter your pincode to check availability.
+                </p>
+                <p style={{ fontSize: "0.8em", color: "#4CAF50", marginTop: "5px" }}>
+                    ✔ Every application is reviewed individually.
+                </p>
+                <p style={{ fontSize: "0.8em", color: "#888" }}>
+                    Step 2 of 4 – Location Details
                 </p>
             </div>
 
@@ -536,6 +549,18 @@ const ApplyForm = () => {
                 </div>
             )}
 
+            {locationStatus.type === "info" && (
+                <div style={{
+                    background: "#fff8e1",
+                    padding: "10px",
+                    borderRadius: "6px",
+                    marginTop: "10px",
+                    fontSize: "0.85em"
+                }}>
+                    🌍 You will be added to our expansion priority list.
+                </div>
+            )}
+
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                 <Input
                     label="City"
@@ -544,7 +569,7 @@ const ApplyForm = () => {
                     onChange={handleChange}
                     readOnly={!locationStatus.isManual}
                     disabled={!locationStatus.isManual && !formData.city}
-                    placeholder={locationStatus.isManual ? "Enter City" : "Auto-detected"}
+                    placeholder={locationStatus.isManual ? "Type your city name" : "Auto-detected"}
                 />
                 <Input
                     label="State"
@@ -553,7 +578,7 @@ const ApplyForm = () => {
                     onChange={handleChange}
                     readOnly={!locationStatus.isManual}
                     disabled={!locationStatus.isManual && !formData.state}
-                    placeholder={locationStatus.isManual ? "Enter State" : "Auto-detected"}
+                    placeholder={locationStatus.isManual ? "Type your state name" : "Auto-detected"}
                 />
             </div>
 
@@ -570,8 +595,8 @@ const ApplyForm = () => {
                             {
                                 value: '',
                                 label: locationStatus.isManual
-                                    ? 'Select Option'
-                                    : 'Enter Pincode first'
+                                    ? 'Select your area'
+                                    : 'Enter your pincode to load areas'
                             }
                         ]
                 }
@@ -583,14 +608,20 @@ const ApplyForm = () => {
     const renderStep3 = () => (
         <div className="form-step">
             <div className="step-header">
-                <h3>Your background</h3>
+                <h3>Tell us a little about yourself</h3>
                 <p>
-                    This information helps us understand your profile for guidance and training.
+                    This helps us understand how we can guide you in building your LIC agency journey.
+                </p>
+                <p style={{ fontSize: "0.85em", color: "#666" }}>
+                    Every profile is reviewed personally before onboarding.
+                </p>
+                <p style={{ fontSize: "0.8em", color: "#888" }}>
+                    Step 3 of 4 – Personal Details
                 </p>
             </div>
 
             <Input
-                label="Email Address"
+                label="Email Address (For Official Communication)"
                 name="email"
                 type="email"
                 value={formData.email}
@@ -607,60 +638,84 @@ const ApplyForm = () => {
                 options={[
                     { value: '10th Pass', label: '10th Pass' },
                     { value: '12th Pass', label: '12th Pass' },
-                    { value: 'Graduate', label: 'Graduate' },
+                    { value: 'Graduate', label: 'Graduate / Degree Holder' },
                     { value: 'Post Graduate', label: 'Post Graduate' }
                 ]}
             />
 
             <Select
-                label="Current Status"
+                label="Your Current Situation"
                 name="occupation"
                 value={formData.occupation}
                 onChange={handleChange}
                 error={errors.occupation}
                 options={[
                     { value: 'Housewife', label: 'Housewife / Homemaker' },
-                    { value: 'Student', label: 'Student' },
                     { value: 'Working Professional', label: 'Working Professional' },
-                    { value: 'Retired', label: 'Retired' },
-                    { value: 'Job Seeker', label: 'Job Seeker' }
+                    { value: 'Student', label: 'Student' },
+                    { value: 'Job Seeker', label: 'Job Seeker' },
+                    { value: 'Retired', label: 'Retired' }
                 ]}
             />
+            <p style={{ fontSize: "0.8em", color: "#4CAF50", marginTop: "10px" }}>
+                ✔ Many successful LIC agents started without prior experience.
+            </p>
         </div>
     );
 
     const renderStep4 = () => (
         <div className="form-step">
             <div className="step-header">
-                <h3>Review & Submit</h3>
-                <p>Please check your details before submitting.</p>
+                <h3>Final Step – Confirm Your Application</h3>
+                <p>
+                    Please review your details carefully before we process your application.
+                </p>
+                <p style={{ fontSize: "0.85em", color: "#666" }}>
+                    After submission, our team will review your profile and contact you personally.
+                </p>
+                <p style={{ fontSize: "0.8em", color: "#888" }}>
+                    Step 4 of 4 – Review & Submit
+                </p>
             </div>
 
             <div className="review-summary">
                 <div className="review-row">
-                    <span className="review-label">Name</span>
+                    <span className="review-label">Full Name</span>
                     <span className="review-value">{formData.name}</span>
                 </div>
                 <div className="review-row">
-                    <span className="review-label">Mobile</span>
+                    <span className="review-label">WhatsApp Number</span>
                     <span className="review-value">{formData.mobile}</span>
                 </div>
                 <div className="review-row">
-                    <span className="review-label">Location</span>
+                    <span className="review-label">Location (City & Pincode)</span>
                     <span className="review-value">
                         {formData.city}, {formData.pincode}
                     </span>
                 </div>
                 <div className="review-row">
-                    <span className="review-label">Email</span>
+                    <span className="review-label">Email Address</span>
                     <span className="review-value">{formData.email}</span>
                 </div>
                 <div className="review-row">
-                    <span className="review-label">Profile</span>
+                    <span className="review-label">Education & Current Status</span>
                     <span className="review-value">
                         {formData.education}, {formData.occupation}
                     </span>
                 </div>
+            </div>
+
+            <div style={{
+                marginTop: "15px",
+                padding: "12px",
+                background: "#f8f9fa",
+                borderRadius: "6px",
+                fontSize: "0.9em",
+                color: "#444"
+            }}>
+                ✔ This is a professional LIC agency opportunity.
+                ✔ No registration fee is charged at this stage.
+                ✔ Selection is based on eligibility and discussion.
             </div>
 
             {/* MICRO DISCLAIMER – IMPORTANT FOR EXPECTATION SETTING */}
@@ -675,25 +730,40 @@ const ApplyForm = () => {
                 }}
             >
                 <strong>Important:</strong> Bima Sakhi is a commission-based LIC agency
-                career opportunity. This is not a salaried job. Training, support,
+                career opportunity. This is not a salaried job. Stipend, training, support,
                 and any performance-linked benefits are subject to LIC norms.
             </div>
         </div>
     );
 
     // 3. Duplicate View (Welcome Back)
+
     if (status.duplicate) {
         const existingDate = status.duplicateData?.created_at
             ? new Date(status.duplicateData.created_at).toLocaleDateString()
-            : 'a previous date';
+            : null;
 
         return (
             <div className="apply-success-card">
-                <div className="success-icon">👋</div>
-                <h2>Welcome Back, {formData.name}</h2>
-                <p>
-                    We already have your application from <strong>{existingDate}</strong>.
+                <div className="success-icon">📌</div>
+
+                <h2>Application Already Received</h2>
+
+                <p style={{ marginTop: "8px" }}>
+                    Our records show that your application has already been submitted.
                 </p>
+
+                {existingDate && (
+                    <p style={{ marginTop: "5px", fontSize: "0.9em", color: "#666" }}>
+                        Submitted on: <strong>{existingDate}</strong>
+                    </p>
+                )}
+
+                {status.leadId && (
+                    <p style={{ marginTop: "5px", fontSize: "0.9em" }}>
+                        Reference ID: <strong>{status.leadId}</strong>
+                    </p>
+                )}
 
                 <div style={{
                     margin: '20px 0',
@@ -701,17 +771,22 @@ const ApplyForm = () => {
                     background: '#f8f9fa',
                     borderRadius: '8px',
                     fontSize: '0.9em',
-                    color: '#666'
+                    color: '#444'
                 }}>
-                    Our team is reviewing your profile. There is no need to apply again.
-                    <br />If you haven't heard from us, you can connect on WhatsApp.
+                    ✔ Your profile is currently under review.
+                    ✔ There is no need to submit the form again.
+                    ✔ Our team connects personally after evaluation.
                 </div>
+
+                <p style={{ fontSize: "0.85em", color: "#888", marginBottom: "10px" }}>
+                    If you would like an update or wish to clarify anything, you may reach out below.
+                </p>
 
                 <button
                     onClick={handleWhatsAppClick}
                     className="btn btn-whatsapp btn-block"
                 >
-                    Check Status on WhatsApp
+                    Continue Conversation on WhatsApp
                 </button>
             </div>
         );
@@ -725,63 +800,86 @@ const ApplyForm = () => {
         return (
             <div className="apply-success-card animate-pulse">
                 <div className="success-icon">
-                    {isWaitlist ? "📝" : "✅"}
+                    {isWaitlist ? "🌍" : "✅"}
                 </div>
 
                 <h2>
                     {isWaitlist
-                        ? "You’re Added to Our Expansion Waitlist"
-                        : "Application Submitted Successfully"}
+                        ? "You’re on Our Expansion Priority List"
+                        : "Your Application Has Been Received"}
                 </h2>
 
-                <p>
+                <p style={{ marginTop: "6px" }}>
                     Reference ID: <strong>{status.leadId}</strong>
+                </p>
+                <p style={{ fontSize: "0.8em", color: "#888" }}>
+                    Please keep this reference ID for future communication.
                 </p>
 
                 <div
                     style={{
                         margin: '20px 0',
-                        borderTop: '1px solid #eee',
-                        paddingTop: '15px'
+                        padding: '15px',
+                        background: '#f8f9fa',
+                        borderRadius: '8px',
+                        fontSize: '0.95em',
+                        color: '#444'
                     }}
                 >
                     {isWaitlist ? (
-                        <p style={{ color: '#555', fontSize: '0.95em' }}>
-                            We are currently onboarding candidates from Delhi NCR (Phase 1).
-                            Your profile has been added to our priority list for upcoming expansion.
-                            Our team will notify you when onboarding begins in your area.
-                        </p>
+                        <>
+                            ✔ We are currently onboarding candidates from Delhi NCR. <br />
+                            ✔ Your profile has been added to our expansion list. <br />
+                            ✔ You will be informed as soon as onboarding begins in your city.
+                        </>
                     ) : (
-                        <p style={{ color: '#555', fontSize: '0.95em' }}>
-                            Our team will connect with you on WhatsApp to guide you about
-                            the training and onboarding process.
-                        </p>
+                        <>
+                            ✔ Your profile is now under review. <br />
+                            ✔ Our team will connect with you personally on WhatsApp. <br />
+                            ✔ Training and onboarding details will be explained step-by-step.
+                        </>
                     )}
                 </div>
+
+                <p style={{ fontSize: "0.85em", color: "#666", marginBottom: "15px" }}>
+                    {isWaitlist
+                        ? "You may also connect with us on WhatsApp if you would like early updates."
+                        : "If you prefer immediate communication, you may connect with us on WhatsApp below."}
+                </p>
 
                 <button
                     onClick={handleWhatsAppClick}
                     className="btn btn-whatsapp btn-block"
                 >
                     {isWaitlist
-                        ? "Connect for Updates on WhatsApp"
+                        ? "Get Updates on WhatsApp"
                         : "Continue on WhatsApp"}
                 </button>
             </div>
         );
     }
 
-    // 4. Wizard View
+    // 5. Wizard View
     return (
         <div className="lead-form-wizard">
-            <div className="wizard-progress">
+            <div className="wizard-progress"
+                style={{
+                    '--progress-width': `${(step - 1) * 33.33}%`
+                }}
+            >
                 {[1, 2, 3, 4].map(num => (
                     <div
                         key={num}
-                        className={`step-indicator ${step === num ? 'active' : ''
-                            } ${step > num ? 'completed' : ''}`}
+                        className={`step-indicator 
+                            ${step === num ? 'active' : ''} 
+                            ${step > num ? 'completed' : ''}`}
                     >
-                        {step > num ? '✓' : num}
+                        <div className="step-circle">
+                            {step > num ? '✓' : num}
+                        </div>
+                        <div className="step-label">
+                            {["Basic Details", "Location", "Background", "Confirmation"][num - 1]}
+                        </div>
                     </div>
                 ))}
             </div>
@@ -793,6 +891,9 @@ const ApplyForm = () => {
                 {step === 4 && renderStep4()}
 
                 <div className="form-actions">
+                    <p style={{ fontSize: "0.8em", color: "#888", marginBottom: "10px" }}>
+                        Step {step} of 4
+                    </p>
                     {step > 1 && (
                         <Button
                             onClick={handleBack}
@@ -809,7 +910,9 @@ const ApplyForm = () => {
                             variant="primary"
                             className="btn-block"
                         >
-                            Next
+                            {step === 1 && "Continue to Location"}
+                            {step === 2 && "Continue to Background"}
+                            {step === 3 && "Review Your Details"}
                         </Button>
                     ) : (
                         <Button
@@ -820,7 +923,7 @@ const ApplyForm = () => {
                         >
                             {status.isSubmitting
                                 ? 'Submitting...'
-                                : 'Confirm & Submit'}
+                                : 'Submit for Review'}
                         </Button>
                     )}
                 </div>

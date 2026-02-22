@@ -9,6 +9,7 @@
     /* Added internal breathing room */
     box-sizing: border-box;
     /* Critical for mobile padding not to overflow width */
+    backdrop-filter: blur(6px);
 }
 
 /* Mobile Tweak: Ensure inputs don't overflow */
@@ -30,7 +31,7 @@
 .wizard-progress::before {
     content: '';
     position: absolute;
-    top: 12px;
+    top: 14px;
     left: 10px;
     right: 10px;
     height: 2px;
@@ -38,21 +39,31 @@
     z-index: 0;
 }
 
+.wizard-progress::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    height: 2px;
+    width: var(--progress-width, 0%);
+    background: #646cff;
+    z-index: 0;
+    transition: width 0.3s ease;
+}
+
+.lead-form-wizard input:focus,
+.lead-form-wizard select:focus {
+    border-color: #646cff;
+    box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.2);
+    outline: none;
+}
+
 .step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     z-index: 1;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #fff;
-    border: 2px solid #e0e0e0;
-    color: #999;
-    font-size: 12px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
 }
 
 .step-indicator.active {
@@ -66,6 +77,39 @@
     background: #646cff;
     border-color: #646cff;
     color: #fff;
+}
+
+.step-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+.step-indicator.active .step-circle {
+    border-color: #646cff;
+    background: #646cff;
+    color: #fff;
+}
+
+.step-indicator.completed .step-circle {
+    border-color: #10b981;
+    background: #10b981;
+    color: #fff;
+}
+
+.step-label {
+    font-size: 0.7rem;
+    margin-top: 6px;
+    color: #666;
+    text-align: center;
 }
 
 /* Form Steps */
@@ -157,6 +201,10 @@
 .apply-success-card {
     text-align: center;
     padding: 40px 20px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    animation: fadeIn 0.3s ease-out;
 }
 
 .success-icon {
@@ -200,4 +248,24 @@
     /* NEVER shrink the checkbox */
     width: 16px;
     height: 16px;
+}
+
+.btn {
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+    .step-label {
+        font-size: 0.65rem;
+        line-height: 1.2;
+    }
 }
