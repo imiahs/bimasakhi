@@ -61,7 +61,6 @@ const AdsLanding = () => {
             socialProofText:
                 "Thousands have transformed their lives through this opportunity.",
 
-            urgency: "Limited Phase-1 Onboarding for Delhi NCR – Apply Before Seats Fill",
 
             finalCTA: "Take the First Step Towards Your Independent Future",
             finalBtn: "Apply Now"
@@ -81,7 +80,6 @@ const AdsLanding = () => {
             socialProofText:
                 "हजारों लोगों ने इस अवसर से अपना जीवन बदला है।",
 
-            urgency: "दिल्ली NCR के लिए सीमित Phase-1 ऑनबोर्डिंग – सीटें सीमित हैं",
 
             finalCTA: "अपने आत्मनिर्भर भविष्य की ओर पहला कदम उठाएं",
             finalBtn: "अभी आवेदन करें"
