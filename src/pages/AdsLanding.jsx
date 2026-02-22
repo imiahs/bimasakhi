@@ -4,7 +4,7 @@ import SEOHead from '../components/core/SEOHead';
 import { UserContext } from '../context/UserContext';
 import { LanguageContext } from '../context/LanguageContext';
 import '../styles/AdsLanding.css';
-import Testimonials from '../components/dynamic/Testimonials';
+import Testimonials from '../features/dynamic-home/components/dynamic/Testimonials';
 
 const AdsLanding = () => {
     const { setSource } = useContext(UserContext);
