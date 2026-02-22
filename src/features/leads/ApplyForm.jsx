@@ -34,6 +34,7 @@ const ApplyForm = () => {
         education: '',
         occupation: '', // Reused for 'Current Status'
         reason: '', // Reserved for future qualitative analysis
+        phaseTag: "phase1_delhi",  // default
         dndConsent: false
     });
 
@@ -55,30 +56,90 @@ const ApplyForm = () => {
 
     const [errors, setErrors] = useState({});
 
+    // 🔥 WhatsApp handler for paused state (no form submission required)
+    const handlePausedWhatsAppClick = () => {
+        const message = encodeURIComponent(
+            "Hello, I am interested in the Bima Sakhi opportunity, but applications are currently paused. Please inform me when it reopens in my area."
+        );
+
+        const waUrl = `https://wa.me/919311073365?text=${message}`;
+
+        // 🔥 GTM tracking for paused-state interest
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: "whatsapp_paused_interest_click",
+            source: userState?.source || "website",
+            medium: userState?.medium || "direct",
+            campaign: userState?.campaign || "bima_sakhi"
+        });
+
+        window.open(waUrl, "_blank");
+    };
     // 1. Pause Logic
     // Used when applications are temporarily stopped (operational / compliance reasons)
     if (config.isAppPaused) {
         return (
             <div className="alert-box">
-                Applications are currently paused. Please check back later.
+                <p style={{ marginBottom: "10px", fontWeight: "600" }}>
+                    🚧 Applications are temporarily paused.
+                </p>
+
+                <p style={{ marginBottom: "10px" }}>
+                    We are currently onboarding candidates in selected locations.
+                    Expansion to more cities is planned.
+                </p>
+
+                <p style={{ marginBottom: "15px" }}>
+                    If you would like to stay informed when applications reopen in your area,
+                    you may connect with us on WhatsApp.
+                </p>
+
+                <button
+                    onClick={handlePausedWhatsAppClick}
+                    className="btn btn-whatsapp btn-block"
+                >
+                    Stay Updated on WhatsApp
+                </button>
             </div>
         );
     }
 
     // 2. Already Submitted Guard
     // Prevents duplicate submissions from same user/session
+    // 2. Already Submitted Guard
+    // Prevents duplicate submissions from same user/session
     if (userState.hasSubmitted && !status.success) {
         return (
             <div className="alert-box success">
-                You have already submitted your application.
-                If you missed the WhatsApp conversation,{' '}
-                <a
-                    href={getWhatsAppUrl({ ...userState.lastLeadData })}
-                    target="_blank"
-                    rel="noreferrer"
+                <p style={{ fontWeight: "600", marginBottom: "8px" }}>
+                    ✅ Your application has already been received.
+                </p>
+
+                {/* Show Reference ID if available */}
+                {userState?.lastLeadData?.leadId && (
+                    <p style={{ marginBottom: "8px" }}>
+                        Reference ID:{" "}
+                        <strong>{userState.lastLeadData.leadId}</strong>
+                    </p>
+                )}
+
+                <p style={{ marginBottom: "10px" }}>
+                    Our system shows that your profile is currently under review.
+                    There is no need to submit the form again.
+                </p>
+
+                <p style={{ marginBottom: "15px" }}>
+                    Our team connects personally on WhatsApp after reviewing each profile.
+                    If you would like to reconnect or continue the conversation,
+                    you may reach us below.
+                </p>
+
+                <button
+                    onClick={handleWhatsAppClick}
+                    className="btn btn-whatsapp btn-block"
                 >
-                    click here
-                </a>.
+                    Reconnect on WhatsApp
+                </button>
             </div>
         );
     }
@@ -102,8 +163,10 @@ const ApplyForm = () => {
                 tempErrors.pincode = "Valid 6-digit Pincode required";
             if (!formData.city)
                 tempErrors.city = "City could not be detected";
-            if (!formData.locality)
+            // Only require locality if not manual mode
+            if (!formData.locality && !locationStatus.isManual)
                 tempErrors.locality = "Locality / Area is required";
+
         }
 
         if (currentStep === 3) {
@@ -201,16 +264,22 @@ const ApplyForm = () => {
                 setFormData(prev => ({
                     ...prev,
                     city: data.city,
-                    state: data.state
+                    state: data.state,
+                    phaseTag: "future_expansion"   // 🔥 TAG ADDED
                 }));
 
                 setLocationStatus({
                     loading: false,
-                    msg: '⚠️ Currently open only for Delhi NCR. You may be added to a waitlist.',
-                    type: 'warning'
+                    msg: 'Currently onboarding candidates from Delhi NCR (Phase 1). You are eligible for our upcoming expansion waitlist.',
+                    type: 'info',
+                    isManual: true   // 🔥 IMPORTANT
                 });
 
-                setAvailableLocalities([]);
+                // Allow manual locality entry
+                setAvailableLocalities([
+                    { value: '', label: 'Select Locality' },
+                    { value: 'Other', label: 'Other / Manual Entry' }
+                ]);
             }
         } catch (error) {
             console.error("Pincode API Error", error);
@@ -262,6 +331,7 @@ const ApplyForm = () => {
         // Prepare Payload
         const payload = {
             ...formData,
+            recruitment_phase: formData.phaseTag,   // 🔥 CRM TAG
             source: userState.source || 'Website',
             medium: userState.medium || 'Direct',
             campaign: userState.campaign || 'Bima Sakhi',
@@ -299,6 +369,17 @@ const ApplyForm = () => {
                         leadId: leadId,
                         city: formData.city,
                         source: userState.source
+                    });
+
+                    // 🔥 GTM FORM SUBMIT EVENT
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push({
+                        event: "bimasakhi_form_submit",
+                        lead_id: leadId,
+                        city: formData.city,
+                        source: userState.source || "website",
+                        medium: userState.medium || "direct",
+                        campaign: userState.campaign || "bima_sakhi"
                     });
 
                     setStatus({
@@ -339,6 +420,17 @@ const ApplyForm = () => {
         analytics.track('whatsapp_click', {
             context: 'apply_success_cta',
             leadId: status.leadId
+        });
+
+        // 🔥 GTM WHATSAPP EVENT
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: "whatsapp_continue_click",
+            lead_id: status?.leadId || "unknown",
+            phone: "919311073365",
+            source: userState?.source || "website",
+            medium: userState?.medium || "direct",
+            campaign: userState?.campaign || "bima_sakhi"
         });
 
         window.open(waUrl, '_blank');
@@ -418,7 +510,8 @@ const ApplyForm = () => {
             <div className="step-header">
                 <h3>Your service location</h3>
                 <p>
-                    At present, this career opportunity is open only for women based in Delhi NCR.
+                    Currently onboarding candidates from Delhi NCR as part of Phase 1.
+                    Applications from other cities are welcomed for upcoming expansion.
                 </p>
             </div>
 
@@ -623,10 +716,21 @@ const ApplyForm = () => {
 
     // 4. Success View
     if (status.success) {
+
+        const isWaitlist = formData.phaseTag === "future_expansion";
+
         return (
             <div className="apply-success-card animate-pulse">
-                <div className="success-icon">✅</div>
-                <h2>Application Submitted Successfully</h2>
+                <div className="success-icon">
+                    {isWaitlist ? "📝" : "✅"}
+                </div>
+
+                <h2>
+                    {isWaitlist
+                        ? "You’re Added to Our Expansion Waitlist"
+                        : "Application Submitted Successfully"}
+                </h2>
+
                 <p>
                     Reference ID: <strong>{status.leadId}</strong>
                 </p>
@@ -638,17 +742,27 @@ const ApplyForm = () => {
                         paddingTop: '15px'
                     }}
                 >
-                    <p style={{ color: '#555', fontSize: '0.95em' }}>
-                        Our team will connect with you on WhatsApp to guide you about the
-                        next steps.
-                    </p>
+                    {isWaitlist ? (
+                        <p style={{ color: '#555', fontSize: '0.95em' }}>
+                            We are currently onboarding candidates from Delhi NCR (Phase 1).
+                            Your profile has been added to our priority list for upcoming expansion.
+                            Our team will notify you when onboarding begins in your area.
+                        </p>
+                    ) : (
+                        <p style={{ color: '#555', fontSize: '0.95em' }}>
+                            Our team will connect with you on WhatsApp to guide you about
+                            the training and onboarding process.
+                        </p>
+                    )}
                 </div>
 
                 <button
                     onClick={handleWhatsAppClick}
                     className="btn btn-whatsapp btn-block"
                 >
-                    Continue on WhatsApp
+                    {isWaitlist
+                        ? "Connect for Updates on WhatsApp"
+                        : "Continue on WhatsApp"}
                 </button>
             </div>
         );
