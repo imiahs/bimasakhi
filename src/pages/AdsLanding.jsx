@@ -4,6 +4,7 @@ import SEOHead from '../components/core/SEOHead';
 import { UserContext } from '../context/UserContext';
 import { LanguageContext } from '../context/LanguageContext';
 import '../styles/AdsLanding.css';
+import Testimonials from '../components/dynamic/Testimonials';
 
 const AdsLanding = () => {
     const { setSource } = useContext(UserContext);
@@ -167,12 +168,7 @@ const AdsLanding = () => {
                     <p>{t.fearText}</p>
                 </div>
             </section>
-            <section className="ads-testimonial">
-                <p>
-                    “I started as a homemaker. Today I manage my own clients and earn respectfully.
-                    Becoming a Bima Sakhi changed my confidence and my family’s future.”
-                </p>
-            </section>
+            <Testimonials />
             {/* FINAL CTA */}
             <section className="ads-final">
                 <div className="ads-container">
