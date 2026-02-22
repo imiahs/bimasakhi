@@ -443,12 +443,12 @@ const ApplyForm = () => {
 
         const texts = {
             en: {
-                title: "Now the opportunity is in your hands",
-                desc: "Apply today and start your future."
+                title: "Start Your Bima Sakhi Journey",
+                desc: "If you are serious about building a career with LIC, this is your first step."
             },
             hi: {
-                title: "अब मौका आपके हाथ में है",
-                desc: "आज आवेदन करें और अपने भविष्य की शुरुआत करें।"
+                title: "अपनी बीमा सखी यात्रा शुरू करें",
+                desc: "अगर आप एलआईसी के साथ करियर बनाना चाहती हैं, तो यह आपका पहला कदम है।"
             }
         };
 
@@ -470,7 +470,7 @@ const ApplyForm = () => {
                 />
 
                 <Input
-                    label="Mobile Number (WhatsApp)"
+                    label="WhatsApp Number (For Application Updates)"
                     name="mobile"
                     type="tel"
                     maxLength="10"
@@ -479,6 +479,9 @@ const ApplyForm = () => {
                     error={errors.mobile}
                     placeholder="10 digit number"
                 />
+                <p style={{ fontSize: "0.85em", color: "#666" }}>
+                    Your details remain confidential and are reviewed personally.
+                </p>
 
                 <div className="form-group" style={{ marginTop: '15px' }}>
                     <label className="checkbox-label">
