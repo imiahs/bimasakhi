@@ -16,7 +16,7 @@ import { LanguageContext } from '../context/LanguageContext';
 import Hero from '../features/dynamic-home/components/dynamic/Hero';
 import Testimonials from '../features/dynamic-home/components/dynamic/Testimonials';
 import QuickInfoStrip from '../features/ads-landing/components/QuickInfoStrip';
-
+import UrgencyTicker from '../features/ads-landing/components/UrgencyTicker';
 import '../styles/AdsLanding.css';
 
 
@@ -99,9 +99,7 @@ const AdsLanding = () => {
             />
 
             {/* ================= URGENCY STRIP ================= */}
-            <div className="ads-urgency-bar">
-                {t.urgency}
-            </div>
+            <UrgencyTicker />
 
             {/* ================= HERO SECTION ================= */}
             <Hero
@@ -116,14 +114,7 @@ const AdsLanding = () => {
             <QuickInfoStrip />
 
             {/* ================= EMOTIONAL CONVERSION SECTION ================= */}
-            <section className="ads-section light">
-                <div className="ads-container">
-                    <h2>{t.emotionalTitle}</h2>
-                    <p className="section-description">
-                        {t.emotionalText}
-                    </p>
-                </div>
-            </section>
+            <EmotionalSection />
 
             {/* ================= SOCIAL PROOF BLOCK ================= */}
             <section className="ads-section highlight">

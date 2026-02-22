@@ -1,0 +1,141 @@
+/* =========================================
+   EMOTIONAL CONVERSION SECTION – PREMIUM
+========================================= */
+
+.ads-emotional-section {
+    padding: 5rem 1.5rem;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle abstract background glow */
+.ads-emotional-section::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 20, 147, 0.08), transparent);
+    top: -200px;
+    right: -200px;
+    z-index: 0;
+}
+
+.ads-emotional-flex {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.ads-emotional-text {
+    max-width: 600px;
+    text-align: center;
+    animation: fadeUp 0.8s ease forwards;
+}
+
+.ads-emotional-text h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.emotional-intro {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #334155;
+    line-height: 1.6;
+}
+
+.emotional-points {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.emotional-points li {
+    background: #ffffff;
+    margin-bottom: 0.8rem;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    font-weight: 500;
+    color: #1e293b;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+/* Hover lift effect */
+.emotional-points li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(255, 20, 147, 0.15);
+}
+
+/* Highlight Statement */
+.emotional-highlight {
+    background: linear-gradient(135deg, #ff1493, #e75480);
+    color: #ffffff;
+    padding: 1rem 1.2rem;
+    border-radius: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(255, 20, 147, 0.3);
+    animation: fadeUp 1s ease forwards;
+}
+
+/* IMAGE BLOCK */
+.ads-emotional-visual {
+    max-width: 420px;
+    animation: fadeUp 1.2s ease forwards;
+}
+
+.ads-emotional-visual img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+    transition: transform 0.4s ease;
+}
+
+/* Slight hover zoom */
+.ads-emotional-visual img:hover {
+    transform: scale(1.04);
+}
+
+/* Desktop Layout */
+@media (min-width: 992px) {
+
+    .ads-emotional-flex {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5rem;
+    }
+
+    .ads-emotional-text {
+        text-align: left;
+    }
+
+    .ads-emotional-text h2 {
+        font-size: 2.5rem;
+    }
+
+    .emotional-intro {
+        font-size: 1.15rem;
+    }
+}
+
+/* Animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
