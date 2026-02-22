@@ -1,119 +1,202 @@
-.ads-landing-wrapper {
+/* ==========================================
+   BIMA SAKHI ADS LANDING – MODERN DESIGN
+   Theme: Trust Blue + Empower Pink
+========================================== */
+
+.ads-landing {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-    color: #1f2937;
     background: #ffffff;
+    color: #1f2937;
+    line-height: 1.6;
 }
 
-/* HERO */
-.ads-hero-section {
-    background: linear-gradient(135deg, #004e92, #000428);
-    color: #ffffff;
-    padding: 4rem 1.5rem;
-}
-
-.ads-hero-inner {
-    max-width: 1140px;
+/* CONTAINER */
+.ads-container {
+    max-width: 1100px;
     margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ==========================================
+   HERO SECTION
+========================================== */
+
+.ads-hero {
+    background: linear-gradient(135deg, #0f2c59, #001f3f);
+    color: #ffffff;
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.ads-hero-flex {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 3rem;
     align-items: center;
 }
 
-.ads-hero-content {
-    text-align: center;
+.ads-hero-text {
     max-width: 600px;
+    text-align: center;
 }
 
-.ads-hero-content h1 {
-    font-size: 2rem;
-    line-height: 1.3;
+.ads-hero-text h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
     margin-bottom: 1rem;
+    line-height: 1.3;
 }
 
-.ads-subtitle {
+.ads-sub {
     font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-}
-
-.ads-trust-line {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.8rem;
     opacity: 0.95;
 }
 
-.ads-cta-btn {
-    background: #ff69b4;
-    color: #fff;
-    padding: 0.8rem 2.2rem;
+.ads-trust {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+}
+
+/* BUTTON */
+.ads-btn-primary {
+    background: linear-gradient(135deg, #e75480, #ff69b4);
+    color: #ffffff;
+    padding: 0.9rem 2.5rem;
     border: none;
-    border-radius: 40px;
+    border-radius: 50px;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
 }
 
-.ads-cta-btn:hover {
-    background: #ffffff;
-    color: #ff69b4;
+.ads-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 105, 180, 0.6);
 }
 
 /* HERO IMAGE */
-.ads-hero-image-box img {
+.ads-hero-img img {
     max-width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
 }
 
-/* SECTIONS */
+/* ==========================================
+   SECTIONS
+========================================== */
+
 .ads-section {
-    padding: 3.5rem 1.5rem;
+    padding: 4rem 0;
 }
 
-.ads-alt-bg {
+.ads-section.light {
     background: #f8fafc;
 }
 
-.ads-container {
-    max-width: 900px;
-    margin: 0 auto;
+.ads-section.highlight {
+    background: linear-gradient(135deg, #fdf2f8, #fff);
     text-align: center;
 }
 
-.ads-container h2 {
-    margin-bottom: 1.5rem;
-    font-size: 1.6rem;
+.ads-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #0f2c59;
 }
 
+.section-desc {
+    max-width: 750px;
+    margin: 0 auto 1.5rem auto;
+    font-size: 1.05rem;
+    color: #4b5563;
+}
+
+/* LIST */
 .ads-list {
     list-style: none;
     padding: 0;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .ads-list li {
     margin-bottom: 1rem;
     font-size: 1.05rem;
+    padding: 0.8rem 1rem;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
 }
 
-.ads-bottom-cta {
-    margin-top: 2rem;
+.ads-list li:hover {
+    transform: translateY(-2px);
 }
 
-/* DESKTOP */
+/* ==========================================
+   SOCIAL PROOF BLOCK
+========================================== */
+
+.ads-section.highlight h2 {
+    color: #e75480;
+}
+
+.ads-section.highlight p {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+}
+
+/* ==========================================
+   FINAL CTA
+========================================== */
+
+.ads-final {
+    background: linear-gradient(135deg, #0f2c59, #001f3f);
+    color: #ffffff;
+    text-align: center;
+    padding: 4rem 1.5rem;
+}
+
+.ads-final h2 {
+    font-size: 1.9rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
 @media (min-width: 992px) {
-    .ads-hero-inner {
+
+    .ads-hero-flex {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
     }
 
-    .ads-hero-content {
+    .ads-hero-text {
         text-align: left;
     }
 
-    .ads-hero-content h1 {
-        font-size: 2.6rem;
+    .ads-hero-text h1 {
+        font-size: 2.8rem;
+    }
+
+    .ads-section h2 {
+        font-size: 2.2rem;
+    }
+
+    .ads-final h2 {
+        font-size: 2.2rem;
     }
 }
