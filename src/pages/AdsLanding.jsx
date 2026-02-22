@@ -103,7 +103,9 @@ const AdsLanding = () => {
                 description="Join Bima Sakhi LIC Agency opportunity in Delhi NCR. 3-year stipend + commission-based career. Empowering women across India."
                 path="/bima-sakhi-delhi"
             />
-
+            <div className="ads-countdown">
+                Limited Phase-1 Onboarding for Delhi NCR – Applications Closing Soon
+            </div>
             {/* HERO */}
             <section className="ads-hero">
                 <div className="ads-container ads-hero-flex">
@@ -165,7 +167,12 @@ const AdsLanding = () => {
                     <p>{t.fearText}</p>
                 </div>
             </section>
-
+            <section className="ads-testimonial">
+                <p>
+                    “I started as a homemaker. Today I manage my own clients and earn respectfully.
+                    Becoming a Bima Sakhi changed my confidence and my family’s future.”
+                </p>
+            </section>
             {/* FINAL CTA */}
             <section className="ads-final">
                 <div className="ads-container">
