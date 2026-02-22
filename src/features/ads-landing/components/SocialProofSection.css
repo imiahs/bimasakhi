@@ -1,0 +1,91 @@
+/* =========================================
+   SOCIAL PROOF SECTION – PREMIUM VERSION
+========================================= */
+
+.ads-social-proof {
+    padding: 5rem 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle glow effect */
+.ads-social-proof::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent);
+    top: -200px;
+    left: -200px;
+}
+
+.ads-social-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.ads-social-container h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.ads-social-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+/* STAT GRID */
+.ads-social-stats {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+}
+
+.ads-stat-card {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2rem 1.5rem;
+    border-radius: 18px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+}
+
+.ads-stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(255, 20, 147, 0.35);
+}
+
+/* NUMBER STYLE */
+.ads-stat-number {
+    font-size: 2.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff1493, #e75480);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+/* LABEL STYLE */
+.ads-stat-label {
+    font-size: 1rem;
+    opacity: 0.95;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+    .ads-social-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .ads-social-container h2 {
+        font-size: 2.5rem;
+    }
+}

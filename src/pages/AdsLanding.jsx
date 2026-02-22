@@ -17,6 +17,9 @@ import Hero from '../features/dynamic-home/components/dynamic/Hero';
 import Testimonials from '../features/dynamic-home/components/dynamic/Testimonials';
 import QuickInfoStrip from '../features/ads-landing/components/QuickInfoStrip';
 import UrgencyTicker from '../features/ads-landing/components/UrgencyTicker';
+import EmotionalSection from '../features/ads-landing/components/EmotionalSection';
+import SocialProofSection from '../features/ads-landing/components/SocialProofSection';
+import FinalCTASection from '../features/ads-landing/components/FinalCTASection';
 import '../styles/AdsLanding.css';
 
 
@@ -117,29 +120,13 @@ const AdsLanding = () => {
             <EmotionalSection />
 
             {/* ================= SOCIAL PROOF BLOCK ================= */}
-            <section className="ads-section highlight">
-                <div className="ads-container">
-                    <h2>{t.socialProofTitle}</h2>
-                    <p>{t.socialProofText}</p>
-                </div>
-            </section>
+            <SocialProofSection />
 
             {/* ================= TESTIMONIALS ================= */}
             <Testimonials />
 
             {/* ================= FINAL CTA ================= */}
-            <section className="ads-final-cta">
-                <div className="ads-container">
-                    <h2>{t.finalCTA}</h2>
-
-                    <button
-                        className="ads-btn-primary"
-                        onClick={handleApplyClick}
-                    >
-                        {t.finalBtn}
-                    </button>
-                </div>
-            </section>
+            <FinalCTASection onApplyClick={handleApplyClick} />
 
         </div>
     );

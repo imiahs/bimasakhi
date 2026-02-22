@@ -1,0 +1,80 @@
+/* =========================================
+   FINAL CTA – HIGH CONVERSION SECTION
+========================================= */
+
+.ads-final-cta-section {
+    padding: 6rem 1.5rem;
+    background: linear-gradient(135deg, #e75480, #ff1493);
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Soft background glow */
+.ads-final-cta-section::before {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent);
+    top: -200px;
+    right: -200px;
+}
+
+.ads-final-container {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.ads-final-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    line-height: 1.3;
+}
+
+.ads-final-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+}
+
+/* CTA BUTTON */
+.ads-final-button {
+    background: #ffffff;
+    color: #ff1493;
+    padding: 1rem 3rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.ads-final-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+.ads-final-note {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+
+    .ads-final-title {
+        font-size: 2.8rem;
+    }
+
+    .ads-final-subtitle {
+        font-size: 1.25rem;
+    }
+}
