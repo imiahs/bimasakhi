@@ -51,7 +51,7 @@ function App() {
           <Route path="apply" element={<Apply />} />
 
           {/* Ads Flow */}
-          <Route path="apply-delhi" element={<AdsLanding />} />
+          <Route path="bima-sakhi-delhi" element={<AdsLanding />} />
 
           {/* Legal Pages */}
           <Route path="privacy-policy" element={<Suspense fallback={<div>...</div>}><Privacy /></Suspense>} />

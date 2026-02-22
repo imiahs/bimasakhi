@@ -1,10 +1,7 @@
 import React, { useEffect, useContext } from 'react';
-import { UserContext } from '../context/UserContext';
-import Hero from '../features/dynamic-home/components/dynamic/Hero';
-import Benefits from '../features/dynamic-home/components/dynamic/Benefits';
-import IncomeBlock from '../features/dynamic-home/components/dynamic/IncomeBlock';
+import SEOHead from '../components/core/SEOHead';
 import ApplyForm from '../features/leads/ApplyForm';
-import Card from '../components/ui/Card';
+import { UserContext } from '../context/UserContext';
 
 const AdsLanding = () => {
     const { setSource } = useContext(UserContext);
@@ -14,41 +11,65 @@ const AdsLanding = () => {
     }, []);
 
     return (
-        <div className="page-ads-landing">
-            {/* 1. Short Intro */}
-            <Hero
-                title="LIC Agency Career for Women – Delhi NCR"
-                subtitle="Start your professional journey today. Dignity, Income, Flexibility."
-                ctaText="Apply Below"
-                isAdsMode={true}
+        <div className="ads-landing">
+
+            <SEOHead
+                title="Bima Sakhi Yojana – LIC Agency Career for Women in Delhi NCR"
+                description="Apply for Bima Sakhi LIC Agency career in Delhi NCR. 3-year stipend + commission. 10th pass women eligible. Free training."
+                path="/bima-sakhi-delhi"
             />
 
-            <div className="container">
-                {/* 2. Mini Why - reusing Benefits */}
-                <Benefits />
-
-                {/* 3. Mini Income Reality */}
-                <Card className="my-4">
-                    <h3>Important: Income Reality</h3>
-                    <IncomeBlock condensed={true} />
-                </Card>
-
-                {/* 4. Simple Checklist (Visual only, form validation handles the real check) */}
-                <Card className="my-4 bg-light">
-                    <h3>Eligibility</h3>
-                    <ul>
-                        <li>✅ Woman (18-70 Years)</li>
-                        <li>✅ 10th Pass Minimum</li>
-                        <li>✅ Resident of Delhi NCR</li>
-                    </ul>
-                </Card>
-
-                {/* 5. Application Form */}
-                <div id="application-form" className="py-4">
-                    <h2>Apply Now</h2>
-                    <ApplyForm />
+            {/* HERO */}
+            <section className="ads-hero">
+                <div className="container text-center">
+                    <h1>Bima Sakhi Yojana – LIC Agency Career for Women in Delhi NCR</h1>
+                    <p className="subtitle">
+                        3 Years Stipend + Commission | 10th Pass | Age 18–70
+                    </p>
+                    <p className="trust-line">
+                        Free Training | Government Supported | No Joining Fee
+                    </p>
+                    <a href="#apply-form" className="cta-button">
+                        Check Eligibility & Apply Now
+                    </a>
                 </div>
-            </div>
+            </section>
+
+            {/* BENEFITS */}
+            <section className="ads-benefits container">
+                <ul>
+                    <li>✔ Earn Monthly Stipend for First 3 Years</li>
+                    <li>✔ Flexible Work in Your Local Area</li>
+                    <li>✔ Unlimited Commission Potential</li>
+                </ul>
+            </section>
+
+            {/* INCOME REALITY */}
+            <section className="ads-income container">
+                <h2>Important: Income Reality</h2>
+                <p>
+                    This is a commission-based career. Stipend support is available for
+                    first 3 years (as per LIC norms). Long-term income depends on your
+                    performance and dedication.
+                </p>
+            </section>
+
+            {/* ELIGIBILITY */}
+            <section className="ads-eligibility container">
+                <h2>Eligibility</h2>
+                <ul>
+                    <li>✔ Woman (18–70 Years)</li>
+                    <li>✔ Minimum 10th Pass</li>
+                    <li>✔ Resident of Delhi NCR</li>
+                </ul>
+            </section>
+
+            {/* APPLY FORM */}
+            <section id="apply-form" className="container">
+                <h2>Apply Now</h2>
+                <ApplyForm />
+            </section>
+
         </div>
     );
 };
