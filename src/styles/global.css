@@ -385,3 +385,39 @@ p {
     margin-bottom: var(--spacing-xs);
     color: var(--color-text-secondary);
 }
+
+.ads-hero {
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, #004E92, #000428);
+    color: #fff;
+}
+
+.ads-hero h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.ads-hero .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.ads-hero .trust-line {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    background: #FF69B4;
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.ads-benefits,
+.ads-income,
+.ads-eligibility {
+    padding: 3rem 1rem;
+}
