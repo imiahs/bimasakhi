@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { LanguageContext } from '../../../context/LanguageContext';
-import './styles/AdsLanding.css';
+import '../../../styles/AdsLanding.css';
 
 const UrgencyTicker = () => {
     const { language } = useContext(LanguageContext);
