@@ -20,14 +20,15 @@ const FloatingApply = () => {
         const source = getSource();
 
         // Google Tag Manager Event
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            event: "apply_click",
-            source: source,
-            location: "floating_button"
-        });
+        // window.dataLayer = window.dataLayer || [];
+        // window.dataLayer.push({
+        //     event: "apply_click",
+        //     source: source,
+        //     location: "floating_button"
+        // });
 
-        navigate(`/apply?source=${source}`);
+        // navigate(`/apply?source=${source}`);
+        navigate("/apply");
     };
 
     const text = language === 'hi'
