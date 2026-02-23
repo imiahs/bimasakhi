@@ -27,6 +27,7 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
     transition: 0.3s ease;
     min-height: 44px;
+    pointer-events: auto;
 }
 
 /* Hover */

@@ -43,6 +43,6 @@
     .language-toggle-floating {
         bottom: 90px;
         /* Safe for floating CTA or WhatsApp */
-        right: 15px;
+        left: 15px;
     }
 }
