@@ -8,12 +8,12 @@ const UrgencyTicker = () => {
 
     const messages = {
         en: [
-            "Limited Phase-1 Onboarding for Delhi NCR – Apply Before Seats Fill",
+            "Limited Onboarding for Delhi NCR – Apply Before Seats Fill",
             "2.5 Lakh+ Already Joined | Many Applicants Reviewing Today"
         ],
         hi: [
-            "दिल्ली NCR के लिए सीमित Phase-1 ऑनबोर्डिंग – सीटें सीमित हैं",
-            "2.5 लाख+ लोग जुड़ चुके हैं | आज कई आवेदन समीक्षा में"
+            "दिल्ली NCR के लिए सीमित ऑनबोर्डिंग – सीटें सीमित हैं",
+            "2.5 लाख+ लोग जुड़ चुके हैं | आज कई आवेदन समीक्षा में हैं"
         ]
     };
 
