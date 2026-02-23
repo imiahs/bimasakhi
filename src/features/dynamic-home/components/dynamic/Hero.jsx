@@ -44,7 +44,7 @@ const Hero = ({
     return (
         <section className="ads-hero">
 
-            <div className="ads-container ads-hero-flex">
+            <div className="container ads-hero-flex">
 
                 {/* TEXT BLOCK */}
                 <div className="ads-hero-text">
