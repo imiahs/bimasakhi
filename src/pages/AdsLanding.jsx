@@ -20,6 +20,11 @@ import UrgencyTicker from '../features/ads-landing/components/UrgencyTicker';
 import EmotionalSection from '../features/ads-landing/components/EmotionalSection';
 import SocialProofSection from '../features/ads-landing/components/SocialProofSection';
 import FinalCTASection from '../features/ads-landing/components/FinalCTASection';
+import IncomeJourneySection from '../features/ads-landing/components/IncomeJourneySection';
+import PerformanceTierSection from '../features/ads-landing/components/PerformanceTierSection';
+import EligibilityHighlightSection from '../features/ads-landing/components/EligibilityHighlightSection';
+import TrustMicroSection from '../features/ads-landing/components/TrustMicroSection';
+import PrestigeClubsSection from '../features/ads-landing/components/PrestigeClubsSection';
 import '../styles/AdsLanding.css';
 
 
@@ -118,7 +123,16 @@ const AdsLanding = () => {
 
             {/* ================= EMOTIONAL CONVERSION SECTION ================= */}
             <EmotionalSection />
-
+            {/* ================= INCOME JOURNEY SECTION ================= */}
+            <IncomeJourneySection />
+            {/* ================= PERFORMANCE TIER SECTION ================= */}
+            <PerformanceTierSection />
+            {/* ================= ELIGIBILITY HIGHLIGHT SECTION ================= */}
+            <EligibilityHighlightSection />
+            {/* ================= TRUST MICRO SECTION ================= */}
+            <TrustMicroSection />
+            {/* ================= PRESTIGE CLUBS SECTION ================= */}
+            <PrestigeClubsSection />
             {/* ================= SOCIAL PROOF BLOCK ================= */}
             <SocialProofSection />
 

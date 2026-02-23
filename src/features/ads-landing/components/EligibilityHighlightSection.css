@@ -1,0 +1,90 @@
+/* ===============================
+   ELIGIBILITY SECTION
+=============================== */
+
+.eligibility-section {
+    padding: 6rem 1.5rem;
+    background: #ffffff;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.eligibility-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.eligibility-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.eligibility-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #0f172a;
+}
+
+.eligibility-subtitle {
+    margin-bottom: 3rem;
+    color: #64748b;
+    font-size: 1.05rem;
+}
+
+/* Grid */
+.eligibility-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+}
+
+/* Cards */
+.eligibility-card {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.eligibility-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(255, 20, 147, 0.25);
+}
+
+.eligibility-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.eligibility-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: #1e3a8a;
+}
+
+.eligibility-card p {
+    color: #475569;
+    font-size: 0.95rem;
+}
+
+/* Note */
+.eligibility-note {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+    .eligibility-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .eligibility-section h2 {
+        font-size: 2.5rem;
+    }
+}

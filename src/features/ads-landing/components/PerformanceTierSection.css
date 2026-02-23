@@ -1,0 +1,29 @@
+.performance-tier-section {
+    padding: 5rem 1.5rem;
+    background: #ffffff;
+    text-align: center;
+}
+
+.tier-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.tier-card {
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    transition: 0.3s ease;
+}
+
+.tier-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(255, 20, 147, 0.25);
+}
+
+@media (min-width: 768px) {
+    .tier-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
