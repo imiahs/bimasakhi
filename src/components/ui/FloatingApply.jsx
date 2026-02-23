@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { LanguageContext } from '../../context/LanguageContext';
 import "../../styles/FloatingActions.css";
 
@@ -17,9 +17,8 @@ const FloatingApply = () => {
     };
 
     const handleClick = (e) => {
-        // Prevent default browser behavior
-        e.preventDefault();
-        e.stopPropagation();
+        // Log for live troubleshooting
+        console.log("Floating Apply Clicked", { source: getSource() });
 
         const source = getSource();
 
@@ -33,23 +32,23 @@ const FloatingApply = () => {
 
         // Ensure user lands at top of page
         window.scrollTo(0, 0);
-
-        navigate(`/apply?source=${source}`);
     };
 
     const text = language === 'hi'
         ? 'अभी अप्लाई करें'
         : 'Apply Now';
 
+    const source = getSource();
+
     return (
-        <button
-            type="button"
+        <Link
+            to={`/apply?source=${source}`}
             className="floating-pill apply-pill attention-pulse"
             onClick={handleClick}
             aria-label="Apply for Bima Sakhi Opportunity"
         >
             📝 {text}
-        </button>
+        </Link>
     );
 };
 
