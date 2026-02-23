@@ -8,7 +8,9 @@ const FloatingWhatsApp = () => {
         return params.get("source") || "direct";
     };
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        // Track event without blocking default link behavior
+        // e.stopPropagation(); // Only disable if needed, but here we want the link to open
 
         const source = getUTMSource();
 

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { LanguageContext } from '../../context/LanguageContext';
 import "../../styles/FloatingActions.css";
 
+
 const FloatingApply = () => {
 
     const navigate = useNavigate();
@@ -15,20 +16,25 @@ const FloatingApply = () => {
         return params.get("source") || "direct";
     };
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        // Prevent default browser behavior
+        e.preventDefault();
+        e.stopPropagation();
 
         const source = getSource();
 
         // Google Tag Manager Event
-        // window.dataLayer = window.dataLayer || [];
-        // window.dataLayer.push({
-        //     event: "apply_click",
-        //     source: source,
-        //     location: "floating_button"
-        // });
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: "apply_click",
+            source: source,
+            location: "floating_button"
+        });
 
-        // navigate(`/apply?source=${source}`);
-        navigate("/apply");
+        // Ensure user lands at top of page
+        window.scrollTo(0, 0);
+
+        navigate(`/apply?source=${source}`);
     };
 
     const text = language === 'hi'
@@ -37,6 +43,7 @@ const FloatingApply = () => {
 
     return (
         <button
+            type="button"
             className="floating-pill apply-pill attention-pulse"
             onClick={handleClick}
             aria-label="Apply for Bima Sakhi Opportunity"
