@@ -1,3 +1,8 @@
+/* =========================================
+   LANGUAGE TOGGLE – CLEAN FLOATING BUTTON
+   Feminine | Minimal | Consistent
+========================================= */
+
 .language-toggle-floating {
     position: fixed;
     bottom: 20px;
@@ -5,55 +10,39 @@
     z-index: 1000;
 }
 
-/* ===============================
-   Language Toggle Button
-   =============================== */
+/* Button */
 .language-toggle-floating .lang-btn {
-    border: none;
-
-    /* Primary background */
-    background: linear-gradient(135deg, #0056b3, #007bff);
-    color: #ffffff;
-
+    background: var(--color-primary);
+    color: var(--color-white);
     padding: 6px 14px;
-    border-radius: 18px;
-
+    border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
     white-space: nowrap;
-
     cursor: pointer;
     min-width: auto;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition:
-        background 0.25s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    transition: 0.2s ease;
 }
 
-/* Hover effects (desktop only) */
+/* Hover */
 @media (hover: hover) {
     .language-toggle-floating .lang-btn:hover {
-        background: linear-gradient(135deg, #004a99, #006ae0);
+        background: var(--color-primary-hover);
         transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
     }
 }
 
-/* Active / tap feedback */
+/* Active */
 .language-toggle-floating .lang-btn:active {
     transform: translateY(0);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* ===============================
-   Mobile spacing (WhatsApp safe)
-   =============================== */
+/* Mobile safe spacing (WhatsApp safe) */
 @media (max-width: 768px) {
     .language-toggle-floating {
         bottom: 90px;
-        /* 👈 WhatsApp button ke liye safe gap */
+        /* Safe for floating CTA or WhatsApp */
         right: 15px;
     }
 }

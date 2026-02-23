@@ -1,57 +1,46 @@
 /* =========================================
-   EMOTIONAL CONVERSION SECTION – PREMIUM
+   EMOTIONAL SECTION – INSPIRATION BLOCK
+   Warm | Respectful | Feminine Premium
 ========================================= */
 
 .ads-emotional-section {
-    padding: 5rem 1.5rem;
-    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-    position: relative;
-    overflow: hidden;
+    padding: 4.5rem 1.5rem;
+    background: var(--color-secondary);
 }
 
-/* Subtle abstract background glow */
-.ads-emotional-section::before {
-    content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(255, 20, 147, 0.08), transparent);
-    top: -200px;
-    right: -200px;
-    z-index: 0;
-}
-
+/* Container */
 .ads-emotional-flex {
-    max-width: 1200px;
+    max-width: var(--container-desktop);
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 3rem;
     align-items: center;
-    position: relative;
-    z-index: 1;
 }
 
+/* Text Block */
 .ads-emotional-text {
     max-width: 600px;
     text-align: center;
-    animation: fadeUp 0.8s ease forwards;
 }
 
+/* Heading */
 .ads-emotional-text h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--color-text-main);
 }
 
+/* Intro Paragraph */
 .emotional-intro {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     margin-bottom: 2rem;
-    color: #334155;
+    color: var(--color-text-secondary);
     line-height: 1.6;
 }
 
+/* Bullet Points */
 .emotional-points {
     list-style: none;
     padding: 0;
@@ -59,49 +48,34 @@
 }
 
 .emotional-points li {
-    background: #ffffff;
+    background: var(--color-white);
     margin-bottom: 0.8rem;
-    padding: 0.8rem 1rem;
-    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
     font-weight: 500;
-    color: #1e293b;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s ease;
-}
-
-/* Hover lift effect */
-.emotional-points li:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(255, 20, 147, 0.15);
+    color: var(--color-text-main);
 }
 
 /* Highlight Statement */
 .emotional-highlight {
-    background: linear-gradient(135deg, #ff1493, #e75480);
-    color: #ffffff;
+    background: var(--color-white);
+    color: var(--color-primary);
     padding: 1rem 1.2rem;
-    border-radius: 14px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-primary);
     font-weight: 600;
-    box-shadow: 0 10px 25px rgba(255, 20, 147, 0.3);
-    animation: fadeUp 1s ease forwards;
 }
 
-/* IMAGE BLOCK */
+/* Image Block */
 .ads-emotional-visual {
     max-width: 420px;
-    animation: fadeUp 1.2s ease forwards;
 }
 
 .ads-emotional-visual img {
     width: 100%;
-    border-radius: 20px;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
-    transition: transform 0.4s ease;
-}
-
-/* Slight hover zoom */
-.ads-emotional-visual img:hover {
-    transform: scale(1.04);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
 /* Desktop Layout */
@@ -111,7 +85,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        gap: 5rem;
+        gap: 4rem;
     }
 
     .ads-emotional-text {
@@ -119,23 +93,10 @@
     }
 
     .ads-emotional-text h2 {
-        font-size: 2.5rem;
+        font-size: 2.4rem;
     }
 
     .emotional-intro {
-        font-size: 1.15rem;
-    }
-}
-
-/* Animation */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
+        font-size: 1.1rem;
     }
 }

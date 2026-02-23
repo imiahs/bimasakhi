@@ -1,27 +1,82 @@
-/* Global Styles */
+/* =========================================
+   BIMA SAKHI – UNIFIED GLOBAL SYSTEM
+   Delhi NCR | Female Focus | Premium Trust
+========================================= */
+
+/* =========================
+   BODY BASE
+========================= */
+
+html,
+body {
+    height: 100%;
+}
+
+img {
+    height: auto;
+}
+
 body {
     font-family: var(--font-family-base);
     background-color: var(--color-bg-body);
     color: var(--color-text-main);
     font-size: var(--font-size-base);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
 }
 
+/* Links */
 a {
     text-decoration: none;
-    color: inherit;
+    color: var(--color-primary);
+    transition: 0.2s ease;
 }
 
+a:hover {
+    color: var(--color-primary-hover);
+}
+
+/* Reset list style safely */
 ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* Layout Utilities */
+/* =========================
+   RESPONSIVE CONTAINER SYSTEM
+========================= */
+
 .container {
     width: 100%;
-    max-width: var(--container-max-width);
     margin: 0 auto;
     padding: 0 var(--spacing-md);
 }
+
+@media (min-width: 480px) {
+    .container {
+        max-width: var(--container-mobile);
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: var(--container-tablet);
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: var(--container-desktop);
+    }
+}
+
+@media (min-width: 1440px) {
+    .container {
+        max-width: var(--container-wide);
+    }
+}
+
 
 .text-center {
     text-align: center;
@@ -48,25 +103,27 @@ ul {
     padding: var(--spacing-md);
 }
 
-/* Typography */
+/* =========================
+   TYPOGRAPHY SYSTEM
+========================= */
+
 h1 {
     font-size: var(--font-size-xxl);
-    color: var(--color-primary);
+    font-weight: 700;
     margin-bottom: var(--spacing-md);
-    line-height: 1.2;
+    line-height: 1.25;
 }
 
 h2 {
     font-size: var(--font-size-xl);
-    color: var(--color-text-main);
+    font-weight: 700;
     margin-bottom: var(--spacing-md);
 }
 
 h3 {
     font-size: var(--font-size-lg);
-    color: var(--color-text-main);
-    margin-bottom: var(--spacing-sm);
     font-weight: 600;
+    margin-bottom: var(--spacing-sm);
 }
 
 p {
@@ -74,7 +131,21 @@ p {
     color: var(--color-text-secondary);
 }
 
-/* Components: Buttons */
+@media (min-width: 1024px) {
+    h1 {
+        font-size: 40px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+}
+
+
+/* =========================
+   BUTTON SYSTEM
+========================= */
+
 .btn {
     display: inline-flex;
     align-items: center;
@@ -84,14 +155,17 @@ p {
     border-radius: var(--border-radius-md);
     cursor: pointer;
     border: none;
-    transition: background-color 0.2s, transform 0.1s;
-    width: 100%;
-    /* Mobile first: full width */
     font-size: var(--font-size-lg);
-
-    /* iOS Touch Target Hardening */
+    width: 100%;
     min-height: 48px;
+    transition: all 0.2s ease;
     touch-action: manipulation;
+}
+
+@media (min-width: 768px) {
+    .btn {
+        width: auto;
+    }
 }
 
 .btn-primary {
@@ -106,11 +180,6 @@ p {
     }
 }
 
-.btn-primary:disabled {
-    background-color: var(--color-text-light);
-    cursor: not-allowed;
-    transform: none;
-}
 
 .btn-secondary {
     background-color: var(--color-bg-light);
@@ -118,7 +187,10 @@ p {
     border: 1px solid var(--border-color);
 }
 
-/* Floating CTA (Safe for iOS) */
+/* =========================
+   FLOATING CTA SAFE (iOS)
+========================= */
+
 .floating-cta-safe {
     position: fixed;
     bottom: 0;
@@ -126,14 +198,10 @@ p {
     width: 100%;
     padding: 1rem;
     z-index: 999;
-
-    /* Gradient fade-up background */
-    background: linear-gradient(to top, #ffffff 80%, rgba(255, 255, 255, 0) 100%);
-
-    /* Safe Area for iPhone Home Indicator */
+    background: linear-gradient(to top,
+            var(--color-white) 80%,
+            rgba(255, 255, 255, 0) 100%);
     padding-bottom: calc(1rem + env(safe-area-inset-bottom));
-
-    /* Animation */
     animation: slideUp 0.3s ease-out;
 }
 
@@ -147,16 +215,23 @@ p {
     }
 }
 
-/* Components: Cards */
+
+/* =========================
+   CARD SYSTEM
+========================= */
+
 .card {
     background: var(--color-white);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
     padding: var(--spacing-lg);
-    margin-bottom: var(--spacing-md);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
 }
 
-/* Components: Forms */
+/* =========================
+   FORM SYSTEM
+========================= */
+
 .form-group {
     margin-bottom: var(--spacing-md);
 }
@@ -165,7 +240,6 @@ p {
     display: block;
     margin-bottom: var(--spacing-xs);
     font-weight: 500;
-    color: var(--color-text-main);
 }
 
 .form-input,
@@ -176,7 +250,6 @@ p {
     border-radius: var(--border-radius-md);
     background-color: var(--color-bg-light);
     font-size: 16px;
-    /* Critical for iOS to prevent zoom on focus */
 }
 
 .form-input:focus,
@@ -189,24 +262,24 @@ p {
     color: var(--color-error);
     font-size: var(--font-size-sm);
     margin-top: var(--spacing-xs);
-    display: block;
 }
+
+/* =========================
+   CHECKBOX GROUP
+========================= */
 
 .checkbox-group {
     display: flex;
-    align-items: center;
-    /* Align checkbox with text */
-    margin-bottom: var(--spacing-md);
+    align-items: flex-start;
     gap: var(--spacing-sm);
-    /* Space between checkbox and label */
+    margin-bottom: var(--spacing-md);
 }
 
 .checkbox-group input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     accent-color: var(--color-primary);
     flex-shrink: 0;
-    /* Prevent checkbox shrinking */
 }
 
 .checkbox-group label {
@@ -215,7 +288,10 @@ p {
 }
 
 
-/* Layout: Header */
+/* =========================
+   HEADER
+========================= */
+
 .site-header {
     height: var(--header-height);
     border-bottom: 1px solid var(--border-color);
@@ -234,7 +310,6 @@ p {
     font-size: var(--font-size-xl);
     font-weight: 800;
     color: var(--color-primary);
-    text-decoration: none;
     gap: 10px;
 }
 
@@ -245,7 +320,10 @@ p {
     display: block;
 }
 
-/* Layout: Footer */
+/* =========================
+   FOOTER
+========================= */
+
 .site-footer {
     margin-top: auto;
     border-top: 1px solid var(--border-color);
@@ -293,13 +371,7 @@ p {
     padding: var(--spacing-md);
 }
 
-.reality-check {
-    background-color: #fff3e0;
-    /* Pale orange warning */
-    padding: var(--spacing-md);
-    border-left: 4px solid var(--color-warning);
-    margin-bottom: var(--spacing-md);
-}
+
 
 .income-points li {
     margin-bottom: var(--spacing-sm);
@@ -315,7 +387,10 @@ p {
     font-weight: bold;
 }
 
-/* Warning Banner */
+/* =========================
+   WARNING & REALITY BLOCK
+========================= */
+
 .warning-banner {
     background-color: #fee;
     border: 1px solid var(--color-error);
@@ -323,6 +398,13 @@ p {
     border-radius: var(--border-radius-md);
     color: var(--color-error);
     margin-bottom: var(--spacing-lg);
+}
+
+.reality-check {
+    background-color: #fff3e0;
+    padding: var(--spacing-md);
+    border-left: 4px solid var(--color-warning);
+    margin-bottom: var(--spacing-md);
 }
 
 /* Admin */
@@ -345,7 +427,10 @@ p {
 }
 
 
-/* Page Specific Styles */
+/* =========================
+   PAGE LAYOUT
+========================= */
+
 .page-why,
 .page-income,
 .page-eligibility,
@@ -354,14 +439,14 @@ p {
     min-height: calc(100vh - var(--header-height) - 100px);
 }
 
+.content-block {
+    margin-bottom: var(--spacing-lg);
+}
+
 .action-area {
     margin-top: var(--spacing-xl);
     padding-top: var(--spacing-lg);
     text-align: center;
-}
-
-.content-block {
-    margin-bottom: var(--spacing-lg);
 }
 
 .content-block h3 {

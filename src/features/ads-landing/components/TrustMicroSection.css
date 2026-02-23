@@ -1,89 +1,78 @@
-/* =====================================
-   TRUST MICRO SECTION – PREMIUM DESIGN
-===================================== */
+/* =========================================
+   TRUST MICRO SECTION – CREDIBILITY BLOCK
+   Clean | Authoritative | Feminine Premium
+========================================= */
 
 .trust-section {
-    padding: 6rem 1.5rem;
-    background: linear-gradient(135deg, #0f172a, #1e3a8a);
-    color: white;
+    padding: 4.5rem 1.5rem;
+    background: var(--color-secondary);
     text-align: center;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease;
-    position: relative;
-    overflow: hidden;
 }
 
-.trust-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Subtle Glow */
-.trust-section::before {
-    content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent);
-    top: -150px;
-    right: -150px;
-}
-
+/* Container */
 .trust-container {
-    max-width: 1100px;
+    max-width: var(--container-desktop);
     margin: 0 auto;
-    position: relative;
-    z-index: 1;
 }
 
+/* Heading */
 .trust-section h2 {
     font-size: 2rem;
     margin-bottom: 3rem;
+    font-weight: 700;
+    color: var(--color-text-main);
 }
 
-/* GRID */
+/* Grid */
 .trust-grid {
     display: grid;
-    gap: 2rem;
+    gap: 1.8rem;
     grid-template-columns: 1fr;
 }
 
-/* CARD */
+/* Card */
 .trust-card {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--color-white);
     padding: 2rem;
-    border-radius: 20px;
-    backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    transition: 0.2s ease;
 }
 
-.trust-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px rgba(255, 20, 147, 0.4);
+/* Hover (Subtle) */
+@media (hover: hover) {
+    .trust-card:hover {
+        border-color: var(--color-primary);
+        transform: translateY(-3px);
+    }
 }
 
+/* Icon */
 .trust-icon {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 1rem;
+    color: var(--color-primary);
 }
 
+/* Card Title */
 .trust-card h3 {
     margin-bottom: 0.8rem;
     font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-main);
 }
 
+/* Card Text */
 .trust-card p {
     font-size: 0.95rem;
-    opacity: 0.9;
+    color: var(--color-text-secondary);
 }
 
-/* FOOTER NOTE */
+/* Footer Note */
 .trust-footer {
     margin-top: 3rem;
     font-size: 0.9rem;
-    opacity: 0.85;
+    color: var(--color-text-secondary);
 }
 
 /* Desktop */
@@ -93,6 +82,6 @@
     }
 
     .trust-section h2 {
-        font-size: 2.5rem;
+        font-size: 2.4rem;
     }
 }

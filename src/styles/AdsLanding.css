@@ -1,188 +1,101 @@
-/* ==========================================
-   BIMA SAKHI ADS LANDING – PREMIUM VERSION
-========================================== */
+/* =========================================
+   ADS LANDING – UNIFIED FEMININE SYSTEM
+   Delhi NCR | Bima Sakhi | Conversion Focus
+========================================= */
+
+/* =========================
+   WRAPPER
+========================= */
 
 .ads-landing {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-    background: #ffffff;
-    color: #111827;
-    line-height: 1.6;
+    background: var(--color-bg-body);
+    color: var(--color-text-main);
     overflow-x: hidden;
 }
 
-/* CONTAINER */
-.ads-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-}
-
-/* ==========================================
-   HERO SECTION
-========================================== */
-
-.ads-hero {
-    background: linear-gradient(135deg, #0f172a, #1e3a8a);
-    color: #ffffff;
-    padding: 5rem 0;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Subtle Abstract Shapes */
-.ads-hero::before,
-.ads-hero::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.15;
-    z-index: 0;
-}
-
-.ads-hero::before {
-    width: 400px;
-    height: 400px;
-    background: #ff69b4;
-    top: -100px;
-    left: -100px;
-}
-
-.ads-hero::after {
-    width: 300px;
-    height: 300px;
-    background: #ffffff;
-    bottom: -80px;
-    right: -80px;
-}
-
-.ads-hero-flex {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-}
-
-.ads-hero-text {
-    max-width: 600px;
-    text-align: center;
-    animation: fadeUp 1s ease forwards;
-}
-
-.ads-hero-text h1 {
-    font-size: 2.3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1.3;
-    color: #ffffff;
-}
-
-.ads-sub {
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
-    color: #ffffff;
-}
-
-.ads-trust {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    color: #f3f4f6;
-}
-
-/* CTA BUTTON */
-.ads-btn-primary {
-    background: linear-gradient(135deg, #e75480, #ff1493);
-    color: #ffffff;
-    padding: 1rem 2.5rem;
-    border: none;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(255, 20, 147, 0.4);
-}
-
-.ads-btn-primary:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 35px rgba(255, 20, 147, 0.6);
-}
-
-/* HERO IMAGE */
-.ads-hero-img img {
-    max-width: 100%;
-    border-radius: 18px;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
-    animation: fadeUp 1.2s ease forwards;
-}
-
-/* ==========================================
-   SECTION STYLES
-========================================== */
+/* =========================
+   SECTION SPACING
+========================= */
 
 .ads-section {
-    padding: 4rem 0;
-    animation: fadeUp 1s ease forwards;
+    padding: 4rem 1.5rem;
 }
 
+@media (min-width: 992px) {
+    .ads-section {
+        padding: 5rem 1.5rem;
+    }
+}
+
+/* Light background section */
 .ads-section.light {
-    background: #f9fafb;
+    background: var(--color-bg-light);
 }
 
+/* Soft highlight section */
 .ads-section.highlight {
-    background: linear-gradient(135deg, #fff0f5, #ffffff);
+    background: var(--color-secondary);
     text-align: center;
 }
+
+/* =========================
+   SECTION HEADINGS
+========================= */
 
 .ads-section h2 {
     font-size: 1.9rem;
     margin-bottom: 1rem;
     font-weight: 700;
-    color: #1e3a8a;
+    color: var(--color-text-main);
 }
 
 .section-desc {
     max-width: 750px;
     margin: 0 auto 1.5rem auto;
     font-size: 1.05rem;
-    color: #374151;
+    color: var(--color-text-secondary);
 }
 
-/* BENEFIT CARDS */
+/* Desktop scaling */
+@media (min-width: 1024px) {
+    .ads-section h2 {
+        font-size: 2.3rem;
+    }
+}
+
+/* =========================
+   BENEFIT LIST BLOCK
+========================= */
+
 .ads-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 1.5rem;
     max-width: 750px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 1.5rem auto 0 auto;
     display: grid;
     gap: 1rem;
 }
 
 .ads-list li {
     padding: 1rem 1.2rem;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    background: var(--color-white);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
     font-size: 1.05rem;
-    transition: all 0.3s ease;
+    transition: 0.2s ease;
 }
 
-.ads-list li:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+@media (hover: hover) {
+    .ads-list li:hover {
+        border-color: var(--color-primary);
+        transform: translateY(-2px);
+    }
 }
 
-/* ==========================================
+/* =========================
    TESTIMONIAL MINI BLOCK
-========================================== */
+========================= */
 
 .ads-testimonial {
-    background: #1e3a8a;
-
+    background: var(--color-secondary);
     padding: 3rem 1.5rem;
     text-align: center;
 }
@@ -191,79 +104,32 @@
     max-width: 700px;
     margin: 0 auto;
     font-style: italic;
-    color: #ffffff;
+    color: var(--color-text-main);
     font-size: 1.1rem;
 }
 
-/* ==========================================
-   COUNTDOWN URGENCY
-========================================== */
+/* =========================
+   URGENCY TICKER
+========================= */
 
-.ads-countdown {
-    background: #ff1493;
-    color: #ffffff;
+.ads-urgency-wrapper {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.9rem 1rem;
     text-align: center;
-    padding: 1.2rem;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 
-/* ==========================================
-   FINAL CTA
-========================================== */
-
-/* ==========================================
-   FINAL CTA – FIXED CONTRAST
-========================================== */
-
-.ads-final {
-    background: linear-gradient(135deg, #0f172a, #1e3a8a);
-    color: #ffffff;
-    text-align: center;
-    padding: 4rem 1.5rem;
-    position: relative;
-    overflow: hidden;
+.ads-urgency-slide {
+    animation: slideFade 0.4s ease;
+    letter-spacing: 0.3px;
 }
 
-/* Add subtle glow for premium feel */
-.ads-final::before {
-    content: "";
-    position: absolute;
-    width: 350px;
-    height: 350px;
-    background: #ff1493;
-    opacity: 0.15;
-    border-radius: 50%;
-    top: -100px;
-    right: -100px;
-}
-
-.ads-final h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    font-weight: 700;
-    color: #ffffff !important;
-    /* FORCE WHITE */
-    line-height: 1.3;
-}
-
-.ads-final p {
-    color: #e5e7eb;
-}
-
-/* Button always white text */
-.ads-final .ads-btn-primary {
-    color: #ffffff !important;
-}
-
-/* ==========================================
-   ANIMATIONS
-========================================== */
-
-@keyframes fadeUp {
+@keyframes slideFade {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(5px);
     }
 
     to {
@@ -272,9 +138,38 @@
     }
 }
 
-/* ==========================================
-   RESPONSIVE
-========================================== */
+/* =========================
+   FINAL CTA BLOCK (Fallback)
+========================= */
+
+.ads-final {
+    background: var(--color-secondary);
+    text-align: center;
+    padding: 4rem 1.5rem;
+}
+
+.ads-final h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.ads-final p {
+    color: var(--color-text-secondary);
+}
+
+/* =========================
+   HERO IMAGE RESPONSIVE FIX
+========================= */
+
+.ads-hero-img img {
+    max-width: 100%;
+    border-radius: var(--border-radius-lg);
+}
+
+/* =========================
+   RESPONSIVE FLEX FIX
+========================= */
 
 @media (min-width: 992px) {
 
@@ -286,68 +181,5 @@
 
     .ads-hero-text {
         text-align: left;
-    }
-
-    .ads-hero-text h1 {
-        font-size: 3rem;
-    }
-
-    .ads-section h2 {
-        font-size: 2.3rem;
-    }
-}
-
-/* =========================================
-   FLASH URGENCY TICKER
-========================================= */
-
-.ads-urgency-wrapper {
-    background: linear-gradient(135deg, #ff1493, #e75480);
-    color: #ffffff;
-    padding: 0.9rem 1rem;
-    text-align: center;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
-}
-
-.ads-urgency-slide {
-    animation: slideFade 0.6s ease;
-    font-size: 0.95rem;
-    letter-spacing: 0.3px;
-}
-
-/* Subtle glowing effect */
-.ads-urgency-wrapper::after {
-    content: "";
-    position: absolute;
-    width: 200px;
-    height: 200%;
-    top: -50%;
-    left: -50%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent);
-    animation: moveGlow 6s linear infinite;
-}
-
-@keyframes slideFade {
-    from {
-        opacity: 0;
-        transform: translateX(40px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes moveGlow {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(100%);
     }
 }

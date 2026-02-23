@@ -1,32 +1,46 @@
 :root {
-  /* Colors - Base */
+
+  /* =========================
+     COLORS – Feminine Premium
+  ========================== */
+
   --color-white: #ffffff;
   --color-bg-body: #ffffff;
   --color-bg-light: #f9f9fa;
 
-  /* Colors - Accents (Soft Feminine) */
-  --color-primary: #e85d75; /* Soft but strong pink/red for CTAs */
+  --color-primary: #e85d75;
+  /* Main CTA */
   --color-primary-hover: #d1405a;
-  --color-secondary: #fce4ec; /* Very light pink/lavender for backgrounds */
-  --color-accent: #9c27b0; /* Lavender/Purple for highlights */
+  /* CTA Hover */
+  --color-secondary: #fce4ec;
+  /* Soft background */
+  --color-accent: #9c27b0;
+  /* Highlight accent */
 
-  /* Colors - Text (High Contrast) */
   --color-text-main: #1a1a1a;
   --color-text-secondary: #555555;
   --color-text-light: #757575;
+
   --color-error: #d32f2f;
   --color-success: #388e3c;
   --color-warning: #f57c00;
 
-  /* Typography */
+  /* =========================
+     TYPOGRAPHY
+  ========================== */
+
   --font-family-base: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
   --font-size-base: 16px;
   --font-size-sm: 14px;
   --font-size-lg: 18px;
   --font-size-xl: 24px;
   --font-size-xxl: 32px;
 
-  /* Spacing */
+  /* =========================
+     SPACING SYSTEM
+  ========================== */
+
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
@@ -34,13 +48,24 @@
   --spacing-xl: 32px;
   --spacing-xxl: 48px;
 
-  /* Borders & Radius */
+  /* =========================
+     BORDER SYSTEM
+  ========================== */
+
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
+
   --border-color: #e0e0e0;
 
-  /* Layout */
-  --container-max-width: 600px; /* Mobile focused, readable on desktop */
-  --header-height: 60px;
+  /* =========================
+     CONTAINER SYSTEM (RESPONSIVE)
+  ========================== */
+
+  --container-mobile: 600px;
+  /* Mobile readable width */
+  --container-tablet: 900px;
+  --container-desktop: 1100px;
+  --container-wide: 1280px;
+
 }

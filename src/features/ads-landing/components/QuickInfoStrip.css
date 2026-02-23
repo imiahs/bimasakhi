@@ -1,84 +1,46 @@
 /* =========================================
-   QUICK INFO STRIP – PREMIUM VERSION
+   QUICK INFO STRIP – TRUST MICRO BLOCK
+   Clean | Feminine | Delhi NCR Focus
 ========================================= */
 
 .quick-info-strip {
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    background: var(--color-secondary);
     padding: 2.5rem 1rem;
-    position: relative;
-    overflow: hidden;
 }
 
-/* Subtle divider line */
-.quick-info-strip::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #e5e7eb, transparent);
-}
-
+/* Container Grid */
 .quick-info-container {
-    max-width: 1100px;
+    max-width: var(--container-desktop);
     margin: 0 auto;
     display: grid;
-    gap: 1.5rem;
+    gap: 1.2rem;
     grid-template-columns: 1fr 1fr;
 }
 
+/* Individual Info Item */
 .quick-info-item {
-    background: #ffffff;
+    background: var(--color-white);
     padding: 1.2rem 1rem;
-    border-radius: 16px;
+    border-radius: var(--border-radius-md);
     text-align: center;
     font-weight: 600;
-    color: #0f172a;
+    color: var(--color-text-main);
     font-size: 1rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s ease;
-    position: relative;
-    animation: fadeUp 0.6s ease forwards;
+    border: 1px solid var(--border-color);
+    transition: 0.2s ease;
 }
 
-/* Pink glow accent bar */
-.quick-info-item::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40%;
-    height: 4px;
-    background: linear-gradient(135deg, #e75480, #ff1493);
-    border-radius: 10px;
-    opacity: 0.8;
+/* Subtle Hover */
+@media (hover: hover) {
+    .quick-info-item:hover {
+        border-color: var(--color-primary);
+        transform: translateY(-2px);
+    }
 }
 
-/* Hover effect */
-.quick-info-item:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 35px rgba(255, 20, 147, 0.25);
-}
-
-/* Desktop */
+/* Desktop Layout */
 @media (min-width: 768px) {
     .quick-info-container {
         grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-/* Animation */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }

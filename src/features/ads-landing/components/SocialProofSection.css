@@ -1,82 +1,70 @@
 /* =========================================
-   SOCIAL PROOF SECTION – PREMIUM VERSION
+   SOCIAL PROOF SECTION – TRUST AUTHORITY
+   Clean | Premium | Female Focus
 ========================================= */
 
 .ads-social-proof {
-    padding: 5rem 1.5rem;
-    background: linear-gradient(135deg, #0f172a, #1e3a8a);
-    color: #ffffff;
-    position: relative;
-    overflow: hidden;
+    padding: 4.5rem 1.5rem;
+    background: var(--color-bg-light);
 }
 
-/* Subtle glow effect */
-.ads-social-proof::before {
-    content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent);
-    top: -200px;
-    left: -200px;
-}
-
+/* Container */
 .ads-social-container {
-    max-width: 1100px;
+    max-width: var(--container-desktop);
     margin: 0 auto;
     text-align: center;
-    position: relative;
-    z-index: 1;
 }
 
+/* Heading */
 .ads-social-container h2 {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 1rem;
+    color: var(--color-text-main);
 }
 
 .ads-social-subtitle {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     margin-bottom: 3rem;
-    opacity: 0.9;
+    color: var(--color-text-secondary);
 }
 
-/* STAT GRID */
+/* Stats Grid */
 .ads-social-stats {
     display: grid;
-    gap: 2rem;
+    gap: 1.8rem;
     grid-template-columns: 1fr;
 }
 
+/* Individual Card */
 .ads-stat-card {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--color-white);
     padding: 2rem 1.5rem;
-    border-radius: 18px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    transition: all 0.3s ease;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    transition: 0.2s ease;
 }
 
-.ads-stat-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(255, 20, 147, 0.35);
+/* Subtle Hover */
+@media (hover: hover) {
+    .ads-stat-card:hover {
+        border-color: var(--color-primary);
+        transform: translateY(-3px);
+    }
 }
 
-/* NUMBER STYLE */
+/* Number */
 .ads-stat-number {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #ff1493, #e75480);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--color-primary);
     margin-bottom: 0.5rem;
 }
 
-/* LABEL STYLE */
+/* Label */
 .ads-stat-label {
     font-size: 1rem;
-    opacity: 0.95;
+    color: var(--color-text-secondary);
 }
 
 /* Desktop */
@@ -86,6 +74,6 @@
     }
 
     .ads-social-container h2 {
-        font-size: 2.5rem;
+        font-size: 2.4rem;
     }
 }
