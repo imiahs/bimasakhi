@@ -6,8 +6,8 @@
 .ads-hero {
     position: relative;
     background: linear-gradient(135deg,
-            #5a1e3b,
-            #9c27b0);
+            #4a1230,
+            #7b1fa2);
     color: #ffffff;
     padding: 5rem 0;
     overflow: hidden;
@@ -20,7 +20,7 @@
     width: 500px;
     height: 500px;
     background: radial-gradient(circle,
-            rgba(255, 255, 255, 0.15),
+            rgba(255, 255, 255, 0.12),
             transparent 70%);
     top: -150px;
     right: -150px;
@@ -50,6 +50,7 @@
     line-height: 1.3;
     font-weight: 700;
     margin-bottom: 1rem;
+    color: #ffffff;
 }
 
 /* Subtitle */
@@ -57,6 +58,8 @@
     font-size: 1.15rem;
     margin-bottom: 1rem;
     opacity: 0.95;
+    color: rgba(255, 255, 255, 0.95);
+
 }
 
 /* Trust line */
@@ -64,12 +67,13 @@
     font-size: 0.95rem;
     margin-bottom: 2rem;
     opacity: 0.9;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 /* CTA */
 .ads-btn-primary {
     background: #ffffff;
-    color: #9c27b0;
+    color: #7b1fa2;
     padding: 1rem 2.5rem;
     border-radius: 50px;
     font-weight: 600;
@@ -95,7 +99,7 @@
 .ads-hero-img img {
     width: 100%;
     border-radius: 20px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
 }
 
 /* Desktop */
