@@ -5,7 +5,7 @@
 // Strategy: Fast clarity + Emotional trigger + Social proof + Clear CTA
 // ============================================
 
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import SEOHead from '../components/core/SEOHead';
