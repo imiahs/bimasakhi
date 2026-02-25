@@ -1,26 +1,27 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { UserContext } from '../../context/UserContext';
-import { ConfigContext } from '../../context/ConfigContext';
-import { LanguageContext } from '../../context/LanguageContext';
-import { analytics } from '../../services/analytics';
-import { getWhatsAppUrl } from '../../utils/whatsapp';
-import Input from '../../components/ui/Input';
-import Select from '../../components/ui/Select';
-import Button from '../../components/ui/Button';
-import '../../styles/LeadForm.css';
+import React, { useState, useContext, useEffect, useRef } from 'react'; // 🔥 For React features
+import { useNavigate } from 'react-router-dom'; // 🔥 Added for navigation
+import axios from 'axios'; // 🔥 For API calls
+import { UserContext } from '../../context/UserContext'; // 🔥 For user state management
+import { ConfigContext } from '../../context/ConfigContext'; // 🔥 For config management
+import { LanguageContext } from '../../context/LanguageContext'; // 🔥 For language management
+import { analytics } from '../../services/analytics'; // 🔥 For analytics
+import { getWhatsAppUrl } from '../../utils/whatsapp'; // 🔥 For WhatsApp URL
+import Input from '../../components/ui/Input'; // 🔥 For input fields
+import Select from '../../components/ui/Select'; // 🔥 For select fields
+import Button from '../../components/ui/Button'; // 🔥 For buttons
+import '../../styles/LeadForm.css'; // 🔥 For lead form styles
 
 const ApplyForm = () => {
-    const { userState, markSubmitted } = useContext(UserContext);
-    const { config } = useContext(ConfigContext);
-
+    const { userState, markSubmitted } = useContext(UserContext); // 🔥 For user state management
+    const { config } = useContext(ConfigContext); // 🔥 For config management
+    const navigate = useNavigate(); // 🔥 For navigation
     // Steps: 
     // 1: Identity
     // 2: Location
     // 3: Profile
     // 4: Review / Submit
     // NOTE: This is a career onboarding flow, not a job application
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(1); // 🔥 For step management
 
     const [formData, setFormData] = useState({
         name: '',
@@ -43,18 +44,20 @@ const ApplyForm = () => {
         success: false,
         error: null,
         leadId: null
-    });
+    }); // 🔥 For status management
 
-    const [availableLocalities, setAvailableLocalities] = useState([]);
+
+
+    const [availableLocalities, setAvailableLocalities] = useState([]); // 🔥 For available localities
 
     const [locationStatus, setLocationStatus] = useState({
         loading: false,
         msg: '',
         type: '', // 'success', 'warning', 'error'
         isManual: false
-    });
+    }); // 🔥 For location status management
 
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({}); // 🔥 For error management
 
     // 🔥 WhatsApp handler for paused state (no form submission required)
     const handlePausedWhatsAppClick = () => {
@@ -363,18 +366,21 @@ const ApplyForm = () => {
                     });
                 } else {
                     const leadId = data.lead_id || 'PENDING';
+
+                    // 1️⃣ Mark submission in context (duplicate protection)
                     markSubmitted(formData.city, payload);
 
+                    // 2️⃣ Analytics (keep existing tracking)
                     analytics.track('form_submit', {
                         leadId: leadId,
                         city: formData.city,
                         source: userState.source
                     });
 
-                    // 🔥 GTM FORM SUBMIT EVENT
+                    // 3️⃣ GTM Event (keep but improve naming consistency)
                     window.dataLayer = window.dataLayer || [];
                     window.dataLayer.push({
-                        event: "bimasakhi_form_submit",
+                        event: "bimasakhi_form_submit_success",
                         lead_id: leadId,
                         city: formData.city,
                         source: userState.source || "website",
@@ -382,13 +388,15 @@ const ApplyForm = () => {
                         campaign: userState.campaign || "bima_sakhi"
                     });
 
-                    setStatus({
-                        isSubmitting: false,
-                        success: true,
-                        error: null,
-                        leadId: leadId
-                    });
-                }
+                    // 4️⃣ Determine if Waitlist
+                    const isWaitlist = formData.phaseTag === "future_expansion";
+
+                    // 5️⃣ Redirect to Thank You Page (INDUSTRY STANDARD FLOW)
+                    navigate(
+                        `/thank-you?ref=${leadId}&name=${encodeURIComponent(formData.name)}&waitlist=${isWaitlist}`,
+                        { replace: true }
+                    );
+                } // 🔥 For success state management
             } else {
                 throw new Error(data.error || 'Submission Failed');
             }
@@ -792,72 +800,73 @@ const ApplyForm = () => {
         );
     }
 
+    // remove 4. success view codes are commented out from here to thankyou page for showing details there 
     // 4. Success View
-    if (status.success) {
+    // if (status.success) {
 
-        const isWaitlist = formData.phaseTag === "future_expansion";
+    //   const isWaitlist = formData.phaseTag === "future_expansion";
 
-        return (
-            <div className="apply-success-card animate-pulse">
-                <div className="success-icon">
-                    {isWaitlist ? "🌍" : "✅"}
-                </div>
+    // return (
+    //   <div className="apply-success-card animate-pulse">
+    //     <div className="success-icon">
+    //       {isWaitlist ? "🌍" : "✅"}
+    // </div>
+    //
+    // <h2>
+    //   {isWaitlist
+    //     ? "You’re on Our Expansion Priority List"
+    //   : "Your Application Has Been Received"}
+    // </h2>
 
-                <h2>
-                    {isWaitlist
-                        ? "You’re on Our Expansion Priority List"
-                        : "Your Application Has Been Received"}
-                </h2>
+    // <p style={{ marginTop: "6px" }}>
+    // Reference ID: <strong>{status.leadId}</strong>
+    //</p>
+    //<p style={{ fontSize: "0.8em", color: "#888" }}>
+    //  Please keep this reference ID for future communication.
+    // </p>
 
-                <p style={{ marginTop: "6px" }}>
-                    Reference ID: <strong>{status.leadId}</strong>
-                </p>
-                <p style={{ fontSize: "0.8em", color: "#888" }}>
-                    Please keep this reference ID for future communication.
-                </p>
+    //<div
+    //  style={{
+    //    margin: '20px 0',
+    //  padding: '15px',
+    //  background: '#f8f9fa',
+    //  borderRadius: '8px',
+    //  fontSize: '0.95em',
+    //  color: '#444'
+    //}}
+    //>
+    //     {isWaitlist ? (
+    //       <>
+    //         ✔ We are currently onboarding candidates from Delhi NCR. <br />
+    //       ✔ Your profile has been added to our expansion list. <br />
+    //     ✔ You will be informed as soon as onboarding begins in your city.
+    // </>
+    //) : (
+    //  <>
+    //    ✔ Your profile is now under review. <br />
+    //  ✔ Our team will connect with you personally on WhatsApp. <br />
+    //✔ Training and onboarding details will be explained step-by-step.
+    //</>
+    // )}
+    //</div>
 
-                <div
-                    style={{
-                        margin: '20px 0',
-                        padding: '15px',
-                        background: '#f8f9fa',
-                        borderRadius: '8px',
-                        fontSize: '0.95em',
-                        color: '#444'
-                    }}
-                >
-                    {isWaitlist ? (
-                        <>
-                            ✔ We are currently onboarding candidates from Delhi NCR. <br />
-                            ✔ Your profile has been added to our expansion list. <br />
-                            ✔ You will be informed as soon as onboarding begins in your city.
-                        </>
-                    ) : (
-                        <>
-                            ✔ Your profile is now under review. <br />
-                            ✔ Our team will connect with you personally on WhatsApp. <br />
-                            ✔ Training and onboarding details will be explained step-by-step.
-                        </>
-                    )}
-                </div>
+    //<p style={{ fontSize: "0.85em", color: "#666", marginBottom: "15px" }}>
+    //  {isWaitlist
+    //    ? "You may also connect with us on WhatsApp if you would like early updates."
+    //  : "If you prefer immediate communication, you may connect with us on WhatsApp below."}
+    //</p>
 
-                <p style={{ fontSize: "0.85em", color: "#666", marginBottom: "15px" }}>
-                    {isWaitlist
-                        ? "You may also connect with us on WhatsApp if you would like early updates."
-                        : "If you prefer immediate communication, you may connect with us on WhatsApp below."}
-                </p>
-
-                <button
-                    onClick={handleWhatsAppClick}
-                    className="btn btn-whatsapp btn-block"
-                >
-                    {isWaitlist
-                        ? "Get Updates on WhatsApp"
-                        : "Continue on WhatsApp"}
-                </button>
-            </div>
-        );
-    }
+    //<button
+    //  onClick={handleWhatsAppClick}
+    //className="btn btn-whatsapp btn-block"
+    //>
+    //  {isWaitlist
+    //    ? "Get Updates on WhatsApp"
+    //       : "Continue on WhatsApp"}
+    //</button>
+    //</div>
+    //);
+    //}
 
     // 5. Wizard View
     return (

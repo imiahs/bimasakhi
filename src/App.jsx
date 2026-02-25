@@ -9,6 +9,7 @@ import Apply from './pages/Apply';
 import AdsLanding from './pages/AdsLanding';
 import { ConfigContext } from './context/ConfigContext';
 import { analytics } from './services/analytics'; // Phase 5.6: Analytics
+import ThankYou from './pages/ThankYou';
 
 // Lazy load Admin to reduce initial bundle size
 const Admin = lazy(() => import('./features/admin/AdminShell'));
@@ -49,6 +50,7 @@ function App() {
           <Route path="income" element={<Income />} />
           <Route path="eligibility" element={<Eligibility />} />
           <Route path="apply" element={<Apply />} />
+          <Route path="thank-you" element={<ThankYou />} />
 
           {/* Ads Flow */}
           <Route path="bima-sakhi-delhi" element={<AdsLanding />} />
