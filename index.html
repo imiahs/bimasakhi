@@ -5,42 +5,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Bima Sakhi – Career for Women</title>
-  <meta name="description"
-    content="Not a job. Commission-based career opportunity for women in Delhi NCR. Learn income reality, eligibility & apply only if serious." />
+  <!-- Base Title (Fallback Only) -->
+  <title>Bima Sakhi</title>
 
-  <link rel="canonical" href="https://bimasakhi.com/" />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Bima Sakhi" />
-  <meta property="og:url" content="https://bimasakhi.com/" />
-  <meta property="og:title" content="Bima Sakhi – Apni Pehchaan Banane Ka Mauka (Delhi NCR)" />
-  <meta property="og:description"
-    content="Government-backed insurance career opportunity. No fixed salary. Commission-based LIC career. 3 saal stipend support, training aur growth." />
-  <meta property="og:image" content="https://bimasakhi.com/images/home/hero-bg.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Bima Sakhi – Women LIC Career Opportunity" />
-  <meta name="twitter:description"
-    content="Delhi NCR ki mahilaon ke liye commission-based career. Income control aur long-term growth." />
-  <meta name="twitter:image" content="https://bimasakhi.com/images/home/hero-bg.jpg" />
-
+  <!-- Basic SEO Safe Defaults -->
   <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <!-- Google Site Verification -->
   <meta name="google-site-verification" content="4KX_wRx-TtBLEkejOgiejPMeNp7n4rGlRLfFwMxLJ2c" />
 
-  <!-- <link rel="icon" type="image/png" href="/favicon-32.png" /> -->
-  <!-- <meta name="theme-color" content="#FF4F9A" /> -->
+  <!-- Favicon (Optional but Recommended) -->
+  <link rel="icon" type="image/png" href="/favicon-32.png" />
+
   <!-- Google Tag Manager -->
   <script>
     (function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-KC9VM5VQ');
   </script>
   <!-- End Google Tag Manager -->
@@ -48,12 +40,20 @@
 </head>
 
 <body>
+
+  <!-- Google Tag Manager (noscript fallback) -->
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KC9VM5VQ" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe>
+      style="display:none;visibility:hidden">
+    </iframe>
   </noscript>
+
+  <!-- React Root -->
   <div id="root"></div>
+
+  <!-- Vite Entry -->
   <script type="module" src="/src/main.jsx"></script>
+
 </body>
 
 </html>

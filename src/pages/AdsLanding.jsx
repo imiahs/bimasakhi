@@ -47,12 +47,33 @@ const AdsLanding = () => {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: "ads_landing_apply_click",
+            page: "ads_landing",
             source: "google_ads"
         });
 
         navigate('/apply?source=google_ads');
     };
-
+    // Structured Data (Job Posting Style - Cleaner SEO Signal)
+    const jobSchema = useMemo(() => ({
+        "@context": "https://schema.org",
+        "@type": "JobPosting",
+        "title": "LIC Insurance Advisor – Bima Sakhi Program",
+        "description": "Commission-based LIC agency career opportunity for women in Delhi NCR. Flexible income, training support and long-term growth.",
+        "employmentType": "Contractor",
+        "hiringOrganization": {
+            "@type": "Organization",
+            "name": "Bima Sakhi",
+            "sameAs": "https://bimasakhi.com"
+        },
+        "jobLocation": {
+            "@type": "Place",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Delhi NCR",
+                "addressCountry": "IN"
+            }
+        }
+    }), []);
     // ---------------- BILINGUAL CONTENT ----------------
     const content = {
         en: {
@@ -101,9 +122,11 @@ const AdsLanding = () => {
 
             {/* ================= SEO ================= */}
             <SEOHead
-                title="Bima Sakhi – LIC Agency Career Opportunity in Delhi NCR"
-                description="Join Bima Sakhi LIC Agency opportunity in Delhi NCR. 3-year stipend support + commission-based career. Empowering agents across India."
+                title="Bima Sakhi Delhi – Commission Based LIC Career for Women"
+                description="Join Bima Sakhi LIC agency opportunity in Delhi, Noida & Ghaziabad. 3-year stipend support + commission-based career. Apply if serious."
                 path="/bima-sakhi-delhi"
+                ogImage="/images/home/community.jpg"
+                schema={jobSchema}
             />
 
             {/* ================= URGENCY STRIP ================= */}
@@ -116,6 +139,7 @@ const AdsLanding = () => {
                 customSubtitle={t.heroSub}
                 customTrust={t.heroTrust}
                 primaryCTA={t.heroBtn}
+                onApplyClick={handleApplyClick}
             />
 
             {/* ================= QUICK INFO STRIP ================= */}
