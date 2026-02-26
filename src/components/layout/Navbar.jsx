@@ -77,7 +77,7 @@ const Navbar = () => {
                 <NavLink to="/income" onClick={closeMenu}>Income</NavLink>
                 <NavLink to="/eligibility" onClick={closeMenu}>Eligibility</NavLink>
                 <NavLink to="/why" onClick={closeMenu}>Why Join?</NavLink>
-                <NavLink to="/AdsLanding" onClick={closeMenu}>Bima Sakhi Delhi</NavLink>
+                <NavLink to="/bima-sakhi-delhi" onClick={closeMenu}>Bima Sakhi Delhi</NavLink>
                 <NavLink to="/About">About Us</NavLink>
                 <NavLink to="/Contact">Contact Us</NavLink>
 
