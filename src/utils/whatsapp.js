@@ -52,7 +52,7 @@ export const formatWhatsAppMessage = (data = {}) => {
         const ticketNo = leadId || generateTempId('TKT'); // Generate ticket if no lead
         message += `Mera naam ${name || 'User'} hai.\n`;
         message += `Main Bima Sakhi opportunity ke baare mein interested hoon! 😊\n\n`;
-        message += `Ticket Number: ${ticketNo} (Isse future mein track kar sakte hain)\n\n`;
+        message += `Ticket Number: ${ticketNo} (Isse future mein baat  kar sakte hain)\n\n`;
         message += `Mujhe details bataiye, kaise join kar sakti hoon?\n\n`;
         message += `Thank you!\n`;
     } else if (intent === "Paused Interest") {
