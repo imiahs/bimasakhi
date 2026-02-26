@@ -1,75 +1,73 @@
 // ============================================
 // ThankYou.jsx
-// Advanced Conversion Bridge - v1
-// Lightweight + Personalized + GTM Enabled
+// Advanced Conversion Bridge - v2 (Agent Upgraded)
+// Structured WhatsApp + Waitlist Handling + GTM
 // ============================================
 
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
+import { getWhatsAppUrl } from "../utils/whatsapp"; // ← New import (central WhatsApp engine)
+
 import SEOHead from "../components/core/SEOHead";
 import "../styles/ThankYou.css";
 
 const ThankYou = () => {
-
     const [searchParams] = useSearchParams();
+
     const referenceId = searchParams.get("ref") || null;
+    const nameParam = searchParams.get("name") || "Applicant";
+    const waitlist = searchParams.get("waitlist") === "true";
 
-    const [userName, setUserName] = useState(null);
-
-    // OPTIONAL: If you later pass name in query (?name=xyz)
-    useEffect(() => {
-        const nameParam = searchParams.get("name");
-        if (nameParam) {
-            setUserName(nameParam);
-        }
-    }, [searchParams]);
+    const [userName, setUserName] = useState(nameParam);
 
     // ==============================
     // GTM PAGE LOAD EVENT
     // ==============================
     useEffect(() => {
-
         window.dataLayer = window.dataLayer || [];
 
         window.dataLayer.push({
             event: "thankyou_page_loaded",
-            reference_id: referenceId || "direct_visit"
+            reference_id: referenceId || "direct_visit",
+            category: waitlist ? "waitlist" : "direct",
+            source: "thankyou_page"
         });
-
-    }, [referenceId]);
+    }, [referenceId, waitlist]);
 
     // ==============================
-    // Dynamic WhatsApp Message
+    // Structured WhatsApp Link (using central whatsapp.js)
     // ==============================
-    const whatsappMessage = referenceId
-        ? `Namaste, mera application ID ${referenceId} hai. Kripya confirm kare.`
-        : `Namaste, maine Bima Sakhi ke liye apply kiya hai. Kripya confirm kare.`;
-
-    const whatsappLink = `https://wa.me/919311073365?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = getWhatsAppUrl({
+        name: userName,
+        leadId: referenceId,
+        source: "ThankYou Page",
+        waitlist: waitlist,
+        category: waitlist ? "Expansion Waitlist" : "Direct Application",
+        intent: "Ready to Proceed"
+    });
 
     // ==============================
     // Scroll Tracking (50% & 80%)
     // ==============================
     useEffect(() => {
-
         const handleScroll = () => {
             const scrollTop = window.scrollY;
             const docHeight = document.body.scrollHeight - window.innerHeight;
             const scrollPercent = (scrollTop / docHeight) * 100;
 
-            if (scrollPercent > 50) {
+            if (scrollPercent > 50 && !window.thankyou50Tracked) {
                 window.dataLayer.push({ event: "thankyou_scroll_50" });
+                window.thankyou50Tracked = true;
             }
 
-            if (scrollPercent > 80) {
+            if (scrollPercent > 80 && !window.thankyou80Tracked) {
                 window.dataLayer.push({ event: "thankyou_scroll_80" });
+                window.thankyou80Tracked = true;
             }
         };
 
         window.addEventListener("scroll", handleScroll);
-
         return () => window.removeEventListener("scroll", handleScroll);
-
     }, []);
 
     return (
@@ -86,7 +84,11 @@ const ThankYou = () => {
 
             <section className="thankyou-hero">
 
-                <h1>✅ Application Successfully Received</h1>
+                <h1>
+                    {waitlist
+                        ? "🌍 You’re on Our Expansion Priority List"
+                        : "✅ Application Successfully Received"}
+                </h1>
 
                 {userName && (
                     <p className="personal-message">
@@ -101,23 +103,31 @@ const ThankYou = () => {
                 )}
 
                 <p>
-                    Aapka profile review ke liye bhej diya gaya hai.
-                    Confirmation ke liye WhatsApp par connect kare.
+                    {waitlist
+                        ? "Aapka profile expansion priority list mein add kar diya gaya hai. Jab aapke area mein onboarding shuru hoga, hum turant inform karenge."
+                        : "Aapka profile review ke liye bhej diya gaya hai. Personal WhatsApp discussion ke liye connect karein."}
+                </p>
+
+                {/* Psychological nudge */}
+                <p style={{ marginTop: "15px", fontSize: "0.9em", color: "#555", textAlign: "center" }}>
+                    Please send the pre-filled message so we can verify your application faster.
                 </p>
 
                 <a
-                    href={whatsappLink}
+                    href={whatsappUrl}
                     className="btn-primary"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => {
                         window.dataLayer.push({
                             event: "thankyou_whatsapp_click",
-                            reference_id: referenceId || "no_id"
+                            reference_id: referenceId || "no_id",
+                            category: waitlist ? "waitlist" : "direct",
+                            source: "thankyou_page"
                         });
                     }}
                 >
-                    Confirm on WhatsApp
+                    Confirm & Continue on WhatsApp
                 </a>
 
             </section>

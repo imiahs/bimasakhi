@@ -61,11 +61,11 @@ const ApplyForm = () => {
 
     // 🔥 WhatsApp handler for paused state (no form submission required)
     const handlePausedWhatsAppClick = () => {
-        const message = encodeURIComponent(
-            "Hello, I am interested in the Bima Sakhi opportunity, but applications are currently paused. Please inform me when it reopens in my area."
-        );
-
-        const waUrl = `https://wa.me/919311073365?text=${message}`;
+        const waUrl = getWhatsAppUrl({
+            source: userState?.source || "website",
+            intent: "Paused Interest",           // Good for segmentation
+            category: "Paused Application Inquiry"
+        });
 
         // 🔥 GTM tracking for paused-state interest
         window.dataLayer = window.dataLayer || [];
@@ -73,7 +73,8 @@ const ApplyForm = () => {
             event: "whatsapp_paused_interest_click",
             source: userState?.source || "website",
             medium: userState?.medium || "direct",
-            campaign: userState?.campaign || "bima_sakhi"
+            campaign: userState?.campaign || "bima_sakhi",
+            intent: "Paused Interest"
         });
 
         window.open(waUrl, "_blank");
@@ -417,28 +418,30 @@ const ApplyForm = () => {
             }
         }
     };
-
+    // Updated WhatsApp handler for duplicate / reconnect
     const handleWhatsAppClick = () => {
         const waUrl = getWhatsAppUrl({
             ...formData,
-            source: userState.source,
-            leadId: status.leadId
+            source: userState.source || "website",
+            leadId: status.leadId || userState?.lastLeadData?.leadId,
+            intent: "Follow-up Request",           // Clear intent for duplicates
+            category: "Duplicate / Reconnect"
         });
 
         analytics.track('whatsapp_click', {
             context: 'apply_success_cta',
-            leadId: status.leadId
+            leadId: status.leadId || userState?.lastLeadData?.leadId
         });
 
         // 🔥 GTM WHATSAPP EVENT
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: "whatsapp_continue_click",
-            lead_id: status?.leadId || "unknown",
-            phone: "919311073365",
+            lead_id: status?.leadId || userState?.lastLeadData?.leadId || "unknown",
             source: userState?.source || "website",
             medium: userState?.medium || "direct",
-            campaign: userState?.campaign || "bima_sakhi"
+            campaign: userState?.campaign || "bima_sakhi",
+            intent: "Follow-up Request"
         });
 
         window.open(waUrl, '_blank');

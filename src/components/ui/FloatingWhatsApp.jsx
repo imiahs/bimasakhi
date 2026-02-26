@@ -1,31 +1,32 @@
 import React from 'react';
+import { getWhatsAppUrl } from '../../utils/whatsapp'; // ← Central WhatsApp engine import
 import "../../styles/FloatingActions.css";
 
 const FloatingWhatsApp = () => {
-
     const getUTMSource = () => {
         const params = new URLSearchParams(window.location.search);
         return params.get("source") || "direct";
     };
 
+    const source = getUTMSource();
+
     const handleClick = (e) => {
-        // Track event without blocking default link behavior
-        // e.stopPropagation(); // Only disable if needed, but here we want the link to open
-
-        const source = getUTMSource();
-
-        // Google Tag Manager Event
+        // GTM tracking (existing logic)
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: "whatsapp_click",
             source: source,
-            location: "floating_button"
+            location: "floating_button",
+            intent: "General Interest" // ← extra context for future segmentation
         });
     };
 
-    const source = getUTMSource();
-
-    const whatsappURL = `https://wa.me/919311073365?text=Hi%20I%20am%20interested%20in%20Bima%20Sakhi%20Opportunity%20(Source:%20${source})`;
+    // Use central function — yahaan name/email nahi hai to optional fields skip
+    const whatsappURL = getWhatsAppUrl({
+        source: source,
+        intent: "General Interest",          // Floating button ka natural intent
+        category: "Floating CTA Inquiry"     // Optional — future segmentation ke liye
+    });
 
     return (
         <a
