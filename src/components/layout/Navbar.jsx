@@ -40,6 +40,9 @@ const Navbar = () => {
                     <NavLink to="/income">Income</NavLink>
                     <NavLink to="/eligibility">Eligibility</NavLink>
                     <NavLink to="/why">Why Join?</NavLink>
+                    <NavLink to="/AdsLanding">Bima Sakhi Delhi</NavLink>
+                    <NavLink to="/About">About Us</NavLink>
+                    <NavLink to="/Contact">Contact Us</NavLink>
                 </nav>
 
                 {/* Desktop CTA */}
@@ -74,6 +77,9 @@ const Navbar = () => {
                 <NavLink to="/income" onClick={closeMenu}>Income</NavLink>
                 <NavLink to="/eligibility" onClick={closeMenu}>Eligibility</NavLink>
                 <NavLink to="/why" onClick={closeMenu}>Why Join?</NavLink>
+                <NavLink to="/AdsLanding" onClick={closeMenu}>Bima Sakhi Delhi</NavLink>
+                <NavLink to="/About">About Us</NavLink>
+                <NavLink to="/Contact">Contact Us</NavLink>
 
                 <Link to="/apply" className="apply-btn mobile-apply" onClick={closeMenu}>
                     Apply Now
