@@ -7,6 +7,8 @@ import Income from './pages/Income';
 import Eligibility from './pages/Eligibility';
 import Apply from './pages/Apply';
 import AdsLanding from './pages/AdsLanding';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import { ConfigContext } from './context/ConfigContext';
 import { analytics } from './services/analytics'; // Phase 5.6: Analytics
 import ThankYou from './pages/ThankYou';
@@ -51,9 +53,12 @@ function App() {
           <Route path="eligibility" element={<Eligibility />} />
           <Route path="apply" element={<Apply />} />
           <Route path="thank-you" element={<ThankYou />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
 
           {/* Ads Flow */}
           <Route path="bima-sakhi-delhi" element={<AdsLanding />} />
+
 
           {/* Legal Pages */}
           <Route path="privacy-policy" element={<Suspense fallback={<div>...</div>}><Privacy /></Suspense>} />
