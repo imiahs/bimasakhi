@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SEOHead from "../components/core/SEOHead";
 import { getWhatsAppUrl } from "../utils/whatsapp";
 import "../styles/Contact.css";
@@ -7,8 +7,15 @@ const Contact = () => {
 
     const [formData, setFormData] = useState({
         name: "",
+        mobile: "",
         email: "",
+        reason: "",
         message: ""
+    });
+
+    const [status, setStatus] = useState({
+        loading: false,
+        error: null
     });
 
     const handleChange = (e) => {
@@ -18,108 +25,153 @@ const Contact = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // TODO: Connect to backend later
-        alert("Thank you. We will get back to you shortly.");
-    };
+        if (status.loading) return;
 
-    const whatsappUrl = getWhatsAppUrl({
-        intent: "General Interest",
-        category: "Contact Page Inquiry",
-        source: "Contact Page"
-    });
+        setStatus({ loading: true, error: null });
+
+        try {
+
+            const response = await fetch("/api/create-contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    ...formData,
+                    source: "Contact Page",
+                    pipeline: "Recruitment",
+                    tag: "Contact Inquiry"
+                })
+            });
+
+            const data = await response.json();
+
+            if (!data.success) {
+                throw new Error(data.error || "Submission failed");
+            }
+
+            // 🔥 GTM Tracking
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: "contact_form_submit_success",
+                contact_id: data.contact_id || "unknown",
+                reason: formData.reason
+            });
+
+            // 🔥 Structured WhatsApp Redirect
+            const whatsappUrl = getWhatsAppUrl({
+                name: formData.name,
+                source: "Contact Page",
+                intent: "Contact Follow-up",
+                category: formData.reason || "General Inquiry"
+            });
+
+            window.location.href = whatsappUrl;
+
+        } catch (error) {
+            console.error(error);
+            setStatus({
+                loading: false,
+                error: "Something went wrong. Please try again."
+            });
+        }
+    };
 
     return (
         <div className="contact-container">
 
             <SEOHead
-                title="Contact Bima Sakhi | Raj Kumar Development Officer"
-                description="Get in touch with Bima Sakhi for LIC agency guidance, office visits, or structured onboarding support."
+                title="Contact Bima Sakhi | Raj Kumar (Since 2013)"
+                description="Get structured guidance for LIC agency, IC-38 exam preparation, documentation support and onboarding assistance."
                 path="/contact"
             />
 
             {/* HERO */}
             <section className="contact-hero">
-                <h1>Contact & Office Information</h1>
+                <h1>Let’s Connect</h1>
                 <p>
-                    Whether you need career guidance, exam support, or onboarding clarity —
-                    we are here to assist you.
+                    Whether you need career clarity, exam support, or onboarding guidance —
+                    our team is here to assist you.
                 </p>
-            </section>
-
-            {/* CONTACT OPTIONS */}
-            <section className="contact-options">
-
-                <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="contact-card"
-                >
-                    💬 Connect on WhatsApp
-                </a>
-
-                <div className="contact-card">
-                    📍 Visit Office (Working Hours: 10 AM – 5:30 PM)
-                </div>
-
-                <div className="contact-card">
-                    🌐 Digital Support – 24/7
-                </div>
-
             </section>
 
             {/* CONTACT FORM */}
             <section className="contact-form-section">
-                <h2>Send a Message</h2>
 
                 <form onSubmit={handleSubmit} className="contact-form">
 
                     <input
                         type="text"
                         name="name"
-                        placeholder="Your Name"
+                        placeholder="Your Full Name"
                         required
                         value={formData.name}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="phone"
+                        name="phone"
+                        placeholder="Your Mobile Number"
+                        required
+                        value={formData.phone}
                         onChange={handleChange}
                     />
 
                     <input
                         type="email"
                         name="email"
-                        placeholder="Your Email"
+                        placeholder="Your Email Address"
                         required
                         value={formData.email}
                         onChange={handleChange}
                     />
 
+                    <select
+                        name="reason"
+                        required
+                        value={formData.reason}
+                        onChange={handleChange}
+                    >
+                        <option value="">Select Reason</option>
+                        <option value="Career Guidance">Career Guidance</option>
+                        <option value="IC-38 Exam Support">IC-38 Exam Support</option>
+                        <option value="Documentation Help">Documentation Help</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                    </select>
+
                     <textarea
                         name="message"
-                        placeholder="Your Message"
+                        placeholder="Write your message..."
                         required
                         rows="5"
                         value={formData.message}
                         onChange={handleChange}
                     />
 
-                    <button type="submit">
-                        Submit Message
+                    {status.error && (
+                        <div className="form-error">
+                            {status.error}
+                        </div>
+                    )}
+
+                    <button type="submit" disabled={status.loading}>
+                        {status.loading ? "Submitting..." : "Send Message"}
                     </button>
 
                 </form>
+
             </section>
 
-            {/* OFFICES */}
+            {/* OFFICE INFO */}
             <section className="office-section">
+
                 <h2>Our Locations</h2>
 
                 <div className="office-grid">
 
                     <div className="office-card">
                         <h3>Bima Sakhi Office</h3>
-                        <p>Delhi NCR</p>
                         <a
                             href="https://maps.app.goo.gl/T5Sb4a6962Xkiya8A"
                             target="_blank"
@@ -131,7 +183,6 @@ const Contact = () => {
 
                     <div className="office-card">
                         <h3>Branch Office</h3>
-                        <p>Delhi NCR</p>
                         <a
                             href="https://maps.app.goo.gl/NtTeB6VSMcUFFH3G9"
                             target="_blank"
@@ -141,6 +192,11 @@ const Contact = () => {
                         </a>
                     </div>
 
+                </div>
+
+                <div className="working-hours">
+                    <p><strong>Office Hours:</strong> 10:00 AM – 5:30 PM</p>
+                    <p><strong>Digital Support:</strong> 24/7 via Website & WhatsApp</p>
                 </div>
 
             </section>
