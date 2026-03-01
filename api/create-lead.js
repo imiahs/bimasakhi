@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createClient } from '@supabase/supabase-js';
 import { redis } from './_middleware/auth.js';
 import { withLogger } from './_middleware/logger.js';
+import { getZohoAccessToken, getZohoApiDomain } from './_middleware/zoho.js';
 
 // --- FAIL-FAST ENV GUARD (per-request) ---
 function assertEnv(vars) {
@@ -223,33 +224,10 @@ export default withLogger(async function handler(req, res) {
     };
 
     try {
-        const { ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET, ZOHO_REFRESH_TOKEN, ZOHO_API_DOMAIN = 'https://www.zohoapis.in' } = process.env;
+        const accessToken = await getZohoAccessToken();
+        const ZOHO_API_DOMAIN = getZohoApiDomain();
 
-        if (!ZOHO_CLIENT_ID || !ZOHO_CLIENT_SECRET || !ZOHO_REFRESH_TOKEN) {
-            console.error("Missing Zoho ENV Variables");
-            return res.status(500).json({ error: "Server Configuration Error" });
-        }
-
-        // A. Get Access Token
-        const accountsUrl = ZOHO_API_DOMAIN.replace('www.zohoapis', 'accounts.zoho');
-        const tokenUrl = `${accountsUrl}/oauth/v2/token`;
-
-        const tokenResponse = await axios.post(tokenUrl, null, {
-            params: {
-                refresh_token: ZOHO_REFRESH_TOKEN,
-                client_id: ZOHO_CLIENT_ID,
-                client_secret: ZOHO_CLIENT_SECRET,
-                grant_type: 'refresh_token'
-            }
-        });
-
-        if (tokenResponse.data.error) {
-            throw new Error(`Auth Failed: ${tokenResponse.data.error}`);
-        }
-
-        const accessToken = tokenResponse.data.access_token;
-
-        // B. Upsert Lead
+        // Upsert Lead
         const crmUrl = `${ZOHO_API_DOMAIN}/crm/v2.1/Leads/upsert`;
 
         const crmResponse = await axios.post(crmUrl, {

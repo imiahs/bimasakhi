@@ -1,14 +1,32 @@
 import { createClient } from "@supabase/supabase-js";
+import { getZohoAccessToken, getZohoApiDomain } from './_middleware/zoho.js';
+import { redis } from './_middleware/auth.js';
 
-const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+// --- Safe Supabase Initialization (matches create-lead pattern) ---
+let supabase = null;
+try {
+    if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        supabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_SERVICE_ROLE_KEY
+        );
+    } else {
+        console.warn('create-contact: Supabase credentials missing.');
+    }
+} catch (e) {
+    console.error('create-contact: Supabase Init Error:', e);
+}
 
 export default async function handler(req, res) {
 
     if (req.method !== "POST") {
         return res.status(405).json({ success: false, error: "Method not allowed" });
+    }
+
+    // --- FAIL-FAST ENV GUARD ---
+    if (!process.env.REDIS_URL) {
+        console.error('create-contact: Missing REDIS_URL');
+        return res.status(500).json({ success: false, error: 'Server Configuration Error' });
     }
 
     try {
@@ -36,21 +54,43 @@ export default async function handler(req, res) {
         }
 
         // =========================
-        // 2️⃣ Duplicate Check
+        // 1.5️⃣ Redis Idempotency Lock (5 min)
         // =========================
 
-        const { data: existing } = await supabase
-            .from("contact_inquiries")
-            .select("*")
-            .or(`email.eq.${email},mobile.eq.${mobile}`)
-            .limit(1);
+        const idempotencyKey = `contact_submit:${mobile}`;
+        const locked = await redis.set(idempotencyKey, '1', 'NX', 'EX', 300);
 
-        if (existing && existing.length > 0) {
+        if (!locked) {
             return res.status(200).json({
                 success: true,
                 duplicate: true,
-                contact_id: existing[0].contact_id
+                message: "Duplicate contact submission blocked"
             });
+        }
+
+        // =========================
+        // 2️⃣ Duplicate Check (Supabase)
+        // =========================
+
+        if (!supabase) {
+            console.error('create-contact: Supabase not initialized — skipping DB operations');
+            // Continue to Zoho + email without Supabase
+        }
+
+        if (supabase) {
+            const { data: existing } = await supabase
+                .from("contact_inquiries")
+                .select("*")
+                .or(`email.eq.${email},mobile.eq.${mobile}`)
+                .limit(1);
+
+            if (existing && existing.length > 0) {
+                return res.status(200).json({
+                    success: true,
+                    duplicate: true,
+                    contact_id: existing[0].contact_id
+                });
+            }
         }
 
         // =========================
@@ -63,35 +103,41 @@ export default async function handler(req, res) {
         // 4️⃣ Insert into Supabase
         // =========================
 
-        const { error: insertError } = await supabase
-            .from("contact_inquiries")
-            .insert([
-                {
-                    contact_id: contactId,
-                    name,
-                    mobile,
-                    email,
-                    reason,
-                    message,
-                    source,
-                    pipeline,
-                    tag,
-                    created_at: new Date()
-                }
-            ]);
+        if (supabase) {
+            const { error: insertError } = await supabase
+                .from("contact_inquiries")
+                .insert([
+                    {
+                        contact_id: contactId,
+                        name,
+                        mobile,
+                        email,
+                        reason,
+                        message,
+                        source,
+                        pipeline,
+                        tag,
+                        created_at: new Date()
+                    }
+                ]);
 
-        if (insertError) {
-            throw insertError;
+            if (insertError) {
+                console.error('create-contact: Supabase Insert Error', insertError);
+                // Continue to Zoho + email even if Supabase fails
+            }
         }
 
         // =========================
-        // 5️⃣ Push to Zoho CRM
+        // 5️⃣ Push to Zoho CRM (Refresh Token Flow)
         // =========================
 
-        await fetch("https://www.zohoapis.in/crm/v2/Leads", {
+        const accessToken = await getZohoAccessToken();
+        const apiDomain = getZohoApiDomain();
+
+        const zohoResponse = await fetch(`${apiDomain}/crm/v2/Leads`, {
             method: "POST",
             headers: {
-                "Authorization": `Zoho-oauthtoken ${process.env.ZOHO_ACCESS_TOKEN}`,
+                "Authorization": `Zoho-oauthtoken ${accessToken}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -108,6 +154,22 @@ export default async function handler(req, res) {
                 ]
             })
         });
+
+        // --- Zoho Response Validation ---
+        if (!zohoResponse.ok) {
+            const zohoError = await zohoResponse.text().catch(() => 'Unknown');
+            console.error('create-contact: Zoho CRM Sync Failed', {
+                status: zohoResponse.status,
+                error: zohoError,
+                contact_id: contactId
+            });
+        } else {
+            const zohoData = await zohoResponse.json().catch(() => null);
+            console.info('create-contact: Zoho CRM Sync Success', {
+                contact_id: contactId,
+                zoho: zohoData
+            });
+        }
 
         // =========================
         // 6️⃣ Email Auto-Responder
@@ -154,6 +216,12 @@ export default async function handler(req, res) {
         });
 
     } catch (error) {
+
+        // Release lock on failure to allow retry
+        const mobile = req.body?.mobile;
+        if (mobile) {
+            await redis.del(`contact_submit:${mobile}`).catch(() => { });
+        }
 
         console.error("Contact API Error:", error);
 
